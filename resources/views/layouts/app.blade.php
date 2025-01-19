@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
+
 <head>
 
     <meta charset="UTF-8">
@@ -8,11 +9,11 @@
     <meta name="Description" content="Nowa – Laravel Bootstrap 5 Admin & Dashboard Template">
     <meta name="Author" content="Spruko Technologies Private Limited">
     <meta name="Keywords"
-          content="admin dashboard, admin dashboard laravel, admin panel template, blade template, blade template laravel, bootstrap template, dashboard laravel, laravel admin, laravel admin dashboard, laravel admin panel, laravel admin template, laravel bootstrap admin template, laravel bootstrap template, laravel template"/>
+        content="admin dashboard, admin dashboard laravel, admin panel template, blade template, blade template laravel, bootstrap template, dashboard laravel, laravel admin, laravel admin dashboard, laravel admin panel, laravel admin template, laravel bootstrap admin template, laravel bootstrap template, laravel template" />
     <!-- Title -->
 
     <!-- Not required if jQuery is already loaded -->
-    <title>UFS - Control Panel </title>
+    <title>CRM - Control Panel </title>
 
     @include('layouts.components.styles')
 
@@ -22,53 +23,55 @@
 
 <body class="ltr main-body app sidebar-mini">
 
-<!-- Loader -->
-<div id="global-loader">
-    <img src="{{asset('assets/img/loader.svg')}}" class="loader-img" alt="Loader">
-</div>
-<!-- /Loader -->
-
-<!-- Page -->
-<div class="page">
-
-    <div>
-
-        @include('layouts.components.app-header')
-
-        @include('layouts.components.app-sidebar')
-
+    <!-- Loader -->
+    <div id="global-loader">
+        <img src="{{asset('assets/img/loader.svg')}}" class="loader-img" alt="Loader">
     </div>
+    <!-- /Loader -->
 
-    <!-- main-content -->
-    <div class="main-content app-content">
+    <!-- Page -->
+    <div class="page">
 
-        <!-- container -->
-        <div class="main-container container-fluid">
+        <div>
+            @include('layouts.components.app-header')
 
-            @yield('content')
+            @include('layouts.components.app-sidebar')
 
         </div>
-        <!-- Container closed -->
+
+        <!-- main-content -->
+        <div class="main-content app-content">
+
+            <!-- container -->
+            <div class="main-container container-fluid">
+
+                @yield('content')
+
+            </div>
+            <!-- Container closed -->
+        </div>
+        <!-- main-content closed -->
+
+        @include('layouts.components.sidebar-right')
+
+        @include('layouts.components.modal')
+
+
+        @yield('modal')
+
+        @include('layouts.components.footer')
+
     </div>
-    <!-- main-content closed -->
+    <!-- End Page -->
 
-    @include('layouts.components.sidebar-right')
-
-    @include('layouts.components.modal')
-
-    @yield('modal')
-
-    @include('layouts.components.footer')
-
-</div>
-<!-- End Page -->
-
-@include('layouts.components.scripts')
-@include('layouts.components.toastr')
+    @include('layouts.components.scripts')
+    @include('layouts.components.toastr')
 
 
-<script>
-    function destroy(url) {
+    <!-- Include all pushed scripts here -->
+    @stack('scripts')
+    <script>
+        function destroy(url) {
         swal({
             title: "{{__('app.are_you_sure')}}",
             icon: "warning",
@@ -105,7 +108,8 @@
             }
         });
     }
-</script>
-@yield('script_footer')
+    </script>
+    @yield('script_footer')
 </body>
+
 </html>

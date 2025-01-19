@@ -7,102 +7,16 @@
 						</div>
 						<div class="modal-body">
 							<ul class="row p-3">
-
 								<li class="col-lg-6 mb-2">
-									<a href="{{ route('locale', 'en') }}" class="btn btn-country btn-lg btn-block active ">
+									{{-- <a href="{{ route('locale', 'en') }}" class="btn btn-country btn-lg btn-block active "> --}}
 										<span class="country-selector"><img alt="" src="{{asset('assets/img/flags/us_flag.jpg')}}" class="me-3 language"></span>English
 									</a>
 								</li>
                                 <li class="col-lg-6 mb-2">
-                                    <a href="{{ route('locale', 'ar') }}" class="btn btn-country btn-lg btn-block active">
+                                    {{-- <a href="{{ route('locale', 'ar') }}" class="btn btn-country btn-lg btn-block active"> --}}
                                         <span class="country-selector"><img alt="" src="{{asset('assets/img/flags/eg.svg')}}" class="me-3 language"></span>Arabic
                                     </a>
                                 </li>
-{{--								<li class="col-lg-6 mb-2 mb-2">--}}
-{{--									<a href="javascript:void(0);" class="btn btn-country btn-lg btn-block">--}}
-{{--										<span class="country-selector"><img alt="" src="{{asset('assets/img/flags/italy_flag.jpg')}}" class="me-3 language"></span>Italy--}}
-{{--									</a>--}}
-{{--								</li>--}}
-{{--								<li class="col-lg-6 mb-2">--}}
-{{--									<a href="javascript:void(0);" class="btn btn-country btn-lg btn-block">--}}
-{{--										<span class="country-selector"><img alt="" src="{{asset('assets/img/flags/spain_flag.jpg')}}" class="me-3 language"></span>Spain--}}
-{{--									</a>--}}
-{{--								</li>--}}
-{{--								<li class="col-lg-6 mb-2">--}}
-{{--									<a href="javascript:void(0);" class="btn btn-country btn-lg btn-block">--}}
-{{--										<span class="country-selector"><img alt="" src="{{asset('assets/img/flags/india_flag.jpg')}}" class="me-3 language"></span>India--}}
-{{--									</a>--}}
-{{--								</li>--}}
-{{--								<li class="col-lg-6 mb-2">--}}
-{{--									<a href="javascript:void(0);" class="btn btn-country btn-lg btn-block">--}}
-{{--										<span class="country-selector"><img alt="" src="{{asset('assets/img/flags/french_flag.jpg')}}" class="me-3 language"></span>France--}}
-{{--									</a>--}}
-{{--								</li>--}}
-{{--								<li class="col-lg-6 mb-2">--}}
-{{--									<a href="javascript:void(0);" class="btn btn-country btn-lg btn-block">--}}
-{{--										<span class="country-selector"><img alt="" src="{{asset('assets/img/flags/mexico.jpg')}}" class="me-3 language"></span>Mexico--}}
-{{--									</a>--}}
-{{--								</li>--}}
-{{--								<li class="col-lg-6 mb-2">--}}
-{{--									<a href="javascript:void(0);" class="btn btn-country btn-lg btn-block">--}}
-{{--										<span class="country-selector"><img alt="" src="{{asset('assets/img/flags/singapore.jpg')}}" class="me-3 language"></span>Singapore--}}
-{{--									</a>--}}
-{{--								</li>--}}
-{{--								<li class="col-lg-6 mb-2">--}}
-{{--									<a href="javascript:void(0);" class="btn btn-country btn-lg btn-block">--}}
-{{--										<span class="country-selector"><img alt="" src="{{asset('assets/img/flags/poland.jpg')}}" class="me-3 language"></span>Poland--}}
-{{--									</a>--}}
-{{--								</li>--}}
-{{--								<li class="col-lg-6 mb-2">--}}
-{{--									<a href="javascript:void(0);" class="btn btn-country btn-lg btn-block">--}}
-{{--										<span class="country-selector"><img alt="" src="{{asset('assets/img/flags/austria.jpg')}}" class="me-3 language"></span>Austria--}}
-{{--									</a>--}}
-{{--								</li>--}}
-{{--								<li class="col-lg-6 mb-2">--}}
-{{--									<a href="javascript:void(0);" class="btn btn-country btn-lg btn-block">--}}
-{{--										<span class="country-selector"><img alt="" src="{{asset('assets/img/flags/russia_flag.jpg')}}" class="me-3 language"></span>Russia--}}
-{{--									</a>--}}
-{{--								</li>--}}
-{{--								<li class="col-lg-6 mb-2">--}}
-{{--									<a href="javascript:void(0);" class="btn btn-country btn-lg btn-block">--}}
-{{--										<span class="country-selector"><img alt="" src="{{asset('assets/img/flags/germany_flag.jpg')}}" class="me-3 language"></span>Germany--}}
-{{--									</a>--}}
-{{--								</li>--}}
-{{--								<li class="col-lg-6 mb-2">--}}
-{{--									<a href="javascript:void(0);" class="btn btn-country btn-lg btn-block">--}}
-{{--										<span class="country-selector"><img alt="" src="{{asset('assets/img/flags/argentina.jpg')}}" class="me-3 language"></span>Argentina--}}
-{{--									</a>--}}
-{{--								</li>--}}
-{{--								<li class="col-lg-6 mb-2">--}}
-{{--									<a href="javascript:void(0);" class="btn btn-country btn-lg btn-block">--}}
-{{--										<span class="country-selector"><img alt="" src="{{asset('assets/img/flags/brazil.jpg')}}" class="me-3 language"></span>Brazil--}}
-{{--									</a>--}}
-{{--								</li>--}}
-{{--								<li class="col-lg-6 mb-2">--}}
-{{--									<a href="javascript:void(0);" class="btn btn-country btn-lg btn-block">--}}
-{{--										<span class="country-selector"><img alt="" src="{{asset('assets/img/flags/uae.jpg')}}" class="me-3 language"></span>U.A.E--}}
-{{--									</a>--}}
-{{--								</li>--}}
-{{--								<li class="col-lg-6 mb-2">--}}
-{{--									<a href="javascript:void(0);" class="btn btn-country btn-lg btn-block">--}}
-{{--										<span class="country-selector"><img alt="" src="{{asset('assets/img/flags/china.jpg')}}" class="me-3 language"></span>China--}}
-{{--									</a>--}}
-{{--								</li>--}}
-{{--								<li class="col-lg-6 mb-2">--}}
-{{--									<a href="javascript:void(0);" class="btn btn-country btn-lg btn-block">--}}
-{{--										<span class="country-selector"><img alt="" src="{{asset('assets/img/flags/uk.jpg')}}" class="me-3 language"></span>U.K--}}
-{{--									</a>--}}
-{{--								</li>--}}
-{{--								<li class="col-lg-6 mb-2">--}}
-{{--									<a href="javascript:void(0);" class="btn btn-country btn-lg btn-block">--}}
-{{--										<span class="country-selector"><img alt="" src="{{asset('assets/img/flags/malaysia.jpg')}}" class="me-3 language"></span>Malaysia--}}
-{{--									</a>--}}
-{{--								</li>--}}
-{{--								<li class="col-lg-6 mb-2">--}}
-{{--									<a href="javascript:void(0);" class="btn btn-country btn-lg btn-block">--}}
-{{--										<span class="country-selector"><img alt="" src="{{asset('assets/img/flags/canada.jpg')}}" class="me-3 language"></span>Canada--}}
-{{--									</a>--}}
-{{--								</li>--}}
 							</ul>
 						</div>
 					</div>

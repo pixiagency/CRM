@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Users;
+namespace App\Http\Requests\Industries;
 
 use App\DTO\Industry\IndustryDTO;
 use App\Http\Requests\BaseRequest;

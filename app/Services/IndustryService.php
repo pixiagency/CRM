@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\DTO\Industry\IndustyDTO;
+use App\DTO\Industry\IndustryDTO;
 use App\Models\Industry;
 use App\QueryFilters\IndustryFilters;
 use Illuminate\Database\Eloquent\Builder;
@@ -10,8 +10,6 @@ use Illuminate\Database\Eloquent\Builder;
 
 class IndustryService extends BaseService
 {
-    public $user;
-
     public function __construct(
         public Industry               $model,
     ) {}
@@ -49,14 +47,14 @@ class IndustryService extends BaseService
         return $industries->filter(new IndustryFilters($filters));
     }
 
-    public function store(IndustyDTO $industryDTO)
+    public function store(IndustryDTO $industryDTO)
     {
         $industry_data = $industryDTO->toArray();
         $industry = $this->model->create($industry_data);
         return $industry;
     }
 
-    public function update(IndustyDTO $industryDTO, $id)
+    public function update(IndustryDTO $industryDTO, $id)
     {
         $industry = $this->findById($id);
         $industry->update($industryDTO->toArray());

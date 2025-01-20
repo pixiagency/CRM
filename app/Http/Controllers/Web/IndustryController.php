@@ -2,25 +2,20 @@
 
 namespace App\Http\Controllers\Web;
 
-
-use App\DTO\Awb\AwbDTO;
 use Illuminate\Http\Request;
 use App\DataTables\IndustriesDataTable;
+use App\DTO\Industry\IndustryDTO;
 use Illuminate\Support\Facades\DB;
 use App\Exceptions\NotFoundException;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Awb\AwbUpdateRequest;
-use App\Http\Requests\Industrys\IndustryStoreRequest;
+use App\Http\Requests\Industries\IndustryUpdateRequest;
+use App\Http\Requests\Industries\IndustryStoreRequest;
+
 use App\Services\IndustryService;
 
 class IndustryController extends Controller
 {
-    public function __construct(public IndustryService $industryService)
-    {
-        // $this->middleware('permission:view_shipment', ['only' => ['index']]);
-        // $this->middleware('permission:edit_shipment', ['only' => ['edit', 'update']]);
-        // $this->middleware('permission:create_shipment', ['only' => ['create', 'store']]);
-    }
+    public function __construct(public IndustryService $industryService) {}
 
     public function index(IndustriesDataTable $dataTable, Request $request)
     {
@@ -54,53 +49,50 @@ class IndustryController extends Controller
 
     public function store(IndustryStoreRequest $request)
     {
-        // try {
-        $awbDTO = AwbDTO::fromRequest($request);
-        DB::beginTransaction();
-        //logic
-        $awb = $this->awbService->store($awbDTO);
-        $toast = [
-            'type' => 'success',
-            'title' => 'success',
-            'message' => "$awb->code " . trans('app.awb_created_successfully')
-        ];
-        DB::commit();
-        return to_route('awbs.index')->with('toast', $toast);
-        // } catch (\Exception $exception) {
-        //     DB::rollBack();
-        //     $toast = [
-        //         'type' => 'error',
-        //         'title' => 'error',
-        //         'message' => trans('app.there_is_an_error')
-        //     ];
-        //     DB::commit();
-        //     return back()->with('toast', $toast);
-        // }
+        try {
+            DB::beginTransaction();
+            $industryDTO = IndustryDTO::fromRequest($request);
+            $industry = $this->industryService->store($industryDTO);
+            $toast = [
+                'type' => 'success',
+                'title' => 'success',
+                'message' => trans('app.industry_created_successfully')
+            ];
+            DB::commit();
+            return to_route('industries.index')->with('toast', $toast);
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            $toast = [
+                'type' => 'error',
+                'title' => 'error',
+                'message' => trans('app.there_is_an_error')
+            ];
+            DB::commit();
+            return back()->with('toast', $toast);
+        }
     }
 
     public function edit($id)
     {
         try {
-            $status = 1;
-            $awb = $this->awbService->findById(id: $id);
-            $authUser = getAuthUser();
-            return view('layouts.dashboard.awb.edit', compact('awb', 'authUser', 'status'));
+            $industry = $this->industryService->findById(id: $id);
+            return view('layouts.dashboard.industry.edit', compact('industry'));
         } catch (\Exception $e) {
             return redirect()->back();
         }
     }
 
-    public function update(AwbUpdateRequest $request, $id)
+    public function update(IndustryUpdateRequest $request, $id)
     {
         try {
-            $AwbDTO = $request->toAwbDTO();
-            $this->awbService->update($AwbDTO, $id);
+            $industryDTO = $request->toindustryDTO();
+            $this->industryService->update($industryDTO, $id);
             $toast = [
                 'type' => 'success',
                 'title' => 'success',
-                'message' => trans('app.user_updated_successfully')
+                'message' => trans('app.industry_updated_successfully')
             ];
-            return to_route('awbs.index')->with('toast', $toast);
+            return to_route('industries.index')->with('toast', $toast);
         } catch (\Exception $e) {
             $toast = [
                 'type' => 'error',
@@ -114,7 +106,7 @@ class IndustryController extends Controller
     public function destroy(int $id)
     {
         try {
-            $this->awbService->delete($id);
+            $this->industryService->delete($id);
             return apiResponse(message: 'deleted successfully');
         } catch (\Exception $exception) {
             return apiResponse(message: $exception->getMessage(), code: 500);

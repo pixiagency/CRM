@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Industrys;
+namespace App\Http\Requests\Industries;
 
 use App\DTO\Industry\IndustryDTO;
 

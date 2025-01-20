@@ -23,7 +23,18 @@ class IndustriesDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'industries.action')
+            ->addColumn('check_box', function (Industry $industry) {
+                return view(
+                    'layouts.components._datatable-checkbox',
+                    ['name' => "industries[]", 'value' => $industry->id]
+                );
+            })
+            ->addColumn('action', function (Industry $industry) {
+                return view(
+                    'layouts.dashboard.industry.components._actions',
+                    ['model' => $industry, 'url' => route('industries.destroy', $industry->id)]
+                );
+            })
             ->setRowId('id');
     }
 
@@ -63,6 +74,9 @@ class IndustriesDataTable extends DataTable
     public function getColumns(): array
     {
         return [
+            Column::make('check_box')->title('<label class="custom-control custom-checkbox custom-control-md">
+            <input type="checkbox" class="custom-control-input checkAll">
+            <span class="custom-control-label custom-control-label-md  tx-17"></span></label>')->searchable(false)->orderable(false),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)

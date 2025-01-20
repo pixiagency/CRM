@@ -13,7 +13,6 @@
 @include('layouts.dashboard.industry.components._filters')
 <!--end filterd section -->
 
-
 <!-- Row -->
 <div class="row row-sm">
     <div class="col-lg-12">
@@ -36,11 +35,8 @@
 </div>
 <!-- End Row -->
 
-
-
 <!-- End Row -->
 @endsection
-
 
 @push('scripts')
 {{ $dataTable->scripts(attributes: ['type' => 'module']) }}

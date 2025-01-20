@@ -29,7 +29,25 @@
                                 href="{{route('industries.index')}}">@lang('app.all_industries')</a></li>
                     </ul>
                 </li>
-
+                 <!-- Service Menu -->
+                 <li class="slide">
+                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
+                        <i class="fa fa-cogs pe-3"></i> <!-- Icon for Services -->
+                        <span class="side-menu__label">@lang('app.services')</span><i
+                            class="angle fe fe-chevron-right"></i>
+                    </a>
+                    <ul class="slide-menu">
+                        <li class="side-menu__label1"><a href="javascript:void(0);">Utilities</a></li>
+                        <li>
+                            <a class="slide-item" data-is_active="{{ request()->fullUrlIs(route('services.create')) }}"
+                                href="{{ route('services.create') }}">@lang('app.new_service')</a>
+                        </li>
+                        <li>
+                            <a class="slide-item" data-is_active="{{ request()->fullUrlIs(route('services.index')) }}"
+                                href="{{ route('services.index') }}">@lang('app.all_services')</a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
             <div class="slide-right" id="slide-right"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24"
                     height="24" viewBox="0 0 24 24">

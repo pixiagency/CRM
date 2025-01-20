@@ -2,6 +2,7 @@
 
 namespace App\DataTables;
 
+use App\Models\Service;
 use App\Services\ServiceService;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
@@ -22,7 +23,18 @@ class ServicesDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'services.action')
+            ->addColumn('check_box', function (Service $service) {
+                return view(
+                    'layouts.components._datatable-checkbox',
+                    ['name' => "service[]", 'value' => $service->id]
+                );
+            })
+            ->addColumn('action', function (Service $service) {
+                return view(
+                    'layouts.dashboard.service.components._actions',
+                    ['model' => $service, 'url' => route('services.destroy', $service->id)] // Use $service->id
+                );
+            })
             ->setRowId('id');
     }
     /**
@@ -57,6 +69,9 @@ class ServicesDataTable extends DataTable
     public function getColumns(): array
     {
         return [
+            Column::make('check_box')->title('<label class="custom-control custom-checkbox custom-control-md">
+            <input type="checkbox" class="custom-control-input checkAll">
+            <span class="custom-control-label custom-control-label-md  tx-17"></span></label>')->searchable(false)->orderable(false),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
@@ -69,6 +84,7 @@ class ServicesDataTable extends DataTable
             Column::make('updated_at'),
         ];
     }
+
 
     /**
      * Get the filename for export.

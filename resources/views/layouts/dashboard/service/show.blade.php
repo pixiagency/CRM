@@ -6,16 +6,31 @@ use \Illuminate\Support\Arr ;
 @section('content')
 
 {{-- breadcrumb --}}
-@include('layouts.components.breadcrumb',['title' => trans('app.create_new_awb_title'),'first_list_item' =>
-trans('app.awbs'),'last_list_item' => trans('app.add_awb')])
+@include('layouts.components.breadcrumb',['title' => trans('app.show_service'),'first_list_item' =>
+trans('app.service'),'last_list_item' => trans('app.show_service')])
 {{-- end breadcrumb --}}
 
 <!-- Row -->
+<div class="row">
+    <div class="col-md-12 col-xl-12 col-xs-12 col-sm-12">
+        <!--div-->
+        <div class="card">
+            <div class="card-body">
 
-
+                <div class="row row-sm mb-4">
+                    <div class="col-lg">
+                        <div class="main-content-label mg-b-5">@lang('app.name')</div>
+                        <label class="form-control">{{ $service->name }}</label>
+                        <label class="form-control">{{ $service->price }}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- End Row -->
 
 @endsection
 
-@endsection
+

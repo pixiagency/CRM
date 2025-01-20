@@ -5,8 +5,8 @@ namespace App\Models;
 use App\Traits\Filterable;
 use Illuminate\Database\Eloquent\Model;
 
-class Service extends Model
+class Reason extends Model
 {
     use Filterable;
-    protected $fillable = ['name','price'];
+    protected $fillable=['name'];
 }

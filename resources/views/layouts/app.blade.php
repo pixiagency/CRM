@@ -16,9 +16,10 @@
     <title>CRM - Control Panel </title>
 
     @include('layouts.components.styles')
-
     <livewire:styles />
     @yield('after_styles')
+
+    @vite(['resources/js/app.js', 'resources/css/app.css'])
 </head>
 
 <body class="ltr main-body app sidebar-mini">
@@ -69,7 +70,7 @@
 
 
     <!-- Include all pushed scripts here -->
-    @stack('scripts')
+
     <script>
         function destroy(url) {
         swal({
@@ -110,6 +111,7 @@
     }
     </script>
     @yield('script_footer')
+    @stack('scripts')
 </body>
 
 </html>

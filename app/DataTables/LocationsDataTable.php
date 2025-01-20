@@ -2,8 +2,8 @@
 
 namespace App\DataTables;
 
-use App\Models\Industry;
-use App\Services\IndustryService;
+use App\Models\Location;
+use App\Services\LocationService;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -13,7 +13,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class IndustriesDataTable extends DataTable
+class LocationsDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -23,16 +23,16 @@ class IndustriesDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('check_box', function (Industry $industry) {
+            ->addColumn('check_box', function (Location $location) {
                 return view(
                     'layouts.components._datatable-checkbox',
-                    ['name' => "industries[]", 'value' => $industry->id]
+                    ['name' => "locations[]", 'value' => $location->id]
                 );
             })
-            ->addColumn('action', function (Industry $industry) {
+            ->addColumn('action', function (Location $location) {
                 return view(
-                    'layouts.dashboard.industry.components._actions',
-                    ['model' => $industry, 'url' => route('industries.destroy', $industry->id)]
+                    'layouts.dashboard.location.components._actions',
+                    ['model' => $location, 'url' => route('locations.destroy', $location->id)]
                 );
             })
             ->setRowId('id');
@@ -41,9 +41,9 @@ class IndustriesDataTable extends DataTable
     /**
      * Get the query source of dataTable.
      */
-    public function query(IndustryService $industryService): QueryBuilder
+    public function query(LocationService $locationService): QueryBuilder
     {
-        return  $industryService->datatable([], []);
+        return  $locationService->datatable([], []);
     }
 
     /**
@@ -52,7 +52,7 @@ class IndustriesDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('industries-table')
+            ->setTableId('locations-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             //->dom('Bfrtip')
@@ -74,11 +74,8 @@ class IndustriesDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('check_box')->title('<label class="custom-control custom-checkbox custom-control-md">
-            <input type="checkbox" class="custom-control-input checkAll">
-            <span class="custom-control-label custom-control-label-md  tx-17"></span></label>')->searchable(false)->orderable(false),
             Column::make('id'),
-            Column::make('name'),
+            Column::make('title'),
             Column::make('created_at'),
             Column::make('updated_at'),
             Column::computed('action')
@@ -94,6 +91,6 @@ class IndustriesDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Industries_' . date('YmdHis');
+        return 'Locations_' . date('YmdHis');
     }
 }

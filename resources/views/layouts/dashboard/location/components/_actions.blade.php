@@ -5,13 +5,9 @@
             <i class="icon ion-ios-arrow-down tx-11 mg-l-3"></i>
         </button>
         <div class="dropdown-menu" style="">
-            @can('edit_price_tables')
-            <a href="{{route('industies.edit',$model->id)}}" class="dropdown-item">@lang('app.edit')</a>
-            @endcan
-            @can('delete_price_tables')
+            <a href="{{route('locations.edit',$model->id)}}" class="dropdown-item">@lang('app.edit')</a>
             <button role="button" onclick="destroy('{{route('industies.destroy', $model->id)}}')"
                 class="dropdown-item">@lang('app.delete')</button>
-            @endcan
         </div>
         <!-- dropdown-menu -->
     </div>
@@ -19,8 +15,8 @@
 
 <td>
     <div>
-        <a href="{{route('industries.edit',$model->id)}}">@lang('app.edit')</a>
+        <a href="{{route('locations.edit',$model->id)}}">@lang('app.edit')</a>
         <button role="button"
-            onclick="destroy('{{route('industries.destroy', $model->id)}}')">@lang('app.delete')</button>
+            onclick="destroy('{{route('locations.destroy', $model->id)}}')">@lang('app.delete')</button>
     </div>
 </td>

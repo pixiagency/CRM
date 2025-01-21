@@ -26,7 +26,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <div class="table-responsive export-table" style="overflow: auto">
+                <div class="table-responsive export-table">
                     {!! $dataTable->table(['class' => 'table-data table table-bordered text-nowrap border-bottom ']) !!}
                 </div>
             </div>

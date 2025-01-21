@@ -8,6 +8,7 @@ use App\DTO\Location\LocationDTO;
 use Illuminate\Support\Facades\DB;
 use App\Exceptions\NotFoundException;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Areas\AreaStoreRequest;
 use App\Http\Requests\Locations\LocationUpdateRequest;
 use App\Http\Requests\Locations\LocationStoreRequest;
 
@@ -53,7 +54,7 @@ class LocationController extends Controller
         try {
             DB::beginTransaction();
             $locationDTO = LocationDTO::fromRequest($request);
-            $location = $this->locationService->store($locationDTO);
+            $this->locationService->store($locationDTO);
             $toast = [
                 'type' => 'success',
                 'title' => 'success',
@@ -77,7 +78,8 @@ class LocationController extends Controller
     {
         try {
             $location = $this->locationService->findById(id: $id);
-            return view('layouts.dashboard.location.edit', compact('location'));
+            $areas = $this->locationService->getAll(filters: ['parent' => $location->id]);
+            return view('layouts.dashboard.location.edit', get_defined_vars());
         } catch (\Exception $e) {
             return redirect()->back();
         }
@@ -111,6 +113,33 @@ class LocationController extends Controller
             return apiResponse(message: 'deleted successfully');
         } catch (\Exception $exception) {
             return apiResponse(message: $exception->getMessage(), code: 500);
+        }
+    }
+
+    public function createArea($city_id)
+    {
+        $city = $this->locationService->findById($city_id);
+        return view('layouts.dashboard.location.create-area', compact('city'));
+    }
+
+    public function storeArea(AreaStoreRequest $request)
+    {
+        try {
+            $locationDTO = LocationDTO::fromRequest($request);
+            $this->locationService->storeArea($locationDTO);
+            $toast = [
+                'type' => 'success',
+                'title' => 'success',
+                'message' => trans('app.location_created_successfully')
+            ];
+            return to_route('locations.index')->with('toast', $toast);
+        } catch (\Exception $exception) {
+            $toast = [
+                'type' => 'error',
+                'title' => 'error',
+                'message' => trans('app.there_is_an_error')
+            ];
+            return back()->with('toast', $toast);
         }
     }
 }

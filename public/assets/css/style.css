@@ -15080,9 +15080,9 @@ a.tag-addon:hover {
 }
 
 :root {
-  --primary-bg-color: #f95b06;
-  --primary-bg-hover: #e28743;
-  --primary-bg-border: #f95b06;
+  --primary-bg-color: #06a0f9;
+  --primary-bg-hover: #06b8f9;
+  --primary-bg-border: #06a0f9;
   --primary02: rgba(28, 213, 174, 0.2);
   --primary05: rgba(28, 213, 174, 0.5);
   --primary-transparentcolor: rgba(28, 213, 174, 0.2);

@@ -16,6 +16,8 @@ Route::get('/', function () {
 Route::resource('industries', IndustryController::class);
 Route::resource('services', ServiceController::class);
 Route::resource('locations', LocationController::class);
+Route::get('locations/{id}/create-areas', [LocationController::class, 'createArea'])->name('locations.areas.create');
+Route::post('locations/areas', [LocationController::class, 'storeArea'])->name('locations.areas.store');
+
 Route::resource('reasons', ReasonController::class);
 Route::resource('resources', ResourceController::class);
-

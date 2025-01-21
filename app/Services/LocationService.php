@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Builder;
 class LocationService extends BaseService
 {
     public function __construct(
-        public Location               $model,
+        public Location   $model,
     ) {}
 
     public function getModel(): Location
@@ -42,8 +42,7 @@ class LocationService extends BaseService
 
     public function datatable(array $filters = [], array $withRelations = [])
     {
-
-        $locations = $this->getQuery()->with($withRelations);
+        $locations = $this->getQuery()->whereIsRoot()->with($withRelations);
         return $locations->filter(new LocationFilters($filters));
     }
 
@@ -69,5 +68,18 @@ class LocationService extends BaseService
     public function delete(int $id)
     {
         return $this->getQuery()->where('id', $id)->delete();
+    }
+
+    public function storeArea(LocationDTO $locationDTO)
+    {
+        $location_data = $locationDTO->toArray();
+        $location = $this->model->create($location_data);
+
+        // #2 Using parent node
+        $city_id = $locationDTO->getCityId();
+        $city = $this->findById($city_id);
+        $city->appendNode($location);
+
+        return $location;
     }
 }

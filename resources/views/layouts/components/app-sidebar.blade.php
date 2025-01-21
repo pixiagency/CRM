@@ -18,7 +18,7 @@
                 <li class="side-item side-item-category">@lang('app.menu')</li>
                 <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
-                        <i class="fa fa-truck pe-3"></i>
+                        <i class="fa fa-suitcase pe-3"></i>
                         <span class="side-menu__label">@lang('app.industry')</span><i
                             class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu">
@@ -30,8 +30,8 @@
                     </ul>
                 </li>
 
-                 <!-- Service Menu -->
-                 <li class="slide">
+                <!-- Service Menu -->
+                <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
                         <i class="fa fa-cogs pe-3"></i> <!-- Icon for Services -->
                         <span class="side-menu__label">@lang('app.services')</span><i
@@ -72,7 +72,7 @@
 
                 <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
-                        <i class="fa fa-truck pe-3"></i>
+                        <i class="fa fa-map pe-3"></i>
                         <span class="side-menu__label">@lang('app.location')</span><i
                             class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu">

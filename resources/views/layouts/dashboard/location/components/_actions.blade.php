@@ -15,8 +15,8 @@
 
 <td>
     <div>
-        <a href="{{route('locations.edit',$model->id)}}">@lang('app.edit')</a>
-        <button role="button"
+        <a class="btn btn-primary" href="{{route('locations.edit',$model->id)}}">@lang('app.edit')</a>
+        <button class="btn btn-danger" role="button"
             onclick="destroy('{{route('locations.destroy', $model->id)}}')">@lang('app.delete')</button>
     </div>
 </td>

@@ -2,22 +2,27 @@
 
 namespace Database\Seeders;
 
+use App\Models\Landlord\Tenant;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
-    public function run(): void
+    public function run()
     {
-        // User::factory(10)->create();
+        Tenant::checkCurrent()
+            ? $this->runTenantSpecificSeeders()
+            : $this->runLandlordSpecificSeeders();
+    }
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+    public function runTenantSpecificSeeders()
+    {
+        // run tenant specific seeders
+    }
+
+    public function runLandlordSpecificSeeders()
+    {
+        // run landlord specific seeders
     }
 }

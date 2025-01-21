@@ -1,21 +1,18 @@
 <?php
 
 namespace App\Services;
-
-use App\Models\Service;
-use App\DTO\Service\ServiceDTO;
-use Illuminate\Support\Facades\Log;
-use App\QueryFilters\ServiceFilters;
+use App\Models\Resource;
+use App\DTO\Resource\ResourceDTO;
+use App\QueryFilters\ResourceFilters;
 use Illuminate\Database\Eloquent\Builder;
 
-class ServiceService extends BaseService{
-    public $user;
-
+class ResourceService extends BaseService
+{
     public function __construct(
-        public Service               $model,
+        public Resource               $model,
     ) {}
 
-    public function getModel(): Service
+    public function getModel(): Resource
     {
         return $this->model;
     }
@@ -35,28 +32,28 @@ class ServiceService extends BaseService{
         return $this->queryGet(filters: $filters, withRelations: $withRelations)->cursorPaginate($perPage);
     }
 
+
     public function queryGet(array $filters = [], array $withRelations = []): Builder
     {
-        $services = $this->model->with($withRelations)->orderBy('id', 'desc');
-        return $services->filter(new ServiceFilters($filters));
+        $resources = $this->model->with($withRelations)->orderBy('id', 'desc');
+        return $resources->filter(new ResourceFilters($filters));
     }
 
     public function datatable(array $filters = [], array $withRelations = [])
     {
-        $services = $this->getQuery()->with($withRelations);
-        return $services->filter(new ServiceFilters($filters));
+        $resources = $this->getQuery()->with($withRelations);
+        return $resources->filter(new ResourceFilters($filters));
     }
 
-    public function store(ServiceDTO $serviceDTO)
-    {
-        $service_data=$serviceDTO->toArray();
-        $service=$this->model->create($service_data);
-        return $service;
+    public function store(ResourceDTO $resourceDTO){
+        $resource_data=$resourceDTO->toArray();
+        $reaon=$this->model->create($resource_data);
+        return $reaon;
     }
 
-    public function update(ServiceDTO $serviceDTO,$id){
-        $service=$this->findById($id);
-        $service->update($serviceDTO->toArray());
+    public function update(ResourceDTO $resourceDTO,$id){
+        $resource=$this->findById($id);
+        $resource->update($resourceDTO->toArray());
         return true;
     }
 
@@ -64,6 +61,4 @@ class ServiceService extends BaseService{
     {
         return $this->getQuery()->where('id', $id)->delete();
     }
-
-
 }

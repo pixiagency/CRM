@@ -5,7 +5,7 @@ namespace App\Http\Requests\Reason;
 use App\DTO\Reason\ReasonDTO;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ReasonStoreRequest extends FormRequest
+class ReasonUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,6 +26,7 @@ class ReasonStoreRequest extends FormRequest
             'name' => 'required|string',
         ];
     }
+
     public function toReasonDTO(): ReasonDTO
     {
         return ReasonDTO::fromRequest($this);

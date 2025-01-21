@@ -2,18 +2,16 @@
 
 namespace App\DataTables;
 
-use App\Models\Industry;
-use App\Services\IndustryService;
+use App\Models\Reason;
+use App\Services\ReasonService;
+use Yajra\DataTables\Services\DataTable;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
-use Yajra\DataTables\Services\DataTable;
 
-class IndustriesDataTable extends DataTable
+class ReasonsDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -23,27 +21,26 @@ class IndustriesDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('check_box', function (Industry $industry) {
+            ->addColumn('check_box', function (Reason $reason) {
                 return view(
                     'layouts.components._datatable-checkbox',
-                    ['name' => "industries[]", 'value' => $industry->id]
+                    ['name' => "reasons[]", 'value' => $reason->id]
                 );
             })
-            ->addColumn('action', function (Industry $industry) {
+            ->addColumn('action', function (Reason $reason) {
                 return view(
-                    'layouts.dashboard.industry.components._actions',
-                    ['model' => $industry, 'url' => route('industries.destroy', $industry->id)]
+                    'layouts.dashboard.reason.components._actions',
+                    ['model' => $reason, 'url' => route('reasons.destroy', $reason->id)]
                 );
             })
-            ->setRowId(content: 'id');
+            ->setRowId('id');
     }
-
-    /**
+     /**
      * Get the query source of dataTable.
      */
-    public function query(IndustryService $industryService): QueryBuilder
+    public function query(ReasonService $reasonService): QueryBuilder
     {
-        return  $industryService->datatable([], []);
+        return  $reasonService->datatable([], []);
     }
 
     /**
@@ -52,7 +49,7 @@ class IndustriesDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('industries-table')
+            ->setTableId('reasons-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             //->dom('Bfrtip')
@@ -67,7 +64,6 @@ class IndustriesDataTable extends DataTable
                 Button::make('reload')
             ]);
     }
-
     /**
      * Get the dataTable columns definition.
      */
@@ -94,6 +90,7 @@ class IndustriesDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Industries_' . date('YmdHis');
+        return 'reasons' . date('YmdHis');
     }
+
 }

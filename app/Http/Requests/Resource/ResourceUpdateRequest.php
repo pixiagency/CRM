@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Reason;
+namespace App\Http\Requests\Resource;
 
-use App\DTO\Reason\ReasonDTO;
+use App\DTO\Resource\ResourceDTO;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ReasonStoreRequest extends FormRequest
+class ResourceUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,8 +26,8 @@ class ReasonStoreRequest extends FormRequest
             'name' => 'required|string',
         ];
     }
-    public function toReasonDTO(): ReasonDTO
+    public function toResourceDTO(): ResourceDTO
     {
-        return ReasonDTO::fromRequest($this);
+        return ResourceDTO::fromRequest($this);
     }
 }

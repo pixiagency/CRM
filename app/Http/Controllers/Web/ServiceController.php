@@ -132,9 +132,19 @@ class ServiceController extends Controller
     {
         try{
             $this->serviceService->delete($id);
-            return apiResponse(message: 'deleted successfully');
-        }catch(Exception $e){
-            return apiResponse(message: $e->getMessage(), code: 500);
+            $toast = [
+                'type' => 'success',
+                'title' => 'success',
+                'message' => trans('app.service_deleted_successfully')
+            ];
+            return to_route('services.index')->with('toast', $toast);
+        }catch (\Exception $e) {
+            $toast = [
+                'type' => 'error',
+                'title' => 'error',
+                'message' => trans('app.there_is_an_error')
+            ];
+            return back()->with('toast', $toast);
         }
     }
 }

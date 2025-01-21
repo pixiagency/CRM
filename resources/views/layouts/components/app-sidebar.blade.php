@@ -50,6 +50,26 @@
                     </ul>
                 </li>
 
+                <!-- Reason Menu -->
+                <li class="slide">
+                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
+                        <i class="fa fa-clipboard-list pe-3"></i> <!-- Icon for Reasons -->
+                        <span class="side-menu__label">@lang('app.reasons')</span><i class="angle fe fe-chevron-right"></i>
+                    </a>
+                    <ul class="slide-menu">
+                        <li class="side-menu__label1"><a href="javascript:void(0);">Utilities</a></li>
+                        <li>
+                            <a class="slide-item" data-is_active="{{ request()->fullUrlIs(route('reasons.create')) }}"
+                                href="{{ route('reasons.create') }}">@lang('app.new_reason')</a>
+                        </li>
+                        <li>
+                            <a class="slide-item" data-is_active="{{ request()->fullUrlIs(route('reasons.index')) }}"
+                                href="{{ route('reasons.index') }}">@lang('app.all_reasons')</a>
+                        </li>
+                    </ul>
+                </li>
+
+
                 <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
                         <i class="fa fa-truck pe-3"></i>
@@ -63,6 +83,26 @@
                                 href="{{route('locations.index')}}">@lang('app.all_locations')</a></li>
                     </ul>
                 </li>
+
+                <!-- Resource Menu -->
+                <li class="slide">
+                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
+                        <i class="fa fa-box pe-3"></i> <!-- Icon for Resources -->
+                        <span class="side-menu__label">@lang('app.resources')</span><i class="angle fe fe-chevron-right"></i>
+                    </a>
+                    <ul class="slide-menu">
+                        <li class="side-menu__label1"><a href="javascript:void(0);">Utilities</a></li>
+                        <li>
+                            <a class="slide-item" data-is_active="{{ request()->fullUrlIs(route('resources.create')) }}"
+                                href="{{ route('resources.create') }}">@lang('app.new_resource')</a>
+                        </li>
+                        <li>
+                            <a class="slide-item" data-is_active="{{ request()->fullUrlIs(route('resources.index')) }}"
+                                href="{{ route('resources.index') }}">@lang('app.all_resources')</a>
+                        </li>
+                    </ul>
+                </li>
+
 
             </ul>
             <div class="slide-right" id="slide-right"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24"

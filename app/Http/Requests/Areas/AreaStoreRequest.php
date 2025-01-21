@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Locations;
+namespace App\Http\Requests\Areas;
 
 use App\Http\Requests\BaseRequest;
 
-class LocationStoreRequest extends BaseRequest
+class AreaStoreRequest extends BaseRequest
 {
     /**
      * Determine if the industry is authorized to make this request.
@@ -21,6 +21,7 @@ class LocationStoreRequest extends BaseRequest
     {
         return [
             'title' => 'required|string',
+            'parent_id' => 'nullable|integer|exists:locations,id',
         ];
     }
 }

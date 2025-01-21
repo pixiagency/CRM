@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Locations;
+namespace App\Http\Requests\Areas;
 
-use App\DTO\Industry\IndustryDTO;
 use App\Http\Requests\BaseRequest;
 
-class LocationUpdateRequest extends BaseRequest
+class AreaUpdateRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,7 +22,8 @@ class LocationUpdateRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string',
+            'title' => 'required|string',
+            'parent_id' => 'nullable|integer|exists:locations,id',
         ];
     }
 }

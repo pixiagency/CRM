@@ -22,7 +22,7 @@
                     <div class="row row-sm mb-4">
                         <div class="col-lg">
                             <div class="main-content-label mg-b-5">@lang('app.name') *</div>
-                            <input class="form-control" value="{{$location->name}}" name="name"
+                            <input class="form-control" value="{{$location->title}}" name="name"
                                 placeholder="@lang('app.name')" type="text">
                             @error('name')
                             <div class="text-danger"> {{$message}}</div>
@@ -42,6 +42,52 @@
                         </div>
                     </div>
                 </form>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header pb-0">
+                <div class="d-flex justify-content-between">
+                    <h4 class="card-title mg-b-0">Areas</h4>
+                </div>
+
+                <div class="form-group mb-0 mt-3 justify-content-end">
+                    <div>
+                        <a class="btn btn-primary" href="{{ route('locations.areas.create', $location->id) }}"><i
+                                class="fe fe-plus me-2"></i>@lang('app.new')</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table mg-b-0 text-md-nowrap">
+                        <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>title</th>
+                                <th>created_at</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($areas as $area)
+                            <tr>
+                                <th scope="row">{{ $area->id }}</th>
+                                <td>{{ $area->title }}</td>
+                                <td>
+                                    <x-action model="locations" id="{{$area->id}}" />
+                                </td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="3" class="text-muted text-center">
+                                    <span class="text-muted text-center">@lang('app.no_data_found')</span>
+                                </td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

@@ -7,21 +7,22 @@ use Illuminate\Support\Arr;
 
 class LocationDTO extends BaseDTO
 {
-
     /**
-     * @param string $name',
+     * @param string $title',
+     * @param ?int $city_id',
      */
     public function __construct(
-        protected string $name,
+        protected string $title,
+        protected ?int $city_id,
     ) {}
 
     public static function fromRequest($request): BaseDTO
     {
         return new self(
-            name: $request->name,
+            title: $request->title,
+            city_id: $request->city_id,
         );
     }
-
 
     /**
      * @param array $data
@@ -30,7 +31,8 @@ class LocationDTO extends BaseDTO
     public static function fromArray(array $data): BaseDTO
     {
         return new self(
-            name: Arr::get($data, 'name'),
+            title: Arr::get($data, 'title'),
+            city_id: Arr::get($data, 'city_id'),
         );
     }
 
@@ -40,7 +42,18 @@ class LocationDTO extends BaseDTO
     public function toArray(): array
     {
         return [
-            'name' => $this->name,
+            'title' => $this->title,
+            'city_id' => $this->city_id,
         ];
+    }
+
+    /**
+     * Get the city_id.
+     *
+     * @return int
+     */
+    public function getCityId(): int
+    {
+        return $this->city_id;
     }
 }

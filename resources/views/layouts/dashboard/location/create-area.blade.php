@@ -4,9 +4,9 @@
 
 {{-- breadcrumb --}}
 @include('layouts.components.breadcrumb', [
-'title' => trans('app.create_new_location_title'),
-'first_list_item' => trans('app.locations'),
-'last_list_item' => trans('app.add_location'),
+'title' => trans('app.create_new_area_title'),
+'first_list_item' => trans('app.areas'),
+'last_list_item' => trans('app.add_area'),
 ])
 {{-- end breadcrumb --}}
 
@@ -26,8 +26,10 @@
                 </div>
                 @endif
 
-                <form action="{{route('locations.store')}}" method="post">
+                <form action="{{route('locations.areas.store')}}" method="post">
                     @csrf
+                    <!-- Hidden input for city_id -->
+                    <input type="hidden" name="city_id" value="{{ $city->id }}">
                     <div class="row row-sm mb-4">
                         <div class="col-lg">
                             <div class="form-group">
@@ -37,6 +39,9 @@
                                 @error('title')
                                 <div class="text-danger"> {{$message}}</div>
                                 @enderror
+                            </div>
+                            <div class="form-group">
+                                <div class="main-content-label mg-b-5">For {{ $city->title }} </div>
                             </div>
                         </div>
                     </div>

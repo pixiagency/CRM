@@ -2,20 +2,18 @@
 
 namespace App\Services;
 
-use App\Models\Service;
-use App\DTO\Service\ServiceDTO;
-use Illuminate\Support\Facades\Log;
-use App\QueryFilters\ServiceFilters;
+use App\DTO\Reason\ReasonDTO;
+use App\Models\Reason;
+use App\QueryFilters\ReasonFilters;
 use Illuminate\Database\Eloquent\Builder;
 
-class ServiceService extends BaseService{
-    public $user;
-
+class ReasonService extends BaseService
+{
     public function __construct(
-        public Service               $model,
+        public Reason               $model,
     ) {}
 
-    public function getModel(): Service
+    public function getModel(): Reason
     {
         return $this->model;
     }
@@ -35,28 +33,28 @@ class ServiceService extends BaseService{
         return $this->queryGet(filters: $filters, withRelations: $withRelations)->cursorPaginate($perPage);
     }
 
+
     public function queryGet(array $filters = [], array $withRelations = []): Builder
     {
-        $services = $this->model->with($withRelations)->orderBy('id', 'desc');
-        return $services->filter(new ServiceFilters($filters));
+        $reasons = $this->model->with($withRelations)->orderBy('id', 'desc');
+        return $reasons->filter(new ReasonFilters($filters));
     }
 
     public function datatable(array $filters = [], array $withRelations = [])
     {
-        $services = $this->getQuery()->with($withRelations);
-        return $services->filter(new ServiceFilters($filters));
+        $reasons = $this->getQuery()->with($withRelations);
+        return $reasons->filter(new ReasonFilters($filters));
     }
 
-    public function store(ServiceDTO $serviceDTO)
-    {
-        $service_data=$serviceDTO->toArray();
-        $service=$this->model->create($service_data);
-        return $service;
+    public function store(ReasonDTO $reasonDTO){
+        $reason_data=$reasonDTO->toArray();
+        $reaon=$this->model->create($reason_data);
+        return $reaon;
     }
 
-    public function update(ServiceDTO $serviceDTO,$id){
-        $service=$this->findById($id);
-        $service->update($serviceDTO->toArray());
+    public function update(ReasonDTO $reasonDTO,$id){
+        $reason=$this->findById($id);
+        $reason->update($reasonDTO->toArray());
         return true;
     }
 
@@ -64,6 +62,5 @@ class ServiceService extends BaseService{
     {
         return $this->getQuery()->where('id', $id)->delete();
     }
-
 
 }

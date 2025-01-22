@@ -23,10 +23,14 @@ class ServiceStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'=>'required|string',
-            'price'=>'required|numeric'
+            'name' => 'required|string|max:255',
+            'price' => 'nullable|numeric|min:0',
+            'categories' => 'nullable|array',
+            'categories.*.name' => 'nullable|string|max:255',
+            'categories.*.price' => 'nullable|numeric|min:0', 
         ];
     }
+
     public function toServiceDTO(): ServiceDTO
     {
         return ServiceDTO::fromRequest($this);

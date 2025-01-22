@@ -47,17 +47,50 @@ class ServiceService extends BaseService{
         return $services->filter(new ServiceFilters($filters));
     }
 
-    public function store(ServiceDTO $serviceDTO)
+    public function store(ServiceDTO $serviceDTO): Service
     {
-        $service_data=$serviceDTO->toArray();
-        $service=$this->model->create($service_data);
+        $service = Service::create([
+            'name' => $serviceDTO->getName(),
+            'price' => $serviceDTO->getPrice(), // Direct price (nullable)
+        ]);
+
+        // Create categories for the service (if any)
+        if (!empty($serviceDTO->getCategories())) {
+            foreach ($serviceDTO->getCategories() as $categoryData) {
+                if (!empty($categoryData['name']) && !empty($categoryData['price'])) {
+                    $service->categories()->create([
+                        'name' => $categoryData['name'],
+                        'price' => $categoryData['price'],
+                    ]);
+                }
+            }
+        }
+
         return $service;
     }
 
-    public function update(ServiceDTO $serviceDTO,$id){
-        $service=$this->findById($id);
-        $service->update($serviceDTO->toArray());
-        return true;
+    public function update(ServiceDTO $serviceDTO, $id): Service
+    {
+        $service = $this->findById($id);
+        $service->update([
+            'name' => $serviceDTO->getName(),
+            'price' => $serviceDTO->getPrice(), // Direct price (nullable)
+        ]);
+
+        // Sync categories for the service (if any)
+        if (!empty($serviceDTO->getCategories())) {
+            $service->categories()->delete(); // Delete existing categories
+            foreach ($serviceDTO->getCategories() as $categoryData) {
+                if (!empty($categoryData['name']) && !empty($categoryData['price'])) {
+                    $service->categories()->create([
+                        'name' => $categoryData['name'],
+                        'price' => $categoryData['price'],
+                    ]);
+                }
+            }
+        }
+
+        return $service;
     }
 
     public function delete(int $id)

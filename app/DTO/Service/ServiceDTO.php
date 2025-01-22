@@ -4,48 +4,51 @@ use App\DTO\BaseDTO;
 use Illuminate\Support\Arr;
 class ServiceDTO extends BaseDTO
 {
-    /**
-     * @param string $name
-     * @param float $price
-     */
     public function __construct(
         protected string $name,
-        protected float $price,
+        protected ?float $price = null,
+        protected array $categories = []
     ) {}
+
     public static function fromRequest($request): self
     {
         return new self(
             name: $request->name,
-            price: (float) $request->price,
+            price: $request->price ? (float) $request->price : null,
+            categories: $request->categories ?? [] 
         );
     }
-    /**
-     * @param array $data
-     * @return self
-     */
+
     public static function fromArray(array $data): self
     {
         return new self(
             name: Arr::get($data, 'name'),
-            price: (float) Arr::get($data, 'price'),
+            price: Arr::get($data, 'price') ? (float) Arr::get($data, 'price') : null,
+            categories: Arr::get($data, 'categories', [])
         );
     }
-    /**
-     * @return array
-     */
+
     public function toArray(): array
     {
         return [
             'name' => $this->name,
             'price' => $this->price,
+            'categories' => $this->categories,
         ];
     }
+
     public function getName(): string
     {
         return $this->name;
     }
-    public function getPrice(): float
+
+    public function getPrice(): ?float
     {
         return $this->price;
+    }
+
+    public function getCategories(): array
+    {
+        return $this->categories;
     }
 }

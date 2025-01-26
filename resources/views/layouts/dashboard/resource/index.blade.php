@@ -3,9 +3,9 @@
 @section('content')
 {{-- breadcrumb --}}
 @include('layouts.components.breadcrumb', [
-'title' => trans('app.resources_title'),
-'first_list_item' => trans('app.resources'),
-'last_list_item' => trans('app.all_resources'),
+'title' => trans('app.sources_title'),
+'first_list_item' => trans('app.sources'),
+'last_list_item' => trans('app.all_sources'),
 ])
 {{-- end breadcrumb --}}
 

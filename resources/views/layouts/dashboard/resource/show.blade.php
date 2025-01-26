@@ -6,8 +6,8 @@ use \Illuminate\Support\Arr ;
 @section('content')
 
 {{-- breadcrumb --}}
-@include('layouts.components.breadcrumb',['title' => trans('app.show_resource_title'),'first_list_item' =>
-trans('app.resource'),'last_list_item' => trans('app.show_resource')])
+@include('layouts.components.breadcrumb',['title' => trans('app.show_source_title'),'first_list_item' =>
+trans('app.source'),'last_list_item' => trans('app.show_source')])
 {{-- end breadcrumb --}}
 
 <!-- Row -->

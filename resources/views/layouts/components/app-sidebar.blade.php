@@ -84,21 +84,21 @@
                     </ul>
                 </li>
 
-                <!-- Resource Menu -->
+                <!-- source Menu -->
                 <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
                         <i class="fa fa-box pe-3"></i> <!-- Icon for Resources -->
-                        <span class="side-menu__label">@lang('app.resources')</span><i class="angle fe fe-chevron-right"></i>
+                        <span class="side-menu__label">@lang('app.sources')</span><i class="angle fe fe-chevron-right"></i>
                     </a>
                     <ul class="slide-menu">
                         <li class="side-menu__label1"><a href="javascript:void(0);">Utilities</a></li>
                         <li>
                             <a class="slide-item" data-is_active="{{ request()->fullUrlIs(route('resources.create')) }}"
-                                href="{{ route('resources.create') }}">@lang('app.new_resource')</a>
+                                href="{{ route('resources.create') }}">@lang('app.new_source')</a>
                         </li>
                         <li>
                             <a class="slide-item" data-is_active="{{ request()->fullUrlIs(route('resources.index')) }}"
-                                href="{{ route('resources.index') }}">@lang('app.all_resources')</a>
+                                href="{{ route('resources.index') }}">@lang('app.all_sources')</a>
                         </li>
                     </ul>
                 </li>

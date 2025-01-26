@@ -23,17 +23,14 @@ class AuthService extends BaseService
     /**
      * @throws NotFoundException
      */
-    public function loginWithEmailOrPhone(string $identifier, string $password, string $type = null): User|Model
+    public function loginWithEmailOrPhone(string $identifier, string $password): User|Model
     {
         $identifierField = is_numeric($identifier) ? 'phone' : 'email';
-        if(null != $type)
-            $credential = [$identifierField => $identifier, 'password' => $password , 'status'=>ActivationStatus::ACTIVE(), 'type' => $type];
-        else
-            $credential = [$identifierField => $identifier, 'password' => $password , 'status'=>ActivationStatus::ACTIVE()];
+        $credential = [$identifierField => $identifier, 'password' => $password];
 
         if (!auth()->attempt($credential))
             throw new NotFoundException(__('app.login_failed'));
-        return $this->model->with('attachments')->where($identifierField, $identifier)->first();
+        return $this->model->where($identifierField, $identifier)->first();
     }
 
     /**
@@ -63,5 +60,4 @@ class AuthService extends BaseService
         ]);
         return true;
     }
-
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Web\AuthController;
+use App\Http\Controllers\Web\CustomFieldController;
 use App\Http\Controllers\Web\IndustryController;
 
 use App\Http\Controllers\Web\ServiceController;
@@ -19,12 +20,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('industries', IndustryController::class);
-Route::resource('services', ServiceController::class);
-Route::resource('locations', LocationController::class);
-Route::get('locations/{id}/create-areas', [LocationController::class, 'createArea'])->name('locations.areas.create');
-Route::post('locations/areas', [LocationController::class, 'storeArea'])->name('locations.areas.store');
 
+Route::resource('custom-fields',CustomFieldController::class);
 
 
 //auth routes
@@ -39,7 +36,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function () {
     Route::resource('locations', LocationController::class);
     Route::get('locations/{id}/create-areas', [LocationController::class, 'createArea'])->name('locations.areas.create');
     Route::post('locations/areas', [LocationController::class, 'storeArea'])->name('locations.areas.store');
-  
+
     Route::resource('reasons', ReasonController::class);
     Route::resource('resources', ResourceController::class);
 

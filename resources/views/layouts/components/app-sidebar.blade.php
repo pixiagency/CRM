@@ -103,6 +103,25 @@
                     </ul>
                 </li>
 
+                <!-- Custom Fields Menu -->
+                <li class="slide">
+                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
+                        <i class="fa fa-list-alt pe-3"></i> <!-- Icon for Custom Fields -->
+                        <span class="side-menu__label">@lang('app.custom_fields')</span><i class="angle fe fe-chevron-right"></i>
+                    </a>
+                    <ul class="slide-menu">
+                        <li class="side-menu__label1"><a href="javascript:void(0);">Utilities</a></li>
+                        <li>
+                            <a class="slide-item" data-is_active="{{ request()->fullUrlIs(route('custom-fields.create')) }}"
+                                href="{{ route('custom-fields.create') }}">@lang('app.new_custom_field')</a>
+                        </li>
+                        <li>
+                            <a class="slide-item" data-is_active="{{ request()->fullUrlIs(route('custom-fields.index')) }}"
+                                href="{{ route('custom-fields.index') }}">@lang('app.all_custom_fields')</a>
+                        </li>
+                    </ul>
+                </li>
+
 
             </ul>
             <div class="slide-right" id="slide-right"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24"

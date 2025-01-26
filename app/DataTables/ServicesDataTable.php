@@ -74,7 +74,7 @@ class ServicesDataTable extends DataTable
             <span class="custom-control-label custom-control-label-md  tx-17"></span></label>')->searchable(false)->orderable(false),
             Column::make('id'),
             Column::make('name'),
-            Column::make('price'),
+            // Column::make('price'),
             Column::make('created_at'),
             Column::make('updated_at'),
             Column::computed('action')

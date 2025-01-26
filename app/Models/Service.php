@@ -9,4 +9,9 @@ class Service extends Model
 {
     use Filterable;
     protected $fillable = ['name','price'];
+
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
 }

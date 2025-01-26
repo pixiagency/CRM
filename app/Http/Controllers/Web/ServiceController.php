@@ -18,6 +18,9 @@ use App\Http\Requests\Service\ServiceUpdateRequest;
 class ServiceController extends Controller
 {
     public function __construct(public ServiceService $serviceService){
+        // $this->middleware('permission:view_services', ['only' => ['index']]);
+        // $this->middleware('permission:edit_services', ['only' => ['edit', 'update']]);
+        // $this->middleware('permission:create_services', ['only' => ['create', 'store']]);
 
     }
     /**
@@ -44,27 +47,23 @@ class ServiceController extends Controller
 
     public function store(ServiceStoreRequest $request)
     {
-        try{
+        try {
             DB::beginTransaction();
-            $srviceDTO=ServiceDTO::fromRequest($request);
-            $service=$this->serviceService->store($srviceDTO);
-            $toast = [
+            $serviceDTO = ServiceDTO::fromRequest($request);
+            $service = $this->serviceService->store($serviceDTO);
+            DB::commit();
+            return to_route('services.index')->with('toast', [
                 'type' => 'success',
-                'title' => 'success',
+                'title' => 'Success',
                 'message' => trans('app.service_created_successfully')
-            ];
-            DB::commit();
-            return to_route('services.index')->with('toast',$toast);
-        }
-        catch(Exception $e){
+            ]);
+        } catch (\Exception $e) {
             DB::rollBack();
-            $toast = [
+            return back()->with('toast', [
                 'type' => 'error',
-                'title' => 'error',
+                'title' => 'Error',
                 'message' => trans('app.there_is_an_error')
-            ];
-            DB::commit();
-            return back()->with('toast', $toast);
+            ]);
         }
     }
 
@@ -74,7 +73,7 @@ class ServiceController extends Controller
     public function show(int $id)
     {
         try {
-            $withRelations = [];
+            $withRelations = ['categories'];
             $service=$this->serviceService->findById(id:$id, withRelations: $withRelations);
             return view('layouts.dashboard.service.show',['service'=>$service]);
         }catch(NotFoundException $e){
@@ -92,11 +91,11 @@ class ServiceController extends Controller
      */
     public function edit(int $id)
     {
-        try{
-            $service=$this->serviceService->findById(id:$id);
-            // dd($service);
-            return view('layouts.dashboard.service.edit',compact('service'));
-        }catch(Exception $e){
+        try {
+            $withRelations = ['categories'];
+            $service = $this->serviceService->findById(id: $id, withRelations: $withRelations);
+            return view('layouts.dashboard.service.edit', compact('service'));
+        } catch (Exception $e) {
             return redirect()->back();
         }
     }
@@ -132,9 +131,19 @@ class ServiceController extends Controller
     {
         try{
             $this->serviceService->delete($id);
-            return apiResponse(message: 'deleted successfully');
-        }catch(Exception $e){
-            return apiResponse(message: $e->getMessage(), code: 500);
+            $toast = [
+                'type' => 'success',
+                'title' => 'success',
+                'message' => trans('app.service_deleted_successfully')
+            ];
+            return to_route('services.index')->with('toast', $toast);
+        }catch (\Exception $e) {
+            $toast = [
+                'type' => 'error',
+                'title' => 'error',
+                'message' => trans('app.there_is_an_error')
+            ];
+            return back()->with('toast', $toast);
         }
     }
 }

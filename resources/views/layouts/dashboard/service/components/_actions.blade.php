@@ -1,18 +1,12 @@
-<td class="text-end">
-    <div>
-        <button data-bs-toggle="dropdown" class="btn btn-primary blue-logo btn-block"
-            aria-expanded="false">@lang('app.details')
-            <i class="icon ion-ios-arrow-down tx-11 mg-l-3"></i>
-        </button>
-        <div class="dropdown-menu" style="">
-            @can('edit_price_tables')
-            <a href="{{route('services.edit',$model->id)}}" class="dropdown-item">@lang('app.edit')</a>
-            @endcan
-            @can('delete_price_tables')
-            <button role="button" onclick="destroy('{{route('services.destroy', $model->id)}}')"
-                class="dropdown-item">@lang('app.delete')</button>
-            @endcan
-        </div>
-        <!-- dropdown-menu -->
+
+<td>
+    <div class="d-flex align-items-center">
+        <a class="btn btn-primary me-2" href="{{ route('services.edit', $model->id) }}">@lang('app.edit')</a>
+        <a class="btn btn-primary me-2" href="{{ route('services.show', $model->id) }}">@lang('app.show')</a>
+        <form action="{{ route('services.destroy', $model->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this item?');">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-danger">@lang('app.delete')</button>
+        </form>
     </div>
 </td>

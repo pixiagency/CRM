@@ -33,6 +33,7 @@ class AuthController extends Controller
         } catch (NotFoundException $e) {
             return back()->with('error', "email or password incorrect please try again");
         }catch (Exception $e) {
+            dd($e);
             return back()->with('error', $e->getMessage());
         }
     }

@@ -15,7 +15,13 @@ use App\Http\Requests\Resource\ResourceUpdateRequest;
 
 class ResourceController extends Controller
 {
-    public function __construct(public ResourceService $resourceService){}
+    public function __construct(public ResourceService $resourceService){
+        $this->middleware('permission:view sources', ['only' => ['index']]);
+        $this->middleware('permission:show sources', ['only' => ['show']]);
+        $this->middleware('permission:edit sources', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:create sources', ['only' => ['create', 'store']]);
+        $this->middleware('permission:delete sources', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      */

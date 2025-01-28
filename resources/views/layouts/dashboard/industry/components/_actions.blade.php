@@ -19,8 +19,13 @@
 
 <td>
     <div>
-        <a class="btn btn-primary" href="{{route('industries.edit',$model->id)}}">@lang('app.edit')</a>
-        <button class="btn btn-danger" role="button"
-            onclick="destroy('{{route('industries.destroy', $model->id)}}')">@lang('app.delete')</button>
+        @can('edit industries')
+            <a class="btn btn-primary" href="{{route('industries.edit',$model->id)}}">@lang('app.edit')</a>
+        @endcan
+
+        @can('delete industries')
+            <button class="btn btn-danger" role="button"
+                onclick="destroy('{{route('industries.destroy', $model->id)}}')">@lang('app.delete')</button>
+        @endcan
     </div>
 </td>

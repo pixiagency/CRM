@@ -1,18 +1,20 @@
 <?php
 
 namespace App\Services;
-use App\Models\Resource;
-use App\DTO\Resource\ResourceDTO;
-use App\QueryFilters\ResourceFilters;
+
+use App\DTO\CustomField\CustomFieldDTO;
+use App\Models\CustomField;
+use App\QueryFilters\CustomFieldFilters;
 use Illuminate\Database\Eloquent\Builder;
 
-class ResourceService extends BaseService
+
+class CustomFieldService extends BaseService
 {
     public function __construct(
-        public Resource               $model,
+        public CustomField               $model,
     ) {}
 
-    public function getModel(): Resource
+    public function getModel(): CustomField
     {
         return $this->model;
     }
@@ -21,7 +23,6 @@ class ResourceService extends BaseService
     {
         return $this->queryGet($filters)->get();
     }
-
     public function getTableName(): String
     {
         return $this->getModel()->getTable();
@@ -32,29 +33,26 @@ class ResourceService extends BaseService
         return $this->queryGet(filters: $filters, withRelations: $withRelations)->cursorPaginate($perPage);
     }
 
-
     public function queryGet(array $filters = [], array $withRelations = []): Builder
     {
-        $resources = $this->model->with($withRelations)->orderBy('id', 'desc');
-        return $resources->filter(new ResourceFilters($filters));
+        $custom_fields = $this->model->with($withRelations)->orderBy('id', 'desc');
+        return $custom_fields->filter(new CustomFieldFilters($filters));
     }
-
 
     public function datatable(array $filters = [], array $withRelations = [])
     {
-        $resources = $this->getQuery()->with($withRelations);
-        return $resources->filter(new ResourceFilters($filters));
+        $custom_fields = $this->getQuery()->with($withRelations);
+        return $custom_fields->filter(new CustomFieldFilters($filters));
     }
 
-    public function store(ResourceDTO $resourceDTO){
-        $resource_data=$resourceDTO->toArray();
-        $reaon=$this->model->create($resource_data);
-        return $reaon;
+    public function store(CustomFieldDTO $customFieldDTO): CustomField
+    {
+        return $this->model->create($customFieldDTO->toArray());
     }
 
-    public function update(ResourceDTO $resourceDTO,$id){
-        $resource=$this->findById($id);
-        $resource->update($resourceDTO->toArray());
+    public function update(CustomFieldDTO $customFieldDTO, $id){
+        $customField=$this->findById($id);
+        $customField->update($customFieldDTO->toArray());
         return true;
     }
 
@@ -62,4 +60,5 @@ class ResourceService extends BaseService
     {
         return $this->getQuery()->where('id', $id)->delete();
     }
+
 }

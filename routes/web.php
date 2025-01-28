@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Web\AuthController;
+use App\Http\Controllers\Web\CustomFieldController;
 use App\Http\Controllers\Web\IndustryController;
 use App\Http\Controllers\Web\ServiceController;
 use App\Http\Controllers\Web\LocationController;
@@ -17,6 +18,8 @@ Route::group(['prefix' => 'authentication', 'middleware' => 'guest'], function (
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('custom-fields',CustomFieldController::class);
 
 //auth routes
 Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function () {
@@ -38,6 +41,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function () {
 
     Route::resource('reasons', ReasonController::class);
     Route::resource('resources', ResourceController::class);
+  
+    Route::resource('custom-fields',CustomFieldController::class);
 
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 

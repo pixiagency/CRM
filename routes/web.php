@@ -3,12 +3,11 @@
 use App\Http\Controllers\Web\AuthController;
 use App\Http\Controllers\Web\CustomFieldController;
 use App\Http\Controllers\Web\IndustryController;
-
 use App\Http\Controllers\Web\ServiceController;
-
 use App\Http\Controllers\Web\LocationController;
 use App\Http\Controllers\web\ReasonController;
 use App\Http\Controllers\Web\ResourceController;
+use App\Http\Controllers\Web\UsersController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'authentication', 'middleware' => 'guest'], function () {
@@ -20,15 +19,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
 Route::resource('custom-fields',CustomFieldController::class);
-
 
 //auth routes
 Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function () {
     Route::get('/', function () {
         return view('livewire.index');
     })->name('home');
+
+    Route::put('profile/{id}', [UsersController::class, 'updateProfile'])->name('profile.update');
+    Route::get('profile', function () {
+        return view('layouts.dashboard.users.profile');
+    })->name('profile.index');
 
     Route::resource('industries', IndustryController::class);
     Route::resource('services', ServiceController::class);
@@ -39,6 +41,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function () {
 
     Route::resource('reasons', ReasonController::class);
     Route::resource('resources', ResourceController::class);
+  
+    Route::resource('custom-fields',CustomFieldController::class);
 
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 

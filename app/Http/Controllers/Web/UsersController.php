@@ -1,17 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web;
 
 use Exception;
-use App\Models\User;
-use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Services\UserService;
 use App\DataTables\UsersDatatable;
-use Illuminate\Support\Facades\DB;
 use App\Exceptions\NotFoundException;
-use Illuminate\Support\Facades\Validator;
-use Spatie\SimpleExcel\SimpleExcelReader;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\UserStoreRequest;
 use App\Http\Requests\Users\UserUpdateRequest;
 use App\Http\Requests\Users\UserUpdateProfileRequest;

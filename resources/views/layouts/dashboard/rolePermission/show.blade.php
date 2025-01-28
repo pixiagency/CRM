@@ -15,13 +15,13 @@
             <!--div-->
             <div class="card">
                 <div class="card-body">
-                    <h1>Role Permissions: {{ $role->name }}</h1>
+                    <h1>@lang('app.Permissions'): {{ $role->name }}</h1>
                     <form action="{{ route('role-permissions.update', $role->id) }}" method="POST">
                         @csrf
                         @method('PUT')
 
                         <div class="form-group mb-3">
-                            <label>Permissions</label>
+                            <label>@lang('app.Permissions')</label>
                             @foreach ($permissions as $permission)
                             <div class="form-check">
                                 <input type="checkbox" name="permissions[]" value="{{ $permission->id }}" id="permission-{{ $permission->id }}"
@@ -35,7 +35,7 @@
                             <div class="form-group mb-0 mt-3 justify-content-end">
                                 <div>
                                 <button type="submit" class="btn btn-primary"><i
-                                    class="fa fa-save pe-2"></i>@lang('Update Permissions')</button>
+                                    class="fa fa-save pe-2"></i>@lang('app.Update Permissions')</button>
                                 <a role="button" href="{{ URL::previous() }}" class="btn btn-primary"><i
                                     class="fa fa-backward pe-2"></i>@lang('app.back')</a>
                                 </div>

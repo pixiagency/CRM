@@ -15,20 +15,20 @@
         <div class="card">
             <div class="card-body">
 
-            <h1>Select Role</h1>
+            <h1>@lang('app.Select Role')</h1>
             <form id="role-form" method="GET">
                 @csrf
                 <div class="form-group mb-3">
-                    <label for="role">Select Role</label>
+                    <label for="role">@lang('app.Select Role')</label>
                     <select name="role" id="role" class="form-control" required>
-                        <option value="">-- Select Role --</option>
+                        <option value="">-- @lang('app.Select Role') --</option>
                         @foreach ($roles as $role)
                             <option value="{{ $role->id }}">{{ $role->name }}</option>
                         @endforeach
                     </select>
                 </div>
                 <button type="submit" class="btn btn-primary" id="view-permissions-button" disabled><i
-                                            class="fa fa-save pe-2"></i>@lang('View Permissions')</button>
+                                            class="fa fa-save pe-2"></i>@lang('app.View Permissions')</button>
             </form>
         </div>
     </div>

@@ -16,7 +16,15 @@ use App\Services\LocationService;
 
 class LocationController extends Controller
 {
-    public function __construct(public LocationService $locationService) {}
+    public function __construct(public LocationService $locationService) {
+        $this->middleware('permission:view locations', ['only' => ['index']]);
+        $this->middleware('permission:show locations', ['only' => ['show']]);
+        $this->middleware('permission:edit locations', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:create locations', ['only' => ['create', 'store']]);
+        $this->middleware('permission:delete locations', ['only' => ['destroy']]);
+        $this->middleware('permission:create areas', ['only' => ['createArea']]);
+        $this->middleware('permission:store areas', ['only' => ['storeArea']]);
+    }
 
     public function index(LocationsDataTable $dataTable, Request $request)
     {

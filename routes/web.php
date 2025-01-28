@@ -20,6 +20,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+<<<<<<< HEAD
 Route::resource('industries', IndustryController::class);
 Route::resource('services', ServiceController::class);
 Route::resource('locations', LocationController::class);
@@ -27,6 +28,10 @@ Route::get('locations/{id}/create-areas', [LocationController::class, 'createAre
 Route::post('locations/areas', [LocationController::class, 'storeArea'])->name('locations.areas.store');
 
 
+=======
+Route::resource('custom-fields',CustomFieldController::class);
+
+>>>>>>> 016432c2181d202c09bcc54e4e0b94888b9e0310
 //auth routes
 Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function () {
     Route::get('/', function () {
@@ -47,11 +52,13 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function () {
 
     Route::resource('reasons', ReasonController::class);
     Route::resource('resources', ResourceController::class);
+
     Route::resource('custom-fields',CustomFieldController::class);
 
     Route::get('role-permissions', [RolePermissionController::class, 'index'])->name('role-permissions.index');
     Route::get('role-permissions/{role}', [RolePermissionController::class, 'show'])->name('role-permissions.show');
     Route::put('role-permissions/{role}', [RolePermissionController::class, 'update'])->name('role-permissions.update');
+
 
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 

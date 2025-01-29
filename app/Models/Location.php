@@ -18,18 +18,37 @@ class Location extends Model
      */
     protected $fillable = ['title', 'status', '_lft', '_lgt', 'parent_id'];
 
-    public function scopeActive(Builder $query)
-    {
-        return $query->where('status', 1);
-    }
 
-    public function areas()
+    public function parent()
+    {
+        return $this->belongsTo(Location::class, 'parent_id');
+    }
+    
+    public function children()
     {
         return $this->hasMany(Location::class, 'parent_id');
     }
+    
 
-    public function city()
+
+    //////////////// scopes ////////////////
+    public function scopeCountries($query)
     {
-        return $this->belongsTo(Location::class, 'parent_id');
+        return $query->withDepth()->having('depth', 0)->where('status', 1);
+    }
+    
+    public function scopeGovernorates($query)
+    {
+        return $query->withDepth()->having('depth', 1)->where('status', 1);
+    }
+    
+    public function scopeCities($query)
+    {
+        return $query->withDepth()->having('depth', 2)->where('status',1);
+    }
+
+    public function scopeActive(Builder $query)
+    {
+        return $query->where('status', 1);
     }
 }

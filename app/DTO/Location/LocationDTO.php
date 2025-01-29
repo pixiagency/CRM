@@ -9,18 +9,18 @@ class LocationDTO extends BaseDTO
 {
     /**
      * @param string $title',
-     * @param ?int $city_id',
+     * @param ?int $parent_id',
      */
     public function __construct(
         protected string $title,
-        protected ?int $city_id,
+        protected ?int $parent_id,
     ) {}
 
     public static function fromRequest($request): BaseDTO
     {
         return new self(
             title: $request->title,
-            city_id: $request->city_id,
+            parent_id: $request->parent_id,
         );
     }
 
@@ -32,7 +32,7 @@ class LocationDTO extends BaseDTO
     {
         return new self(
             title: Arr::get($data, 'title'),
-            city_id: Arr::get($data, 'city_id'),
+            parent_id: Arr::get($data, 'parent_id'),
         );
     }
 
@@ -43,17 +43,17 @@ class LocationDTO extends BaseDTO
     {
         return [
             'title' => $this->title,
-            'city_id' => $this->city_id,
+            'parent_id' => $this->parent_id,
         ];
     }
 
     /**
-     * Get the city_id.
+     * Get the parent_id.
      *
      * @return int
      */
-    public function getCityId(): int
+    public function getParentId(): int
     {
-        return $this->city_id;
+        return $this->parent_id;
     }
 }

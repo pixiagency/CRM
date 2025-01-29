@@ -17,14 +17,16 @@
 <div class="row row-sm">
     <div class="col-lg-12">
         <div class="card custom-card">
-            <div class="card-header">
+            {{-- <div class="card-header">
                 <div class="form-group mb-0 mt-3 justify-content-end">
                     <div>
                         <a class="btn btn-primary" href="{{ route('locations.create') }}"><i
                                 class="fe fe-plus me-2"></i>@lang('app.new')</a>
                     </div>
                 </div>
-            </div>
+            </div> --}}
+            
+
             <div class="card-body">
                 <div class="table-responsive export-table">
                     {!! $dataTable->table(['class' => 'table-data table table-bordered text-nowrap border-bottom ']) !!}

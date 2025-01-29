@@ -34,7 +34,7 @@
                                     <input type="text" class="form-control" placeholder="Search">
                                     <span class="input-group-btn">
                                         <button type="reset" class="btn btn-default">
-                                            <i class="fas fa-times"></i>
+
                                         </button>
                                         <button type="submit" class="btn btn-default nav-link resp-btn">
                                             <svg xmlns="http://www.w3.org/2000/svg" height="24px"
@@ -60,30 +60,26 @@
 
                         <li class="nav-item ">
                             <div class="mt-2 p-2 mx-auto">
-                                {{-- <h6>@lang("app.hi") {{auth()->user()->name}}</h6> --}}
+                                <h6>@lang("app.hi") {{auth()->user()->name}}</h6>
                             </div>
                         </li>
-                        <li class="nav-item mt-2">
-                            <h6 class="btn btn-default text-primary border-primary">@lang("app.online")</h6>
-                        </li>
                         <li class="dropdown main-profile-menu nav nav-item nav-link ps-lg-2">
-                            <a class="new nav-link profile-user d-flex main-img-user" href="" {{--
-                                data-bs-toggle="dropdown"><img alt="" src="{{ asset(Auth::user()->profileImage) }}" --}}
+                            <a class="new nav-link profile-user d-flex main-img-user" href=""
+                                data-bs-toggle="dropdown"><img alt="" src="{{ asset(Auth::user()->profileImage) }}"
                                     class=""></a>
                             <div class="dropdown-menu">
                                 <div class="menu-header-content p-3 border-bottom">
                                     <div class="d-flex wd-100p">
-                                        <div class="main-img-user"><img alt="" {{--
-                                                src="{{ asset(Auth::user()->profileImage) }}" class=""></div> --}}
+                                        <div class="main-img-user"><img alt=""
+                                                src="{{ asset(Auth::user()->profileImage) }}" class=""></div>
                                         <div class="ms-3 my-auto">
-                                            {{-- <h6 class="tx-15 font-weight-semibold mb-0">{{auth()->user()->name}}
-                                            </h6> --}}
+                                            <h6 class="tx-15 font-weight-semibold mb-0">{{auth()->user()->name}}</h6>
                                         </div>
                                     </div>
                                 </div>
-                                <a class="dropdown-item" href="#"><i {{-- {{route('profile.index')}} --}}
+                                <a class="dropdown-item" href="{{route('profile.index')}}"><i
                                         class="far fa-user-circle"></i>Profile</a>
-                                <a class="dropdown-item" href="#"><i {{-- {{route('profile.index')}} --}}
+                                <a class="dropdown-item" href="{{route('logout')}}"><i
                                         class="far fa-arrow-alt-circle-left"></i> Sign Out</a>
                             </div>
                         </li>

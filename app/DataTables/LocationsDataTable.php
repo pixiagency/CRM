@@ -30,9 +30,17 @@ class LocationsDataTable extends DataTable
                 );
             })
             ->addColumn('action', function (Location $location) {
+                $result = Location::withDepth()->find($location->id)->depth;
+
+                $path = match ($result) {
+                0 => 'locations.countries.edit',
+                1 => 'locations.governorates.edit',
+                2 => 'locations.cities.edit',
+                default => 'error',
+                };
                 return view(
                     'layouts.dashboard.location.components._actions',
-                    ['model' => $location, 'url' => route('locations.destroy', $location->id)]
+                    ['model' => $location, 'path' => $path ,'url' => route('locations.destroy', $location->id)]
                 );
             })
             ->setRowId('id');

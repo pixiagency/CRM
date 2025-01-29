@@ -19,7 +19,7 @@
     <livewire:styles />
     @yield('after_styles')
 
-    @vite(['resources/js/app.js', 'resources/css/app.css'])
+    {{-- @vite(['resources/js/app.js', 'resources/css/app.css']) --}}
 </head>
 
 <body class="ltr main-body app sidebar-mini">

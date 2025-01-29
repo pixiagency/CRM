@@ -14,4 +14,8 @@ class Industry extends Model
      * @var array<int, string>
      */
     protected $fillable = ['name'];
+    public function clients()
+    {
+        return $this->belongsToMany(Client::class, 'client_industry');
+    }
 }

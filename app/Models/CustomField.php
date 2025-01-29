@@ -18,4 +18,11 @@ class CustomField extends Model
     protected $casts = [
         'options' => 'array', // Cast JSON to array
     ];
+
+    // A custom field can belong to many clients
+    public function clients()
+    {
+        return $this->belongsToMany(Client::class, 'client_custom_fields')
+            ->withPivot('value'); 
+    }
 }

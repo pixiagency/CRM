@@ -14,4 +14,11 @@ class Service extends Model
     {
         return $this->hasMany(Category::class);
     }
+
+    // A service can belong to many clients
+    public function clients()
+    {
+        return $this->belongsToMany(Client::class, 'client_service')
+            ->withPivot('category_id'); 
+    }
 }

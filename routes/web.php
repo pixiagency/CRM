@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\AuthController;
+use App\Http\Controllers\Web\ClientController;
 use App\Http\Controllers\Web\UsersController;
 use App\Http\Controllers\web\ReasonController;
 use App\Http\Controllers\Web\ServiceController;
@@ -19,6 +20,7 @@ Route::group(['prefix' => 'authentication', 'middleware' => 'guest'], function (
 Route::get('/', function () {
     return view('welcome');
 });
+
 //auth routes
 Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function () {
     Route::get('/', function () {
@@ -48,6 +50,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function () {
     Route::resource('resources', ResourceController::class);
 
     Route::resource('custom-fields',CustomFieldController::class);
+    Route::resource('clients',ClientController::class);
 
     Route::get('role-permissions', [RolePermissionController::class, 'index'])->name('role-permissions.index');
     Route::get('role-permissions/{role}', [RolePermissionController::class, 'show'])->name('role-permissions.show');

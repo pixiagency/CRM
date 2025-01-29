@@ -24,6 +24,7 @@ class PermissionSeeder extends Seeder
             'reasons',
             'sources',
             'customFields',
+            'clients',
         ];
 
         $actions = [

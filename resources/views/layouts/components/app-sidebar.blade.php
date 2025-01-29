@@ -26,13 +26,13 @@
                     <ul class="slide-menu">
                         <li class="side-menu__label1"><a href="javascript:void(0);">Utilities</a></li>
                         @can('create industries')
-                            <li><a class="slide-item" data-is_active="{{request()->fullUrlIs(route('industries.create'))}}"
-                                    href="{{route('industries.create')}}">@lang('app.new_industry')</a></li>
+                        <li><a class="slide-item" data-is_active="{{request()->fullUrlIs(route('industries.create'))}}"
+                                href="{{route('industries.create')}}">@lang('app.new_industry')</a></li>
                         @endcan
 
                         @can('view industries')
-                            <li><a class="slide-item" data-is_active="{{request()->fullUrlIs(route('industries.index'))}}"
-                                    href="{{route('industries.index')}}">@lang('app.all_industries')</a></li>
+                        <li><a class="slide-item" data-is_active="{{request()->fullUrlIs(route('industries.index'))}}"
+                                href="{{route('industries.index')}}">@lang('app.all_industries')</a></li>
                         @endcan
                     </ul>
                 </li>
@@ -49,16 +49,16 @@
                     <ul class="slide-menu">
                         <li class="side-menu__label1"><a href="javascript:void(0);">Utilities</a></li>
                         @can('create services')
-                            <li>
-                                <a class="slide-item" data-is_active="{{ request()->fullUrlIs(route('services.create')) }}"
-                                    href="{{ route('services.create') }}">@lang('app.new_service')</a>
-                            </li>
+                        <li>
+                            <a class="slide-item" data-is_active="{{ request()->fullUrlIs(route('services.create')) }}"
+                                href="{{ route('services.create') }}">@lang('app.new_service')</a>
+                        </li>
                         @endcan
                         @can('view services')
-                            <li>
-                                <a class="slide-item" data-is_active="{{ request()->fullUrlIs(route('services.index')) }}"
-                                    href="{{ route('services.index') }}">@lang('app.all_services')</a>
-                            </li>
+                        <li>
+                            <a class="slide-item" data-is_active="{{ request()->fullUrlIs(route('services.index')) }}"
+                                href="{{ route('services.index') }}">@lang('app.all_services')</a>
+                        </li>
                         @endcan
                     </ul>
                 </li>
@@ -69,7 +69,8 @@
                 <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
                         <i class="fa fa-clipboard-list pe-3"></i> <!-- Icon for Reasons -->
-                        <span class="side-menu__label">@lang('app.reasons')</span><i class="angle fe fe-chevron-right"></i>
+                        <span class="side-menu__label">@lang('app.reasons')</span><i
+                            class="angle fe fe-chevron-right"></i>
                     </a>
                     <ul class="slide-menu">
                         <li class="side-menu__label1"><a href="javascript:void(0);">Utilities</a></li>
@@ -98,12 +99,22 @@
                     <ul class="slide-menu">
                         <li class="side-menu__label1"><a href="javascript:void(0);">Utilities</a></li>
                         @can('create locations')
-                            <li><a class="slide-item" data-is_active="{{request()->fullUrlIs(route('locations.create'))}}"
-                                    href="{{route('locations.create')}}">@lang('app.new_location')</a></li>
+                        {{-- <li><a class="slide-item"
+                                data-is_active="{{request()->fullUrlIs(route('locations.create'))}}"
+                                href="{{route('locations.create')}}">@lang('app.new_location')</a></li> --}}
+                        <li><a class="slide-item"
+                                data-is_active="{{request()->fullUrlIs(route('locations.countries.create'))}}"
+                                href="{{route('locations.countries.create')}}">@lang('app.new_country')</a></li>
+                        <li><a class="slide-item"
+                                data-is_active="{{request()->fullUrlIs(route('locations.governorates.create'))}}"
+                                href="{{route('locations.governorates.create')}}">@lang('app.new_governorate')</a></li>
+                        <li><a class="slide-item"
+                                data-is_active="{{request()->fullUrlIs(route('locations.cities.create'))}}"
+                                href="{{route('locations.cities.create')}}">@lang('app.new_city')</a></li>
                         @endcan
                         @can('view locations')
-                            <li><a class="slide-item" data-is_active="{{request()->fullUrlIs(route('locations.index'))}}"
-                                    href="{{route('locations.index')}}">@lang('app.all_locations')</a></li>
+                        <li><a class="slide-item" data-is_active="{{request()->fullUrlIs(route('locations.index'))}}"
+                                href="{{route('locations.index')}}">@lang('app.all_locations')</a></li>
                         @endcan
                     </ul>
                 </li>
@@ -114,15 +125,16 @@
                 <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
                         <i class="fa fa-box pe-3"></i> <!-- Icon for Resources -->
-                        <span class="side-menu__label">@lang('app.sources')</span><i class="angle fe fe-chevron-right"></i>
+                        <span class="side-menu__label">@lang('app.sources')</span><i
+                            class="angle fe fe-chevron-right"></i>
                     </a>
                     <ul class="slide-menu">
                         <li class="side-menu__label1"><a href="javascript:void(0);">Utilities</a></li>
                         @can('create sources')
-                            <li>
-                                <a class="slide-item" data-is_active="{{ request()->fullUrlIs(route('resources.create')) }}"
-                                    href="{{ route('resources.create') }}">@lang('app.new_source')</a>
-                            </li>
+                        <li>
+                            <a class="slide-item" data-is_active="{{ request()->fullUrlIs(route('resources.create')) }}"
+                                href="{{ route('resources.create') }}">@lang('app.new_source')</a>
+                        </li>
                         @endcan
                         @can('view sources')
                         <li>
@@ -139,21 +151,24 @@
                 <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
                         <i class="fa fa-list-alt pe-3"></i> <!-- Icon for Custom Fields -->
-                        <span class="side-menu__label">@lang('app.custom_fields')</span><i class="angle fe fe-chevron-right"></i>
+                        <span class="side-menu__label">@lang('app.custom_fields')</span><i
+                            class="angle fe fe-chevron-right"></i>
                     </a>
                     <ul class="slide-menu">
                         <li class="side-menu__label1"><a href="javascript:void(0);">Utilities</a></li>
                         @can('create customFields')
-                            <li>
-                                <a class="slide-item" data-is_active="{{ request()->fullUrlIs(route('custom-fields.create')) }}"
-                                    href="{{ route('custom-fields.create') }}">@lang('app.new_custom_field')</a>
-                            </li>
+                        <li>
+                            <a class="slide-item"
+                                data-is_active="{{ request()->fullUrlIs(route('custom-fields.create')) }}"
+                                href="{{ route('custom-fields.create') }}">@lang('app.new_custom_field')</a>
+                        </li>
                         @endcan
                         @can('view customFields')
-                            <li>
-                                <a class="slide-item" data-is_active="{{ request()->fullUrlIs(route('custom-fields.index')) }}"
-                                    href="{{ route('custom-fields.index') }}">@lang('app.all_custom_fields')</a>
-                            </li>
+                        <li>
+                            <a class="slide-item"
+                                data-is_active="{{ request()->fullUrlIs(route('custom-fields.index')) }}"
+                                href="{{ route('custom-fields.index') }}">@lang('app.all_custom_fields')</a>
+                        </li>
                         @endcan
                     </ul>
                 </li>
@@ -164,15 +179,17 @@
                 <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
                         <i class="fa fa-lock pe-3"></i>
-                        <span class="side-menu__label">@lang('app.permissions')</span><i class="angle fe fe-chevron-right"></i>
+                        <span class="side-menu__label">@lang('app.permissions')</span><i
+                            class="angle fe fe-chevron-right"></i>
                     </a>
                     <ul class="slide-menu">
                         <li class="side-menu__label1"><a href="javascript:void(0);">Utilities</a></li>
                         @can('view role-permissions')
-                            <li>
-                                <a class="slide-item" data-is_active="{{ request()->fullUrlIs(route('role-permissions.index')) }}"
-                                    href="{{ route('role-permissions.index') }}">@lang('app.role_permissions')</a>
-                            </li>
+                        <li>
+                            <a class="slide-item"
+                                data-is_active="{{ request()->fullUrlIs(route('role-permissions.index')) }}"
+                                href="{{ route('role-permissions.index') }}">@lang('app.role_permissions')</a>
+                        </li>
                         @endcan
                     </ul>
                 </li>

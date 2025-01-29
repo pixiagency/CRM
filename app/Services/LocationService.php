@@ -42,8 +42,32 @@ class LocationService extends BaseService
 
     public function datatable(array $filters = [], array $withRelations = [])
     {
-        $locations = $this->getQuery()->whereIsRoot()->with($withRelations);
+        $locations = $this->getQuery()->with($withRelations);
         return $locations->filter(new LocationFilters($filters));
+    }
+
+    public function create()
+    {
+        $level = request()->segment(count(request()->segments()));
+        $blade = match ($level) {
+            'countries' => 'layouts.dashboard.location.country.create',
+            'governorates' => 'layouts.dashboard.location.governorate.create',
+            'cities' => 'layouts.dashboard.location.city.create',
+            default => 'livewire.error404',
+        };
+        return $blade;
+    }
+
+    public function edit($id)
+    {
+        $level = request()->segment(3);
+        $blade = match ($level) {
+            'countries' => 'layouts.dashboard.location.country.edit',
+            'governorates' => 'layouts.dashboard.location.governorate.edit',
+            'cities' => 'layouts.dashboard.location.city.edit',
+            default => 'livewire.error404',
+        };
+        return $blade;
     }
 
     public function store(LocationDTO $locationDTO)
@@ -70,15 +94,54 @@ class LocationService extends BaseService
         return $this->getQuery()->where('id', $id)->delete();
     }
 
-    public function storeArea(LocationDTO $locationDTO)
+    public function storeSubLocation(LocationDTO $locationDTO)
     {
         $location_data = $locationDTO->toArray();
         $location = $this->model->create($location_data);
 
         // #2 Using parent node
-        $city_id = $locationDTO->getCityId();
-        $city = $this->findById($city_id);
-        $city->appendNode($location);
+        $parent_id = $locationDTO->getParentId();
+        $parent = $this->findById($parent_id);
+        $parent->appendNode($location);
+
+        return $location;
+    }
+
+    public function updateSubLocation(LocationDTO $locationDTO , $locationId)
+    {
+        // $location_data = $locationDTO->toArray();
+        // $location = $this->model->create($location_data);
+
+        // // #2 Using parent node
+        // $parent_id = $locationDTO->getParentId();
+        // $parent = $this->findById($parent_id);
+        // $parent->appendNode($location);
+
+        // return $location;
+
+        // Fetch the existing location by ID
+        $location = $this->findById($locationId);
+
+        if (!$location) {
+            throw new \Exception("Location not found.");
+        }
+
+        // Update location data
+        $location_data = $locationDTO->toArray();
+        $location->update($location_data);
+
+        // Check if parent_id has changed
+        $newParentId = $locationDTO->getParentId();
+        if ($newParentId && $newParentId != $location->parent_id) {
+            $newParent = $this->findById($newParentId);
+
+            if (!$newParent) {
+                throw new \Exception("Parent location not found.");
+            }
+
+            // Move the node to the new parent
+            $newParent->appendNode($location);
+        }
 
         return $location;
     }

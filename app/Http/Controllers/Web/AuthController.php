@@ -38,6 +38,11 @@ class AuthController extends Controller
         }
     }
 
+    public function getProfile()
+    {
+        return view('layouts.dashboard.auth.login');
+    }
+
     public function logout()
     {
         Auth::logout();

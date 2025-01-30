@@ -15,10 +15,10 @@ class Client extends Model
     }
 
     // A client belongs to one city
-    // public function city()
-    // {
-    //     return $this->belongsTo(City::class);
-    // }
+    public function city()
+    {
+        return $this->belongsTo(Location::class, 'city_id');
+    }
 
     // A client can have many industries
     public function industries()

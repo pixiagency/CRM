@@ -26,6 +26,7 @@ class StoreClientRequest extends FormRequest
             'phone' => 'required|string|max:20',
             'email' => 'required|email|unique:clients,email',
             'address' => 'required|string|max:255',
+            'city_id' => 'nullable|integer|exists:locations,id',
             'resource_id' => 'required|integer|exists:resources,id',
             'industries' => 'nullable|array',
             'industries.*' => 'integer|exists:industries,id',

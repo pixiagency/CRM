@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\ActivationStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,18 +15,17 @@ return new class extends Migration
         Schema::create('locations', function (Blueprint $table) {
             $table->id();
             $table->text('title');
-            $table->tinyInteger('status')->default(1);
+            $table->enum('status', ActivationStatus::values())->default(ActivationStatus::INACTIVE->value);
             $table->unsignedInteger('_lft');
             $table->unsignedInteger('_rgt');
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->timestamps();
 
-            // Ensure parent_id is strictly enforced
             $table->foreign('parent_id')
             ->references('id')
             ->on('locations')
-            ->onDelete('RESTRICT')  // Prevent deletion if it has children
-            ->onUpdate('RESTRICT'); // Prevent parent_id update
+            ->onDelete('RESTRICT')
+            ->onUpdate('RESTRICT'); 
         });
     }
 

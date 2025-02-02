@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ActivationStatus;
 use App\Traits\Filterable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,6 +18,10 @@ class Location extends Model
      * @var array<int, string>
      */
     protected $fillable = ['title', 'status', '_lft', '_lgt', 'parent_id'];
+
+    public $casts = [
+        'status' => ActivationStatus::class,
+    ];
 
 
     public function parent()

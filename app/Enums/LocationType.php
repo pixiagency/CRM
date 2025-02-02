@@ -2,13 +2,11 @@
 
 namespace App\Enums;
 
-
-
 enum LocationType: int
 {
-    case Country = 1;
-    case Governorate = 2;
-    case City = 3;
+    case COUNTRY = 0;
+    case GOVERNORATE = 1;
+    case CITY = 2;
 
     /**
      * Get a label for each type (optional).
@@ -16,9 +14,9 @@ enum LocationType: int
     public function label(): string
     {
         return match ($this) {
-            self::Country => 'Country',
-            self::Governorate => 'Governorate',
-            self::City => 'City',
+            self::COUNTRY => 'Country',
+            self::GOVERNORATE => 'Governorate',
+            self::CITY => 'City',
         };
     }
 }

@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Locations;
 
+use App\Enums\ActivationStatus;
 use App\Http\Requests\BaseRequest;
+use Illuminate\Validation\Rule;
 
 class LocationStoreRequest extends BaseRequest
 {
@@ -21,6 +23,7 @@ class LocationStoreRequest extends BaseRequest
     {
         return [
             'title' => 'required|string',
+            'status' => ['required', Rule::enum(ActivationStatus::class)],
         ];
     }
 }

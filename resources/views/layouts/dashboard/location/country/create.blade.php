@@ -39,6 +39,20 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="col-lg d-flex justify-content-center">
+                            <div class="form-group d-flex align-items-center">
+                                <label class="custom-switch">
+                                    <span class="custom-switch-description  tx-17 me-2">Status</span>
+                                    <input type="hidden" name="status" value="inactive">
+                                    <input type="checkbox" name="status" class="custom-switch-input" value="active">
+                                    <span
+                                        class="custom-switch-indicator custom-switch-indicator-lg custom-square"></span>
+                                </label>
+                                @error('status')
+                                <div class="text-danger"> {{$message}}</div>
+                                @enderror
+                            </div>
+                        </div>
                     </div>
 
                     <div class="card-footer mt-4">
@@ -63,5 +77,18 @@
 
 @endsection
 @section('script_footer')
+<script>
+    $('.main-toggle').on('click', function() {
+        $(this).toggleClass('on');
+    })
+
+    $(document).ready(function () {
+        $("#status-toggle").change(function () {
+            let status = $(this).is(":checked") ? "active" : "inactive";
+            $(".main-toggle").attr("data-status", status);
+            console.log("Status:", status);
+        });
+    });
+</script>
 
 @endsection

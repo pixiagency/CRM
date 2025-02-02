@@ -3,7 +3,9 @@
 namespace App\Http\Requests\Locations;
 
 use App\DTO\Location\LocationDTO;
+use App\Enums\ActivationStatus;
 use App\Http\Requests\BaseRequest;
+use Illuminate\Validation\Rule;
 
 class SubLocationStoreRequest extends BaseRequest
 {
@@ -22,6 +24,7 @@ class SubLocationStoreRequest extends BaseRequest
     {
         return [
             'title' => 'required|string',
+            'status' => ['required', Rule::enum(ActivationStatus::class)],
             'parent_id' => 'required|integer|exists:locations,id',
         ];
     }

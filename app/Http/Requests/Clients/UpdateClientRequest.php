@@ -28,6 +28,7 @@ class UpdateClientRequest extends FormRequest
             'phone' => 'sometimes|string|max:20',
             'email' => 'sometimes|email|unique:clients,email,' . $clientId,
             'address' => 'sometimes|string|max:255',
+            'city_id' => 'nullable|integer|exists:locations,id',
             'resource_id' => 'sometimes|integer|exists:resources,id',
             'industries' => 'nullable|array',
             'industries.*' => 'integer|exists:industries,id',

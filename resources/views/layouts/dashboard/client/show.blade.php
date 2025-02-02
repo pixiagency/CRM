@@ -1,6 +1,3 @@
-@php
-use \Illuminate\Support\Arr;
-@endphp
 @extends('layouts.app')
 
 @section('content')
@@ -15,9 +12,10 @@ use \Illuminate\Support\Arr;
     <!-- Row -->
     <div class="row">
         <div class="col-md-12 col-xl-12 col-xs-12 col-sm-12">
-            <!--div-->
+            <!-- Client Details Card -->
             <div class="card">
                 <div class="card-body">
+                    <h4 class="mb-4">@lang('app.client_details')</h4>
                     <div class="row row-sm mb-4">
                         <div class="col-lg">
                             <div class="main-content-label mg-b-5">@lang('app.name')</div>
@@ -28,41 +26,70 @@ use \Illuminate\Support\Arr;
                             <label class="form-control">{{ $client->phone }}</label>
                         </div>
                     </div>
-
-                    <!-- Display sources if they exist -->
-                    @if($client->sources->isNotEmpty())
-                        <div class="row row-sm mb-4">
-                            <div class="col-lg">
-                                <div class="main-content-label mg-b-5">@lang('app.sources')</div>
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>@lang('app.category_name')</th>
-                                            <th>@lang('app.price')</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach($client->sources as $category)
-                                            <tr>
-                                                <td>{{ $category->name }}</td>
-
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
+                    <div class="row row-sm mb-4">
+                        <div class="col-lg">
+                            <div class="main-content-label mg-b-5">@lang('app.email')</div>
+                            <label class="form-control">{{ $client->email }}</label>
                         </div>
-                    @else
-                        <div class="row row-sm mb-4">
-                            <div class="col-lg">
-                                <div class="main-content-label mg-b-5">@lang('app.sources')</div>
-                                <label class="form-control">@lang('app.no_sources_found')</label>
-                            </div>
+                        <div class="col-lg">
+                            <div class="main-content-label mg-b-5">@lang('app.address')</div>
+                            <label class="form-control">{{ $client->address }}</label>
                         </div>
-                    @endif
+                    </div>
+
+                    <!-- Resource -->
+                    <div class="row row-sm mb-4">
+                        <div class="col-lg">
+                            <div class="main-content-label mg-b-5">@lang('app.resource')</div>
+                            <label class="form-control">{{ $client->resource->name ?? '-' }}</label>
+                        </div>
+                    </div>
+
+                    <!-- Industries -->
+                    <div class="row row-sm mb-4">
+                        <div class="col-lg">
+                            <div class="main-content-label mg-b-5">@lang('app.industries')</div>
+                            <ul class="list-group">
+                                @foreach ($client->industries as $industry)
+                                    <li class="list-group-item">{{ $industry->name }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Services -->
+                    <div class="row row-sm mb-4">
+                        <div class="col-lg">
+                            <div class="main-content-label mg-b-5">@lang('app.services')</div>
+                            <ul class="list-group">
+                                @foreach ($client->services as $service)
+                                    <li class="list-group-item">
+                                        {{ $service->name }}
+                                        <span class="badge badge-primary">
+                                            {{ $service->pivot->category_id ? 'Category: ' . $service->pivot->category_id : 'No Category' }}
+                                        </span>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Custom Fields -->
+                    <div class="row row-sm mb-4">
+                        <div class="col-lg">
+                            <div class="main-content-label mg-b-5">@lang('app.custom_fields')</div>
+                            <ul class="list-group">
+                                @foreach ($client->customFields as $field)
+                                    <li class="list-group-item">
+                                        {{ $field->name }}: <strong>{{ $field->pivot->value }}</strong>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- End Row -->
+
 @endsection

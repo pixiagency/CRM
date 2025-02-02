@@ -25,6 +25,7 @@ class PermissionSeeder extends Seeder
             'sources',
             'customFields',
             'clients',
+            'role-permissions',
         ];
 
         $actions = [
@@ -42,8 +43,7 @@ class PermissionSeeder extends Seeder
 
         Permission::create(['name' => 'create areas']);
         Permission::create(['name' => 'store areas']);
-        Permission::create(['name' => 'view role-permissions']);
-        Permission::create(['name' => 'update role-permissions']);
+        
     }
 
 }

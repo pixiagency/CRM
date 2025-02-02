@@ -34,7 +34,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function () {
     Route::resource('industries', IndustryController::class);
     Route::resource('services', ServiceController::class);
 
-    
+
     // Route::get('locations/', [LocationController::class, 'createArea'])->name('locations.areas.create');
     Route::get('locations/cities', [LocationController::class, 'create'])->name('locations.cities.create');
     Route::get('locations/governorates', [LocationController::class, 'create'])->name('locations.governorates.create');
@@ -51,10 +51,14 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function () {
 
     Route::resource('custom-fields',CustomFieldController::class);
     Route::resource('clients',ClientController::class);
+    Route::resource('role-permissions', RolePermissionController::class)->parameters([
+        'role-permissions' => 'role'
+    ]);
 
-    Route::get('role-permissions', [RolePermissionController::class, 'index'])->name('role-permissions.index');
-    Route::get('role-permissions/{role}', [RolePermissionController::class, 'show'])->name('role-permissions.show');
-    Route::put('role-permissions/{role}', [RolePermissionController::class, 'update'])->name('role-permissions.update');
+
+    // Route::get('role-permissions', [RolePermissionController::class, 'index'])->name('role-permissions.index');
+    // Route::get('role-permissions/{role}', [RolePermissionController::class, 'show'])->name('role-permissions.show');
+    // Route::put('role-permissions/{role}', [RolePermissionController::class, 'update'])->name('role-permissions.update');
 
 
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
@@ -73,16 +77,16 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function () {
     })->name('clear.cache');
     Route::get('/migrate-fresh/{password}', function ($password) {
         if ($password == 150024) {
-    
+
             \Illuminate\Support\Facades\Artisan::call('migrate:fresh --seed');
             return "migrate fresh success";
         }
     })->name('migrate-fresh');
-    
-    
+
+
     Route::get('/migrate/{password}', function ($password) {
         if ($password == 1234) {
-    
+
             \Illuminate\Support\Facades\Artisan::call('migrate');
             return "migrate fresh success";
         }

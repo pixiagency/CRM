@@ -48,21 +48,25 @@ class ClientService extends BaseService
     public function store(ClientDTO $clientDTO)
     {
         $clientData = $clientDTO->toArray();
-
-        // Create the client in the clients table
+        // dd( $clientData);
+        // Create the client
         $client = $this->model->create($clientData);
-
-        // Handle industries relationship
+        // Sync industries
         if ($clientDTO->industries) {
             $client->industries()->sync($clientDTO->industries);
         }
-
-        // Handle services relationship
+        // Sync services correctly
         if ($clientDTO->services) {
-            $client->services()->sync($clientDTO->services);
+            $servicesData = [];
+            foreach ($clientDTO->services as $serviceId) {
+                if (is_numeric($serviceId) && $serviceId > 0) {
+                    $categoryId = $clientDTO->serviceCategories[$serviceId] ?? null;
+                    $servicesData[$serviceId] = ['category_id' => $categoryId];
+                }
+            }
+            $client->services()->sync($servicesData);
         }
-
-        // Handle custom fields relationship
+        // Sync custom fields
         if ($clientDTO->customFields) {
             $customFieldsData = [];
             foreach ($clientDTO->customFields as $fieldId => $value) {
@@ -70,36 +74,39 @@ class ClientService extends BaseService
             }
             $client->customFields()->sync($customFieldsData);
         }
-
         return $client;
     }
+
 
     public function update(int $id, ClientDTO $clientDTO)
     {
         // Find the client by ID or fail if not found
         $client = $this->model->findOrFail($id);
-
         // Update client fields
         $clientData = $clientDTO->toArray();
         $client->update($clientData);
-
         // Handle industries relationship
-        if ($clientDTO->industries) {
+        if (!empty($clientDTO->industries)) {
             $client->industries()->sync($clientDTO->industries);
         } else {
-            $client->industries()->detach();
+            $client->industries()->detach(); // Remove all industries if empty
         }
-
-        // Handle services relationship
-        if ($clientDTO->services) {
-            $client->services()->sync($clientDTO->services);
+        // Handle services and categories
+        $servicesData = [];
+        if (!empty($clientDTO->services)) {
+            foreach ($clientDTO->services as $serviceId) {
+                if (is_numeric($serviceId) && $serviceId > 0) {
+                    $categoryId = $clientDTO->serviceCategories[$serviceId] ?? null;
+                    $servicesData[$serviceId] = ['category_id' => $categoryId];
+                }
+            }
+            $client->services()->sync($servicesData);
         } else {
             $client->services()->detach();
         }
-
         // Handle custom fields relationship
-        if ($clientDTO->customFields) {
-            $customFieldsData = [];
+        $customFieldsData = [];
+        if (!empty($clientDTO->customFields)) {
             foreach ($clientDTO->customFields as $fieldId => $value) {
                 $customFieldsData[$fieldId] = ['value' => $value];
             }
@@ -107,8 +114,13 @@ class ClientService extends BaseService
         } else {
             $client->customFields()->detach();
         }
-
         return $client;
+    }
+
+
+    public function delete(int $id)
+    {
+        return $this->getQuery()->where('id', $id)->delete();
     }
 
 }

@@ -1,5 +1,10 @@
 @extends('layouts.app')
 
+@section('styles')
+    <!--Internal Sumoselect css-->
+    <link rel="stylesheet" href="{{asset('assets/plugins/sumoselect/sumoselect.css')}}">
+@endsection
+
 @section('content')
 
 {{-- Breadcrumb --}}
@@ -62,11 +67,10 @@
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-                                </div>
-                            </div>
+                        </div>
+                    </div>
 
-
-                        <div class="row row-sm mb-4">
+                    <div class="row row-sm mb-4">
                         <div class="col-lg">
                             <div class="form-group">
                                 <div class="main-content-label mg-b-5">@lang('app.email') *</div>
@@ -81,10 +85,10 @@
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-                            </div>
-                            </div>
+                        </div>
+                    </div>
 
-                        <div class="row row-sm mb-4">
+                    <div class="row row-sm mb-4">
                         <div class="col-lg">
                             <div class="form-group">
                                 <div class="main-content-label mg-b-5">@lang('app.address') *</div>
@@ -96,13 +100,23 @@
                                     type="text"
                                 >
                                 @error('address')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
-
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <label for="city">@lang('app.city')</label>
+                        <select name="city_id" class="form-control">
+                            <option value="">@lang('app.select_city')</option>
+                            @foreach ($cities as $city)
+                                <option value="{{ $city->id }}" {{ old('city_id', $client->city_id ?? '') == $city->id ? 'selected' : '' }}>
+                                    {{ $city->title }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
 
                     <div class="row row-sm mb-4">
                         <!-- Resource -->
@@ -119,13 +133,65 @@
                                 </select>
                                 @error('resource_id')
                                     <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="row row-sm mb-4">
+                        <!-- Industries -->
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <div class="main-content-label mg-b-5">@lang('app.industry') *</div>
+                                <select  id="industry-select" name="industry[]" class="selectsum1" multiple="multiple">
+
+                                    @foreach ($industries as $industry)
+                                        <option value="{{ $industry->id }}" {{ (collect(old('industry'))->contains($industry->id)) ? 'selected' : '' }}>
+                                            {{ $industry->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('industry')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                     </div>
 
 
+                    <!-- Services -->
+                    <div class="row row-sm mb-4">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <div class="main-content-label mg-b-5">@lang('app.services') *</div>
+                                <select id="services-select" name="services[]" class="selectsum1" multiple="multiple">
+                                    @foreach ($services as $service)
+                                        <option value="{{ $service->id }}" {{ collect(old('services'))->contains($service->id) ? 'selected' : '' }}>
+                                            {{ $service->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Categories -->
+                    @foreach ($services as $service)
+                        @if ($service->categories->isNotEmpty())
+                            <div id="categories-{{ $service->id }}" class="form-group category-select" style="display: none;">
+                                <label>@lang('app.categories') for {{ $service->name }}</label>
+                                <select name="services[{{ $service->id }}][category_id]" class="form-control">
+                                    <option value="">@lang('app.select_category')</option>
+                                    @foreach ($service->categories as $category)
+                                        <option value="{{ $category->id }}" {{ old("services.{$service->id}.category_id") == $category->id ? 'selected' : '' }}>
+                                            {{ $category->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        @endif
+                    @endforeach
 
                     <div class="row row-sm mb-4">
                         <!-- Custom Fields -->
@@ -154,63 +220,6 @@
                         </div>
                     </div>
 
-                    <div class="row row-sm mb-4">
-                        <!-- Industries -->
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <div class="main-content-label mg-b-5">@lang('app.industry') *</div>
-                                <div class="d-flex flex-wrap">
-                                    @foreach ($industries as $industry)
-                                        <div class="form-check me-3 mb-2">
-                                            <input
-                                                class="form-check-input"
-                                                type="checkbox"
-                                                name="industry[]"
-                                                value="{{ $industry->id }}"
-                                                id="industry-{{ $industry->id }}"
-                                                {{ (collect(old('industry'))->contains($industry->id)) ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="industry-{{ $industry->id }}">
-                                                {{ $industry->name }}
-                                            </label>
-                                        </div>
-                                    @endforeach
-                                </div>
-                                @error('industry')
-                                    <div class="text-danger">{{ $message }}</div>@enderror
-                                </div>
-                            </div>
-                            </div>
-
-
-                    <div class="row row-sm mb-4">
-                        <!-- Services -->
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <div class="main-content-label mg-b-5">@lang('app.services') *</div>
-                                <div class="d-flex flex-wrap">
-                                    @foreach ($services as $service)
-                                        <div class="form-check me-3 mb-2">
-                                            <input
-                                                class="form-check-input"
-                                                type="checkbox"
-                                                name="services[]"
-                                                value="{{ $service->id }}"
-                                                id="service-{{ $service->id }}"
-                                                {{ (collect(old('services'))->contains($service->id)) ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="service-{{ $service->id }}">
-                                                {{ $service->name }}
-                                            </label>
-                                        </div>
-                                    @endforeach
-                                </div>
-                                @error('services')
-                                    <div class="text-danger">{{ $message }}</div>@enderror
-                                </div>
-                            </div>
-                        </div>
-
-
-
                     <div class="card-footer mt-4">
                         <div class="form-group mb-0 mt-3 justify-content-end">
                             <div>
@@ -232,4 +241,56 @@
 
 @push('scripts')
     <!-- Additional scripts can be added here -->
+
+    <!--Internal Fileuploads js-->
+    <script src="{{asset('assets/plugins/fileuploads/js/fileupload.js')}}"></script>
+    <script src="{{asset('assets/plugins/fileuploads/js/file-upload.js')}}"></script>
+
+    <!--Internal Fancy uploader js-->
+    <script src="{{asset('assets/plugins/fancyuploder/jquery.ui.widget.js')}}"></script>
+    <script src="{{asset('assets/plugins/fancyuploder/jquery.fileupload.js')}}"></script>
+    <script src="{{asset('assets/plugins/fancyuploder/jquery.iframe-transport.js')}}"></script>
+    <script src="{{asset('assets/plugins/fancyuploder/jquery.fancy-fileupload.js')}}"></script>
+    <script src="{{asset('assets/plugins/fancyuploder/fancy-uploader.js')}}"></script>
+
+    <!--Internal  Form-elements js-->
+    <script src="{{asset('assets/js/advanced-form-elements.js')}}"></script>
+    <script src="{{asset('assets/js/select2.js')}}"></script>
+
+    <!--Internal Sumoselect js-->
+    <script src="{{asset('assets/plugins/sumoselect/jquery.sumoselect.js')}}"></script>
+
+    <script>
+        $(document).ready(function() {
+    // Initialize SumoSelect for services
+    $('#services-select').SumoSelect({
+        placeholder: 'Select Services',
+        csv: true,
+        search: true,
+        searchText: 'Search...',
+        noMatch: 'No matches found',
+        selectAll: true,
+        okCancel: true
+    });
+
+    // Show/hide categories based on selected services
+    $('#services-select').on('change', function() {
+        var selectedServices = $(this).val();
+        $('.category-select').hide(); // Hide all category dropdowns
+        if (selectedServices) {
+            selectedServices.forEach(function(serviceId) {
+                $('#categories-' + serviceId).show(); // Show the category dropdown for the selected service
+            });
+        }
+    });
+
+    // Initialize the categories display based on pre-selected services
+    var preSelectedServices = $('#services-select').val();
+    if (preSelectedServices) {
+        preSelectedServices.forEach(function(serviceId) {
+            $('#categories-' + serviceId).show();
+        });
+    }
+});
+    </script>
 @endpush

@@ -28,12 +28,12 @@ class Location extends Model
     {
         return $this->belongsTo(Location::class, 'parent_id');
     }
-    
+
     public function children()
     {
         return $this->hasMany(Location::class, 'parent_id');
     }
-    
+
 
 
     //////////////// scopes ////////////////
@@ -41,12 +41,12 @@ class Location extends Model
     {
         return $query->withDepth()->having('depth', 0)->where('status', 1);
     }
-    
+
     public function scopeGovernorates($query)
     {
         return $query->withDepth()->having('depth', 1)->where('status', 1);
     }
-    
+
     public function scopeCities($query)
     {
         return $query->withDepth()->having('depth', 2)->where('status',1);
@@ -55,5 +55,10 @@ class Location extends Model
     public function scopeActive(Builder $query)
     {
         return $query->where('status', 1);
+    }
+
+    public function clients()
+    {
+        return $this->hasMany(Client::class, 'city_id');
     }
 }

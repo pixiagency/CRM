@@ -174,8 +174,33 @@
                 </li>
                 @endcanany
 
+                <!-- Client Menu -->
+                @canany(['create clients', 'view clients'])
+                <li class="slide">
+                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
+                        <i class="fa fa-users pe-3"></i> <!-- Icon for Clients -->
+                        <span class="side-menu__label">@lang('app.clients')</span><i class="angle fe fe-chevron-right"></i>
+                    </a>
+                    <ul class="slide-menu">
+                        <li class="side-menu__label1"><a href="javascript:void(0);">Utilities</a></li>
+                        @can('create clients')
+                        <li>
+                            <a class="slide-item" data-is_active="{{ request()->fullUrlIs(route('clients.create')) }}"
+                                href="{{ route('clients.create') }}">@lang('app.new_client')</a>
+                        </li>
+                        @endcan
+                        @can('view clients')
+                        <li>
+                            <a class="slide-item" data-is_active="{{ request()->fullUrlIs(route('clients.index')) }}"
+                                href="{{ route('clients.index') }}">@lang('app.all_clients')</a>
+                        </li>
+                        @endcan
+                    </ul>
+                </li>
+                @endcanany
+
                 <!-- Role Permissions Menu -->
-                @canany(['view role-permissions', 'update role-permissions'])
+                @canany(['view role-permissions', 'create role-permissions'])
                 <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
                         <i class="fa fa-lock pe-3"></i>
@@ -189,6 +214,13 @@
                             <a class="slide-item"
                                 data-is_active="{{ request()->fullUrlIs(route('role-permissions.index')) }}"
                                 href="{{ route('role-permissions.index') }}">@lang('app.role_permissions')</a>
+                        </li>
+                        @endcan
+                        @can('create role-permissions')
+                        <li>
+                            <a class="slide-item"
+                                data-is_active="{{ request()->fullUrlIs(route('role-permissions.create')) }}"
+                                href="{{ route('role-permissions.create') }}">@lang('app.create_role')</a>
                         </li>
                         @endcan
                     </ul>

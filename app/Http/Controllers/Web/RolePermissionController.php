@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\DTO\RolePermission\RolePermissionDTO;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use App\Services\RolePermissionService;
+use App\DTO\RolePermission\RolePermissionDTO;
+use App\Http\Requests\Roles\RoleStoreRequest;
 
 class RolePermissionController extends Controller
 {
     public function __construct(protected RolePermissionService $rolePermissionService) {
         $this->middleware('permission:view role-permissions', ['only' => ['index']]);
-        $this->middleware('permission:update role-permissions', ['only' => ['show','update']]);
+        $this->middleware('permission:edit role-permissions', ['only' => ['show','update']]);
+        $this->middleware('permission:create role-permissions', ['only' => ['store','create']]);
 
     }
 
@@ -42,5 +44,25 @@ class RolePermissionController extends Controller
                 'title' => 'Success',
                 'message' => 'Role permissions updated successfully.',
             ]);
+    }
+
+    // Show role creation form
+    public function create()
+    {
+        $permissions = $this->rolePermissionService->getAllPermissions();
+        return view('layouts.dashboard.rolePermission.create', compact('permissions'));
+    }
+
+    // Store a new role and assign permissions
+    public function store(RoleStoreRequest $request)
+    {
+
+        $this->rolePermissionService->createRoleWithPermissions($request->all());
+        $toast = [
+            'type' => 'success',
+            'title' => 'success',
+            'message' => trans('app.role_created_successfully')
+        ];
+        return to_route('role-permissions.index')->with('toast', $toast);
     }
 }

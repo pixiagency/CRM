@@ -16,7 +16,17 @@
                                     <!--div-->
                                     <div class="row row-sm">
                                         <div class="col-md-3 mb-2">
-                                            {{-- @livewire('company') --}}
+                                            <div class="form-group">
+                                                <label class="main-content-label mg-b-5">app.status</label>
+                                                <select name="status" class="form-control form-select">
+                                                    <option disabled hidden selected>@lang('app.select_status')</option>
+                                                    @forelse (App\Enums\ActivationStatus::values() as $item)
+                                                    <option value="{{ $item }}">{{ $item }}</option>
+                                                    @empty
+                                                    <option value="">@lang('app.no_option')</option>
+                                                    @endforelse
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

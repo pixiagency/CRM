@@ -2,6 +2,8 @@
 
 namespace App\DataTables;
 
+use App\Enums\ActivationStatus;
+use App\Enums\LocationType;
 use App\Models\Location;
 use App\Services\LocationService;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
@@ -29,8 +31,21 @@ class LocationsDataTable extends DataTable
                     ['name' => "locations[]", 'value' => $location->id]
                 );
             })
+            ->addColumn('status', function (Location $location) {
+                $badgeClass = $location->status === ActivationStatus::ACTIVE ? 'badge-success-transparent' : 'badge-danger-transparent';
+                return '<span class="badge ' . $badgeClass . '">' . $location->status->label() . '</span>';
+            })
+            ->orderColumn('status', 'status $1')
+            ->addColumn('created_at', function (Location $location) {
+                return $location->created_at->format('d-m-Y');
+            })
+            ->orderColumn('created_at', 'created_at $1')
+            ->addColumn('type', function (Location $location) {
+                return LocationType::From($location->depth)->label();
+                // return $location->depth;
+            })
             ->addColumn('action', function (Location $location) {
-                $result = Location::withDepth()->find($location->id)->depth;
+                $result = $location->depth;
 
                 $path = match ($result) {
                 0 => 'locations.countries.edit',
@@ -43,6 +58,7 @@ class LocationsDataTable extends DataTable
                     ['model' => $location, 'path' => $path ,'url' => route('locations.destroy', $location->id)]
                 );
             })
+            ->rawColumns(['status'])
             ->setRowId('id');
     }
 
@@ -51,7 +67,7 @@ class LocationsDataTable extends DataTable
      */
     public function query(LocationService $locationService): QueryBuilder
     {
-        return  $locationService->datatable([], []);
+        return  $locationService->datatable([], [])->withDepth();
     }
 
     /**
@@ -84,6 +100,8 @@ class LocationsDataTable extends DataTable
         return [
             Column::make('id'),
             Column::make('title'),
+            Column::make('status'),
+            Column::make('type')->orderable(false),   
             Column::make('created_at'),
             Column::computed('action')
                 ->exportable(false)

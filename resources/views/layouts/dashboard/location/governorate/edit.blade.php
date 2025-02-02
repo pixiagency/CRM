@@ -46,6 +46,23 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="col-lg d-flex justify-content-center">
+                            <div class="form-group d-flex align-items-center">
+                                <label class="custom-switch">
+                                    <span class="custom-switch-description  tx-17 me-2">Status</span>
+                                    <input type="hidden" name="status" value="inactive"
+                                        @checked($location->status->value
+                                    == 'inactive')>
+                                    <input type="checkbox" name="status" class="custom-switch-input" value="active"
+                                        @checked($location->status->value == 'active')>
+                                    <span
+                                        class="custom-switch-indicator custom-switch-indicator-lg custom-square"></span>
+                                </label>
+                                @error('status')
+                                <div class="text-danger"> {{$message}}</div>
+                                @enderror
+                            </div>
+                        </div>
                     </div>
 
                     <div class="card-footer mt-4">

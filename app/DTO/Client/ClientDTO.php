@@ -22,6 +22,13 @@ class ClientDTO extends BaseDTO
 
     public static function fromRequest($request): BaseDTO
     {
+        $services = $request->input('services', []);
+
+        // This collects the service_id => category_id pairs out of the nested array
+        $serviceCategories = [];
+        foreach ($services as $serviceId => $nestedData) {
+            $serviceCategories[$serviceId] = $nestedData['category_id'] ?? null;
+        }
         return new self(
             name: $request->input('name'),
             phone: $request->input('phone'),
@@ -30,8 +37,8 @@ class ClientDTO extends BaseDTO
             city_id: $request->input('city_id'),
             resource_id: $request->input('resource_id'),
             industries: $request->input('industry'),
-            services: $request->input('services'),
-            serviceCategories: $request->input('serviceCategories', []),
+            services: array_keys($services),  // Extract only the IDs
+            serviceCategories: $serviceCategories,
             customFields: $request->input('custom_fields'),
 
         );
@@ -48,7 +55,7 @@ class ClientDTO extends BaseDTO
             'resource_id' => $this->resource_id,
             'industries' => $this->industries,
             'services' => $this->services,
-            'serviceCategories'=> $this->services,
+            'serviceCategories'=> $this->serviceCategories,
             'customFields' => $this->customFields,
         ];
     }

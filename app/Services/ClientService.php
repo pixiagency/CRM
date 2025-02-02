@@ -48,6 +48,7 @@ class ClientService extends BaseService
     public function store(ClientDTO $clientDTO)
     {
         $clientData = $clientDTO->toArray();
+        // dd( $clientData);
         // Create the client
         $client = $this->model->create($clientData);
         // Sync industries

@@ -52,6 +52,28 @@ return array (
   'industries_title' => 'All Industries',
 
 
+  //pipline
+  'piplines_title' => 'All pipeline',
+  'piplines' => 'pipelines',
+  'pipline' => 'pipeline',
+  'create_pipline' => 'Create pipeline',
+  'pipline_name' => 'pipeline Name',
+  'Stages' => 'Stages',
+  'all_piplines' => 'All pipeline',
+  'Stage Name' => 'Stage Name',
+  'Add Stage' => 'Add Stage',
+  'show_pipline' => 'Show pipeline',
+  'show_pipline_title' => 'Show pipeline',
+  'stage_details' => 'Stage Details',
+  'update' => 'Update',
+  'edit_pipline' => 'Edit Pipline',
+  'pipline_created_successfully' => 'Pipline Created Successfully',
+  'pipline_updated_successfully' => 'Pipline Updated Successfully',
+  'pipline_deleted_successfully' => 'Pipline Deleted Successfully',
+
+
+
+
 
   'branch' => 'Branch',
   'branch_address' => 'Branch Address',

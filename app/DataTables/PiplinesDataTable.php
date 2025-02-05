@@ -38,17 +38,22 @@ class PiplinesDataTable extends DataTable
             ->addColumn('created_at', function (Pipline $iipline) {
                 return $iipline->created_at->format('d-m-Y');
             })
+            ->addColumn('stages', function (Pipline $pipline) {
+                return $pipline->stages->pluck('name')->join(' , ');
+            })
             ->orderColumn('created_at', 'created_at $1')
             ->setRowId(content: 'id');
     }
 
+
     /**
      * Get the query source of dataTable.
      */
-    public function query(PiplineService $iiplineService): QueryBuilder
+    public function query(PiplineService $piplineService): QueryBuilder
     {
-        return  $iiplineService->datatable([], []);
+        return  $piplineService->datatable([], ['stages']);
     }
+
 
     /**
      * Optional method if you want to use the html builder.
@@ -83,6 +88,7 @@ class PiplinesDataTable extends DataTable
             <span class="custom-control-label custom-control-label-md  tx-17"></span></label>')->searchable(false)->orderable(false),
             Column::make('id'),
             Column::make('name'),
+            Column::make('stages')->title(__('Stages')),
             Column::make('created_at'),
             Column::computed('action')
                 ->exportable(false)

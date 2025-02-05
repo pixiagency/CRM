@@ -231,6 +231,32 @@
                 </li>
                 @endcanany
 
+                <!-- Pipeline Menu -->
+                @canany(['view piplines', 'create piplines'])
+                <li class="slide">
+                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
+                        <i class="fa fa-cogs pe-3"></i> <!-- Icon for piplines -->
+                        <span class="side-menu__label">@lang('app.piplines')</span><i class="angle fe fe-chevron-right"></i>
+                    </a>
+                    <ul class="slide-menu">
+                        <li class="side-menu__label1"><a href="javascript:void(0);">Utilities</a></li>
+                        @can('create piplines')
+                        <li>
+                            <a class="slide-item" data-is_active="{{ request()->fullUrlIs(route('piplines.create')) }}"
+                                href="{{ route('piplines.create') }}">@lang('app.create_pipline')</a>
+                        </li>
+                        @endcan
+                        @can('view piplines')
+                        <li>
+                            <a class="slide-item" data-is_active="{{ request()->fullUrlIs(route('piplines.index')) }}"
+                                href="{{ route('piplines.index') }}">@lang('app.all_piplines')</a>
+                        </li>
+                        @endcan
+                    </ul>
+                </li>
+                @endcanany
+
+
 
             </ul>
             <div class="slide-right" id="slide-right"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24"

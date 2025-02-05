@@ -34,6 +34,14 @@ class ReasonsDataTable extends DataTable
                     ['model' => $reason, 'url' => route('reasons.destroy', $reason->id)]
                 );
             })
+            ->addColumn('created_at', function (Reason $reason) {
+                return $reason->created_at->format('d-m-Y');
+            })
+            ->orderColumn('created_at', 'created_at $1')
+            ->addColumn('updated_at', function (Reason $reason) {
+                return $reason->updated_at->format('d-m-Y');
+            })
+            ->orderColumn('updated_at', 'updated_at $1')
             ->setRowId('id');
     }
      /**

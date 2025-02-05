@@ -34,6 +34,14 @@ class ClientsDataTable extends DataTable
                     ['model' => $client, 'url' => route('custom-fields.destroy', $client->id)]
                 );
             })
+            ->addColumn('created_at', function (Client $client) {
+                return $client->created_at->format('d-m-Y');
+            })
+            ->orderColumn('created_at', 'created_at $1')
+            ->addColumn('updated_at', function (Client $client) {
+                return $client->updated_at->format('d-m-Y');
+            })
+            ->orderColumn('updated_at', 'updated_at $1')
             ->setRowId('id');
     }
      /**
@@ -87,6 +95,8 @@ class ClientsDataTable extends DataTable
             //         return $client->resource ? $client->resource->name : '';  // Assuming 'name' is a property of the related 'resource'
             //     }),
 
+            Column::make('created_at'),
+            Column::make('updated_at'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)

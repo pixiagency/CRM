@@ -35,6 +35,14 @@ class ServicesDataTable extends DataTable
                     ['model' => $service, 'url' => route('services.destroy', $service->id)] // Use $service->id
                 );
             })
+            ->addColumn('created_at', function (Service $service) {
+                return $service->created_at->format('d-m-Y');
+            })
+            ->orderColumn('created_at', 'created_at $1')
+            ->addColumn('updated_at', function (Service $service) {
+                return $service->updated_at->format('d-m-Y');
+            })
+            ->orderColumn('updated_at', 'updated_at $1')
             ->setRowId('id');
     }
     /**

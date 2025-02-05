@@ -2,16 +2,18 @@
 
 namespace App\DataTables;
 
-use App\Models\Resource;
-use App\Services\ResourceService;
-use Yajra\DataTables\Services\DataTable;
+use App\Models\Pipline;
+use App\Services\PiplineService;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
+use Yajra\DataTables\Html\Editor\Editor;
+use Yajra\DataTables\Html\Editor\Fields;
+use Yajra\DataTables\Services\DataTable;
 
-class ResourcesDataTable extends DataTable
+class PiplinesDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -21,34 +23,31 @@ class ResourcesDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('check_box', function (Resource $resource) {
+            ->addColumn('check_box', function (Pipline $pipline) {
                 return view(
                     'layouts.components._datatable-checkbox',
-                    ['name' => "resources[]", 'value' => $resource->id]
+                    ['name' => "piplines[]", 'value' => $pipline->id]
                 );
             })
-            ->addColumn('action', function (Resource $resource) {
+            ->addColumn('action', function (Pipline $pipline) {
                 return view(
-                    'layouts.dashboard.resource.components._actions',
-                    ['model' => $resource, 'url' => route('resources.destroy', $resource->id)]
+                    'layouts.dashboard.pipline.components._actions',
+                    ['model' => $pipline, 'url' => route('piplines.destroy', $pipline->id)]
                 );
             })
-            ->addColumn('created_at', function (Resource $resource) {
-                return $resource->created_at->format('d-m-Y');
+            ->addColumn('created_at', function (Pipline $iipline) {
+                return $iipline->created_at->format('d-m-Y');
             })
             ->orderColumn('created_at', 'created_at $1')
-            ->addColumn('updated_at', function (Resource $resource) {
-                return $resource->updated_at->format('d-m-Y');
-            })
-            ->orderColumn('updated_at', 'updated_at $1')
-            ->setRowId('id');
+            ->setRowId(content: 'id');
     }
-     /**
+
+    /**
      * Get the query source of dataTable.
      */
-    public function query(ResourceService $resourceService): QueryBuilder
+    public function query(PiplineService $iiplineService): QueryBuilder
     {
-        return  $resourceService->datatable([], []);
+        return  $iiplineService->datatable([], []);
     }
 
     /**
@@ -57,7 +56,7 @@ class ResourcesDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('resources-table')
+            ->setTableId('piplines-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             //->dom('Bfrtip')
@@ -72,6 +71,7 @@ class ResourcesDataTable extends DataTable
                 Button::make('reload')
             ]);
     }
+
     /**
      * Get the dataTable columns definition.
      */
@@ -84,7 +84,6 @@ class ResourcesDataTable extends DataTable
             Column::make('id'),
             Column::make('name'),
             Column::make('created_at'),
-            Column::make('updated_at'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
@@ -98,7 +97,6 @@ class ResourcesDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'resource' . date('YmdHis');
+        return 'Piplines_' . date('YmdHis');
     }
-
 }

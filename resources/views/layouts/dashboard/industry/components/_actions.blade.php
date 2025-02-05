@@ -20,12 +20,12 @@
 <td>
     <div>
         @can('edit industries')
-            <a class="btn btn-primary" href="{{route('industries.edit',$model->id)}}">@lang('app.edit')</a>
+            <a class="btn btn-primary" href="{{route('industries.edit',$model->id)}}"><i class="icon-pencil"></i></a>
         @endcan
 
         @can('delete industries')
             <button class="btn btn-danger" role="button"
-                onclick="destroy('{{route('industries.destroy', $model->id)}}')">@lang('app.delete')</button>
+                onclick="destroy('{{route('industries.destroy', $model->id)}}')"> <i class="icon-trash"></i></button>
         @endcan
     </div>
 </td>

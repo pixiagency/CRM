@@ -24,13 +24,14 @@ class PermissionSeeder extends Seeder
             'reasons',
             'sources',
             'customFields',
+            'piplines',
             'clients',
             'role-permissions',
         ];
 
         $actions = [
             'view',
-            'show',
+            // 'show',
             'create',
             'edit',
             'delete',
@@ -43,7 +44,7 @@ class PermissionSeeder extends Seeder
 
         Permission::create(['name' => 'create areas']);
         Permission::create(['name' => 'store areas']);
-        
+
     }
 
 }

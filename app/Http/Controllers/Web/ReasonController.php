@@ -16,8 +16,8 @@ use SebastianBergmann\CodeUnit\NoTraitException;
 class ReasonController extends Controller
 {
     public function __construct(public ReasonService $reasonService) {
-        $this->middleware('permission:view reasons', ['only' => ['index']]);
-        $this->middleware('permission:show reasons', ['only' => ['show']]);
+        $this->middleware('permission:view reasons', ['only' => ['index','show']]);
+        // $this->middleware('permission:show reasons', ['only' => ['show']]);
         $this->middleware('permission:edit reasons', ['only' => ['edit', 'update']]);
         $this->middleware('permission:create reasons', ['only' => ['create', 'store']]);
         $this->middleware('permission:delete reasons', ['only' => ['destroy']]);

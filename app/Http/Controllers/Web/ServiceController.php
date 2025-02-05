@@ -18,8 +18,8 @@ use App\Http\Requests\Service\ServiceUpdateRequest;
 class ServiceController extends Controller
 {
     public function __construct(public ServiceService $serviceService){
-        $this->middleware('permission:view services', ['only' => ['index']]);
-        $this->middleware('permission:show services', ['only' => ['show']]);
+        $this->middleware('permission:view services', ['only' => ['index','show']]);
+        // $this->middleware('permission:show services', ['only' => ['show']]);
         $this->middleware('permission:edit services', ['only' => ['edit', 'update']]);
         $this->middleware('permission:create services', ['only' => ['create', 'store']]);
         $this->middleware('permission:delete services', ['only' => ['destroy']]);

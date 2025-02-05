@@ -10,6 +10,7 @@ use App\Http\Controllers\Web\IndustryController;
 use App\Http\Controllers\Web\LocationController;
 use App\Http\Controllers\Web\ResourceController;
 use App\Http\Controllers\Web\CustomFieldController;
+use App\Http\Controllers\Web\PiplineController;
 use App\Http\Controllers\Web\RolePermissionController;
 
 Route::group(['prefix' => 'authentication', 'middleware' => 'guest'], function () {
@@ -51,6 +52,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function () {
 
     Route::resource('custom-fields',CustomFieldController::class);
     Route::resource('clients',ClientController::class);
+    Route::resource('piplines',PiplineController::class);
     Route::resource('role-permissions', RolePermissionController::class)->parameters([
         'role-permissions' => 'role'
     ]);

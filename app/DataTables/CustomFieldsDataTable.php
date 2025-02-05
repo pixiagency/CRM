@@ -34,6 +34,14 @@ class CustomFieldsDataTable extends DataTable
                     ['model' => $customField, 'url' => route('custom-fields.destroy', $customField->id)]
                 );
             })
+            ->addColumn('created_at', function (CustomField $customField) {
+                return $customField->created_at->format('d-m-Y');
+            })
+            ->orderColumn('created_at', 'created_at $1')
+            ->addColumn('updated_at', function (CustomField $customField) {
+                return $customField->updated_at->format('d-m-Y');
+            })
+            ->orderColumn('updated_at', 'updated_at $1')
             ->setRowId('id');
     }
      /**

@@ -35,6 +35,10 @@ class IndustriesDataTable extends DataTable
                     ['model' => $industry, 'url' => route('industries.destroy', $industry->id)]
                 );
             })
+            ->addColumn('created_at', function (Industry $industry) {
+                return $industry->created_at->format('d-m-Y');
+            })
+            ->orderColumn('created_at', 'created_at $1')
             ->setRowId(content: 'id');
     }
 

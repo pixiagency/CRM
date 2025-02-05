@@ -2,16 +2,17 @@
 
 namespace App\DataTables;
 
-use App\Models\Resource;
-use App\Services\ResourceService;
-use Yajra\DataTables\Services\DataTable;
-use Illuminate\Database\Eloquent\Builder as QueryBuilder;
-use Yajra\DataTables\EloquentDataTable;
-use Yajra\DataTables\Html\Builder as HtmlBuilder;
+use App\Services\RoleService;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
+use Spatie\Permission\Models\Role;
+use App\Services\RolePermissionService;
+use Yajra\DataTables\EloquentDataTable;
+use Yajra\DataTables\Services\DataTable;
+use Yajra\DataTables\Html\Builder as HtmlBuilder;
+use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 
-class ResourcesDataTable extends DataTable
+class RolesDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -21,24 +22,24 @@ class ResourcesDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('check_box', function (Resource $resource) {
+            ->addColumn('check_box', function (Role $role) {
                 return view(
                     'layouts.components._datatable-checkbox',
-                    ['name' => "resources[]", 'value' => $resource->id]
+                    ['name' => "roles[]", 'value' => $role->id]
                 );
             })
-            ->addColumn('action', function (Resource $resource) {
+            ->addColumn('action', function (Role $role) {
                 return view(
-                    'layouts.dashboard.resource.components._actions',
-                    ['model' => $resource, 'url' => route('resources.destroy', $resource->id)]
+                    'layouts.dashboard.rolePermission.components._actions',
+                    ['model' => $role, 'url' => route('role-permissions.destroy', $role->id)]
                 );
             })
-            ->addColumn('created_at', function (Resource $resource) {
-                return $resource->created_at->format('d-m-Y');
+            ->addColumn('created_at', function (Role $role) {
+                return $role->created_at->format('d-m-Y');
             })
             ->orderColumn('created_at', 'created_at $1')
-            ->addColumn('updated_at', function (Resource $resource) {
-                return $resource->updated_at->format('d-m-Y');
+            ->addColumn('updated_at', function (Role $role) {
+                return $role->updated_at->format('d-m-Y');
             })
             ->orderColumn('updated_at', 'updated_at $1')
             ->setRowId('id');
@@ -46,9 +47,9 @@ class ResourcesDataTable extends DataTable
      /**
      * Get the query source of dataTable.
      */
-    public function query(ResourceService $resourceService): QueryBuilder
+    public function query(RolePermissionService $roleService): QueryBuilder
     {
-        return  $resourceService->datatable([], []);
+        return  $roleService->datatable([], []);
     }
 
     /**
@@ -57,7 +58,7 @@ class ResourcesDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('resources-table')
+            ->setTableId('roles-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             //->dom('Bfrtip')
@@ -98,7 +99,7 @@ class ResourcesDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'resource' . date('YmdHis');
+        return 'role' . date('YmdHis');
     }
 
 }

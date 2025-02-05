@@ -31,7 +31,7 @@
     <!-- /Loader -->
 
     <!-- Page -->
-    <div class="page">
+    <div class="page" style="background-color: #ffffff; ">
 
         <div>
             @include('layouts.components.app-header')

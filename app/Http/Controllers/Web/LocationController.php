@@ -18,8 +18,8 @@ use Illuminate\Database\QueryException;
 class LocationController extends Controller
 {
     public function __construct(public LocationService $locationService) {
-        $this->middleware('permission:view locations', ['only' => ['index']]);
-        $this->middleware('permission:show locations', ['only' => ['show']]);
+        $this->middleware('permission:view locations', ['only' => ['index','show']]);
+        // $this->middleware('permission:show locations', ['only' => ['show']]);
         $this->middleware('permission:edit locations', ['only' => ['edit', 'update']]);
         $this->middleware('permission:create locations', ['only' => ['create', 'store']]);
         $this->middleware('permission:delete locations', ['only' => ['destroy']]);

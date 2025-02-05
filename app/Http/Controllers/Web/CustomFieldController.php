@@ -16,8 +16,8 @@ use App\Http\Requests\CustomFields\UpdateCustomFieldRequest;
 class CustomFieldController extends Controller
 {
     public function __construct(public CustomFieldService $customFieldService){
-        $this->middleware('permission:view customFields', ['only' => ['index']]);
-        $this->middleware('permission:show customFields', ['only' => ['show']]);
+        $this->middleware('permission:view customFields', ['only' => ['index','show']]);
+        // $this->middleware('permission:show customFields', ['only' => ['show']]);
         $this->middleware('permission:edit customFields', ['only' => ['edit', 'update']]);
         $this->middleware('permission:create customFields', ['only' => ['create', 'store']]);
         $this->middleware('permission:delete customFields', ['only' => ['destroy']]);

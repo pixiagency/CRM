@@ -3,14 +3,14 @@
 @section('content')
 {{-- breadcrumb --}}
 @include('layouts.components.breadcrumb', [
-'title' => trans('app_roles_title'),
-'first_list_item' => trans('app_roles'),
-'last_list_item' => trans('app.all_roles'),
+'title' => trans('app.piplines_title'),
+'first_list_item' => trans('app.piplines'),
+'last_list_item' => trans('app.all_piplines'),
 ])
 {{-- end breadcrumb --}}
 
 <!--start filters section -->
-@include('layouts.dashboard.rolePermission.components._filters')
+@include('layouts.dashboard.pipline.components._filters')
 <!--end filterd section -->
 
 <!-- Row -->
@@ -20,7 +20,7 @@
             <div class="card-header">
                 <div class="form-group mb-0 mt-3 justify-content-end">
                     <div>
-                        <a class="btn btn-primary" href="{{ route('role-permissions.create') }}"><i
+                        <a class="btn btn-primary" href="{{ route('piplines.create') }}"><i
                                 class="fe fe-plus me-2"></i>@lang('app.new')</a>
                     </div>
                 </div>

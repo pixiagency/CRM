@@ -3,8 +3,12 @@
     <aside class="app-sidebar">
         <div class="main-sidebar-header active">
             <a class="header-logo active" href="{{url('/')}}">
-                <img style="max-height: 40px !important" src="{{asset('assets/images/brand/logo.png')}}"
-                    class="main-logo" alt="logo">
+                {{-- <img style="max-height: 40px !important" src="{{asset('assets/images/brand/logo.png')}}"
+                    class="main-logo" alt="logo"> --}}
+                    <img src="{{asset('assets/images/brand/logo.png')}}" class="main-logo  desktop-logo" alt="logo">
+								<img src="{{asset('assets/images/brand/logo-white.png')}}" class="main-logo  desktop-dark" alt="logo">
+								<img src="{{asset('assets/images/brand/favicon.png')}}" class="main-logo  mobile-logo" alt="logo">
+								<img src="{{asset('assets/images/brand/favicon-white.png')}}" class="main-logo  mobile-dark" alt="logo">
             </a>
         </div>
         <div class="main-sidemenu">
@@ -213,7 +217,7 @@
                         <li>
                             <a class="slide-item"
                                 data-is_active="{{ request()->fullUrlIs(route('role-permissions.index')) }}"
-                                href="{{ route('role-permissions.index') }}">@lang('app.role_permissions')</a>
+                                href="{{ route('role-permissions.index') }}">@lang('app.all_roles')</a>
                         </li>
                         @endcan
                         @can('create role-permissions')

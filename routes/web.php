@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\AuthController;
 use App\Http\Controllers\Web\ClientController;
+use App\Http\Controllers\Web\ContactController;
 use App\Http\Controllers\Web\UsersController;
 use App\Http\Controllers\web\ReasonController;
 use App\Http\Controllers\Web\ServiceController;
@@ -53,6 +54,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function () {
     Route::resource('custom-fields',CustomFieldController::class);
     Route::resource('clients',ClientController::class);
     Route::resource('piplines',PiplineController::class);
+    Route::resource('contacts',ContactController::class);
     Route::resource('role-permissions', RolePermissionController::class)->parameters([
         'role-permissions' => 'role'
     ]);

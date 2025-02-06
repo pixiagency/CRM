@@ -61,4 +61,9 @@ class Location extends Model
     {
         return $this->hasMany(Client::class, 'city_id');
     }
+
+    public function contacts()
+    {
+        return $this->hasMany(Contact::class, 'city_id');
+    }
 }

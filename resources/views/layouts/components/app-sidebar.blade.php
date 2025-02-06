@@ -256,6 +256,31 @@
                 </li>
                 @endcanany
 
+                <!-- Contact Menu -->
+                @canany(['create contacts', 'view contacts'])
+                <li class="slide">
+                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
+                        <i class="fa fa-users pe-3"></i> <!-- Icon for Contacts -->
+                        <span class="side-menu__label">@lang('app.contacts')</span><i class="angle fe fe-chevron-right"></i>
+                    </a>
+                    <ul class="slide-menu">
+                        <li class="side-menu__label1"><a href="javascript:void(0);">Utilities</a></li>
+                        @can('create contacts')
+                        <li>
+                            <a class="slide-item" data-is_active="{{ request()->fullUrlIs(route('contacts.create')) }}"
+                                href="{{ route('contacts.create') }}">@lang('app.create_contact')</a>
+                        </li>
+                        @endcan
+                        @can('view contacts')
+                        <li>
+                            <a class="slide-item" data-is_active="{{ request()->fullUrlIs(route('contacts.index')) }}"
+                                href="{{ route('contacts.index') }}">@lang('app.all_contacts')</a>
+                        </li>
+                        @endcan
+                    </ul>
+                </li>
+                @endcanany
+
 
 
             </ul>

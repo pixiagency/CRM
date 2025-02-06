@@ -72,6 +72,21 @@ return array (
   'pipline_deleted_successfully' => 'Pipline Deleted Successfully',
 
 
+  //Contact
+  'contents_title' => 'All Contact',
+  'contacts' => 'Contacts',
+  'contacts_title' => 'Contacts',
+  'contact' => 'Contact',
+  'create_new_contact_title' => 'Create Contact',
+  'create_contact' => 'Create Contact',
+  'add_contact' => 'Add Contact',
+  'all_contacts' => 'All Contacts',
+  'edit_contact_title' => 'Edit Contact',
+  'edit_contact' => 'Edit Contact',
+  'contact_created_successfully' => 'Contact Created Successfully',
+  'contact_updated_successfully' => 'Contact Updated Successfully',
+  'contact_deleted_successfully' => 'Contact Deleted Successfully',
+
 
 
 

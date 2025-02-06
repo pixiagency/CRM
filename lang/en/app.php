@@ -52,6 +52,43 @@ return array (
   'industries_title' => 'All Industries',
 
 
+  //pipline
+  'piplines_title' => 'All pipeline',
+  'piplines' => 'pipelines',
+  'pipline' => 'pipeline',
+  'create_pipline' => 'Create pipeline',
+  'pipline_name' => 'pipeline Name',
+  'Stages' => 'Stages',
+  'all_piplines' => 'All pipeline',
+  'Stage Name' => 'Stage Name',
+  'Add Stage' => 'Add Stage',
+  'show_pipline' => 'Show pipeline',
+  'show_pipline_title' => 'Show pipeline',
+  'stage_details' => 'Stage Details',
+  'update' => 'Update',
+  'edit_pipline' => 'Edit Pipline',
+  'pipline_created_successfully' => 'Pipline Created Successfully',
+  'pipline_updated_successfully' => 'Pipline Updated Successfully',
+  'pipline_deleted_successfully' => 'Pipline Deleted Successfully',
+
+
+  //Contact
+  'contents_title' => 'All Contact',
+  'contacts' => 'Contacts',
+  'contacts_title' => 'Contacts',
+  'contact' => 'Contact',
+  'create_new_contact_title' => 'Create Contact',
+  'create_contact' => 'Create Contact',
+  'add_contact' => 'Add Contact',
+  'all_contacts' => 'All Contacts',
+  'edit_contact_title' => 'Edit Contact',
+  'edit_contact' => 'Edit Contact',
+  'contact_created_successfully' => 'Contact Created Successfully',
+  'contact_updated_successfully' => 'Contact Updated Successfully',
+  'contact_deleted_successfully' => 'Contact Deleted Successfully',
+
+
+
 
   'branch' => 'Branch',
   'branch_address' => 'Branch Address',

@@ -26,11 +26,17 @@ class PiplineStoreRequest extends FormRequest
             'name' => 'required|string',
             'stages' => 'required|array',
             'stages.*.name' => 'required|string',
-            'stages.*.seq_number' => 'required|integer',
         ];
     }
-    public function toPiplineDTO(): \App\DTO\BaseDTO
+
+
+
+    public function toPiplineDTO(): PiplineDTO
     {
-        return PiplineDTO::fromRequest($this);
+        return new PiplineDTO(
+            name: $this->input('name'),
+            stages: $this->input('stages', [])
+        );
     }
+
 }

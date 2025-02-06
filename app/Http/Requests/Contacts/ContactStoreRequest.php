@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Pipline;
+namespace App\Http\Requests\Contacts;
 
-use App\DTO\Pipline\PiplineDTO;
 use Illuminate\Foundation\Http\FormRequest;
 
-class PiplineUpdateRequest extends FormRequest
+class ContactStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,16 +22,11 @@ class PiplineUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string',
-            'stages' => 'required|array',
-            'stages.*.name' => 'required|string',
+            'name' => 'required|string|max:255',
+            'phone' => 'required|string|max:20',
+            'email' => 'required|email|unique:clients,email',
+            'address' => 'required|string|max:255',
+            'city_id' => 'nullable|integer|exists:locations,id',
         ];
-    }
-    public function toPiplineDTO(): PiplineDTO
-    {
-        return new PiplineDTO(
-            name: $this->input('name'),
-            stages: $this->input('stages', [])
-        );
     }
 }

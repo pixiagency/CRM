@@ -21,7 +21,7 @@
                 <div class="card-body d-md-flex">
                     <div class="">
                         <span class="profile-image pos-relative">
-                            <img class="br-5" alt="" src="{{ asset(Auth::user()->profileImage) }}">
+                            <img class="br-5" alt="" src="{{asset(Auth::user()->profileImage??'assets/images/users/default.png') }}">
                             <span class="bg-success text-white wd-1 ht-1 rounded-pill {{ Auth::user()->status ? "
                                 profile-online": "profile-offline" }}"></span>
                         </span>
@@ -29,7 +29,7 @@
                     <div class="my-md-auto mt-4 prof-details">
                         <h4 class="font-weight-semibold ms-md-4 ms-0 mb-1 pb-0">{{ Auth::user()->name }}</h4>
                         <p class="tx-13 text-muted ms-md-4 ms-0 mb-2 pb-2 ">
-                            <span class="me-3"><i class="far fa-address-card me-2"></i> sales </span>
+                            <span class="me-3"><i class="far fa-address-card me-2"></i>{{ Auth::user()->role }}</span>
                         </p>
                         <p class="text-muted ms-md-4 ms-0 mb-2">
                             <span><i class="fa fa-phone me-2"></i></span>
@@ -99,33 +99,6 @@
                                             <div class="col-md-9">
                                                 <input type="text" name="email" class="form-control"
                                                     value="{{ Auth::user()->email }}">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group ">
-                                        <div class="row row-sm">
-                                            <div class="col-md-3">
-                                                <label class="form-label">Password</label>
-                                            </div>
-                                            <div class="col-md-9">
-                                                <input type="password" name="password" class="form-control">
-                                                @error('password')
-                                                <div class="text-danger"> {{$message}}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group ">
-                                        <div class="row row-sm">
-                                            <div class="col-md-3">
-                                                <label class="form-label">Password Confirmation</label>
-                                            </div>
-                                            <div class="col-md-9">
-                                                <input type="password" name="password_confirmation"
-                                                    class="form-control">
-                                                @error('password_confirmation')
-                                                <div class="text-danger"> {{$message}}</div>
-                                                @enderror
                                             </div>
                                         </div>
                                     </div>

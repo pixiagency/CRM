@@ -62,6 +62,9 @@
                                         </div>
 
                                         <div class="main-signin-footer text-center mt-3">
+                                            <p><a href="{{route('signup')}}" class="mb-3">signup?</a></p>
+                                        </div>
+                                        <div class="main-signin-footer text-center mt-3">
                                             <p><a href="{{url('forgot')}}" class="mb-3">Forgot password?</a></p>
                                         </div>
                                     </div>

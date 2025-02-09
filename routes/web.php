@@ -16,6 +16,8 @@ use App\Http\Controllers\Web\RolePermissionController;
 
 Route::group(['prefix' => 'authentication', 'middleware' => 'guest'], function () {
     Route::get('login', [AuthController::class, 'loginForm'])->name('login');
+    Route::get('signup', [AuthController::class, 'signupForm'])->name('signup');
+    Route::post('signup', [AuthController::class, 'signup'])->name('signup');
     Route::post('login', [AuthController::class, 'login'])->name('signin');
 });
 
@@ -30,8 +32,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function () {
     })->name('home');
 
     Route::get('profile', [AuthController::class, 'getProfile'])->name('profile.index');
-
-    Route::put('profile/{id}', [UsersController::class, 'updateProfile'])->name('profile.update');
+    Route::put('profile/', [AuthController::class, 'updateProfile'])->name('profile.update');
 
     Route::resource('industries', IndustryController::class);
     Route::resource('services', ServiceController::class);
@@ -50,6 +51,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function () {
 
     Route::resource('reasons', ReasonController::class);
     Route::resource('resources', ResourceController::class);
+
+
 
     Route::resource('custom-fields',CustomFieldController::class);
     Route::resource('clients',ClientController::class);
@@ -96,6 +99,3 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function () {
         }
     })->name('migrate');
 });
-
-
-

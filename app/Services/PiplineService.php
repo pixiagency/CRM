@@ -49,19 +49,41 @@ class PiplineService extends BaseService
 
     public function store(PiplineDTO $piplineDTO): Pipline
     {
-        dd($piplineDTO);
         $pipline = $this->model->create([
             'name' => $piplineDTO->name,
         ]);
 
-        foreach ($piplineDTO->stages as $stageData) {
+        foreach ($piplineDTO->stages as $index => $stageData) {
             $pipline->stages()->create([
                 'name' => $stageData['name'],
-                'seq_number' => $stageData['seq_number'],
+                'seq_number' => $index + 1, // Assign sequence number dynamically
             ]);
         }
 
         return $pipline;
+    }
+
+
+    public function update(Pipline $pipline, PiplineDTO $piplineDTO): Pipline
+    {
+        $pipline->update([
+            'name' => $piplineDTO->name,
+        ]);
+        // Remove old stages and create new ones
+        $pipline->stages()->delete();
+        foreach ($piplineDTO->stages as $index => $stageData) {
+            $pipline->stages()->create([
+                'name' => $stageData['name'],
+                'seq_number' => $index + 1,
+            ]);
+        }
+        return $pipline;
+    }
+
+
+    public function delete(int $id)
+    {
+        return $this->getQuery()->where('id', $id)->delete();
     }
 
 }

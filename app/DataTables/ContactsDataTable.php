@@ -2,18 +2,17 @@
 
 namespace App\DataTables;
 
-use App\Models\Pipline;
-use App\Services\PiplineService;
-use Illuminate\Database\Eloquent\Builder as QueryBuilder;
-use Yajra\DataTables\EloquentDataTable;
-use Yajra\DataTables\Html\Builder as HtmlBuilder;
+use App\Models\Contact;
+use App\Services\ContactService;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
+use Illuminate\Support\Facades\Log;
+use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Services\DataTable;
+use Yajra\DataTables\Html\Builder as HtmlBuilder;
+use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 
-class PiplinesDataTable extends DataTable
+class ContactsDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -23,37 +22,36 @@ class PiplinesDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('check_box', function (Pipline $pipline) {
+            ->addColumn('check_box', function (Contact $contact) {
                 return view(
                     'layouts.components._datatable-checkbox',
-                    ['name' => "piplines[]", 'value' => $pipline->id]
+                    ['name' => "contacts[]", 'value' => $contact->id]
                 );
             })
-            ->addColumn('action', function (Pipline $pipline) {
+            ->addColumn('action', function (Contact $contact) {
                 return view(
-                    'layouts.dashboard.pipline.components._actions',
-                    ['model' => $pipline, 'url' => route('piplines.destroy', $pipline->id)]
+                    'layouts.dashboard.contact.components._actions',
+                    ['model' => $contact, 'url' => route('custom-fields.destroy', $contact->id)]
                 );
             })
-            ->addColumn('created_at', function (Pipline $iipline) {
-                return $iipline->created_at->format('d-m-Y');
-            })
-            ->addColumn('stages', function (Pipline $pipline) {
-                return $pipline->stages->pluck('name')->join(' , ');
+
+            ->addColumn('created_at', function (Contact $contact) {
+                return $contact->created_at->format('d-m-Y');
             })
             ->orderColumn('created_at', 'created_at $1')
-            ->setRowId(content: 'id');
+            ->addColumn('updated_at', function (Contact $contact) {
+                return $contact->updated_at->format('d-m-Y');
+            })
+            ->orderColumn('updated_at', 'updated_at $1')
+            ->setRowId('id');
     }
-
-
-    /**
+     /**
      * Get the query source of dataTable.
      */
-    public function query(PiplineService $piplineService): QueryBuilder
+    public function query(ContactService $contactService): QueryBuilder
     {
-        return  $piplineService->datatable([], ['stages']);
+        return  $contactService->datatable([], []);
     }
-
 
     /**
      * Optional method if you want to use the html builder.
@@ -61,7 +59,7 @@ class PiplinesDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('piplines-table')
+            ->setTableId('contacts-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             //->dom('Bfrtip')
@@ -76,7 +74,6 @@ class PiplinesDataTable extends DataTable
                 Button::make('reload')
             ]);
     }
-
     /**
      * Get the dataTable columns definition.
      */
@@ -88,8 +85,11 @@ class PiplinesDataTable extends DataTable
             <span class="custom-control-label custom-control-label-md  tx-17"></span></label>')->searchable(false)->orderable(false),
             Column::make('id'),
             Column::make('name'),
-            Column::make('stages')->title(__('Stages')),
+            Column::make('phone'),
+            Column::make('email'),
+            Column::make('address'),
             Column::make('created_at'),
+            Column::make('updated_at'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
@@ -103,6 +103,6 @@ class PiplinesDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Piplines_' . date('YmdHis');
+        return 'contacts' . date('YmdHis');
     }
 }

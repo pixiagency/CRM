@@ -9,7 +9,7 @@
                     </a>
                 </div>
                 <div>
-                    <div class="collapse" id="collapseExample" style="">
+                    <div class="collapse" id="collapseExample">
                         <div class="mt-4">
                             <form class="datatables_parameters">
                                 <div class="col-md-12 col-xl-12 col-xs-12 col-sm-12">

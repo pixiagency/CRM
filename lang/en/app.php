@@ -1,6 +1,6 @@
 <?php
 
-return array (
+return array(
   'actions' => 'Actions',
   'back' => 'Back',
 
@@ -224,6 +224,7 @@ return array (
   'show_dashboard' => 'Show Dashboard',
   'show_receiver' => 'Show receiver',
   'sign_in' => 'sign in',
+  'sign_up' => 'sign up',
   'sms' => 'SMS',
   'something_went_wrong' => 'Something went wrong',
   'special_price' => 'Special Price',

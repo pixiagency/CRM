@@ -44,30 +44,52 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        return view('layouts.dashboard.service.create');
+        $services = Service::all(); // Fetch all services
+        return view('layouts.dashboard.service.create', compact('services'));
+
     }
 
     public function store(ServiceStoreRequest $request)
-    {
-        try {
-            DB::beginTransaction();
+{
+    try {
+        DB::beginTransaction();
+
+        // Check if it is a sub-service
+        if ($request->has('is_sub_service') && $request->is_sub_service) {
+            // Validate parent service ID
+            if (empty($request->parent_service_id)) {
+                throw new \Exception(trans('app.parent_service_required'));
+            }
+
+            // Save as a category for the parent service
+            $parentService = Service::findOrFail($request->parent_service_id);
+            $parentService->categories()->create([
+                'name' => $request->name,
+                'price' => $request->price,
+            ]);
+        } else {
+            // Save as a new service
             $serviceDTO = ServiceDTO::fromRequest($request);
             $service = $this->serviceService->store($serviceDTO);
-            DB::commit();
-            return to_route('services.index')->with('toast', [
-                'type' => 'success',
-                'title' => 'Success',
-                'message' => trans('app.service_created_successfully')
-            ]);
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return back()->with('toast', [
-                'type' => 'error',
-                'title' => 'Error',
-                'message' => trans('app.there_is_an_error')
-            ]);
         }
+
+        DB::commit();
+
+        return to_route('services.index')->with('toast', [
+            'type' => 'success',
+            'title' => 'Success',
+            'message' => trans('app.service_created_successfully'),
+        ]);
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return back()->with('toast', [
+            'type' => 'error',
+            'title' => 'Error',
+            'message' => $e->getMessage() ?: trans('app.there_is_an_error'),
+        ]);
     }
+}
+
 
     /**
      * Display the specified resource.

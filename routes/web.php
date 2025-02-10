@@ -2,16 +2,17 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\AuthController;
-use App\Http\Controllers\Web\ClientController;
-use App\Http\Controllers\Web\ContactController;
+use App\Http\Controllers\Web\LeadController;
 use App\Http\Controllers\Web\UsersController;
+use App\Http\Controllers\Web\ClientController;
 use App\Http\Controllers\web\ReasonController;
+use App\Http\Controllers\Web\ContactController;
+use App\Http\Controllers\Web\PiplineController;
 use App\Http\Controllers\Web\ServiceController;
 use App\Http\Controllers\Web\IndustryController;
 use App\Http\Controllers\Web\LocationController;
 use App\Http\Controllers\Web\ResourceController;
 use App\Http\Controllers\Web\CustomFieldController;
-use App\Http\Controllers\Web\PiplineController;
 use App\Http\Controllers\Web\RolePermissionController;
 
 Route::group(['prefix' => 'authentication', 'middleware' => 'guest'], function () {
@@ -58,6 +59,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function () {
     Route::resource('clients',ClientController::class);
     Route::resource('piplines',PiplineController::class);
     Route::resource('contacts',ContactController::class);
+    Route::resource('leads',LeadController::class);
     Route::resource('role-permissions', RolePermissionController::class)->parameters([
         'role-permissions' => 'role'
     ]);

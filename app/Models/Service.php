@@ -19,6 +19,12 @@ class Service extends Model
     public function clients()
     {
         return $this->belongsToMany(Client::class, 'client_service')
-            ->withPivot('category_id'); 
+            ->withPivot('category_id');
+    }
+
+    // A service can belong to many leads
+    public function leads()
+    {
+        return $this->belongsToMany(Lead::class, 'lead_service')->withPivot('category_id');
     }
 }

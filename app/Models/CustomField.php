@@ -23,6 +23,12 @@ class CustomField extends Model
     public function clients()
     {
         return $this->belongsToMany(Client::class, 'client_custom_fields')
-            ->withPivot('value'); 
+            ->withPivot('value');
+    }
+
+    public function leads()
+    {
+        return $this->belongsToMany(Lead::class, 'lead_custom_fields')
+            ->withPivot('value');
     }
 }

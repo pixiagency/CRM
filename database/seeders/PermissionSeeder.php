@@ -27,7 +27,7 @@ class PermissionSeeder extends Seeder
             'piplines',
             'clients',
             'contacts',
-            'opportunities',
+            'leads',
             'role-permissions',
         ];
 

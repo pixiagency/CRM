@@ -3,14 +3,15 @@
 namespace App\Http\Controllers\Web;
 
 use App\Models\Location;
+use App\Models\Resource;
 use Illuminate\Http\Request;
 use App\DTO\Contact\ContactDTO;
+use App\Services\ContactService;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\DataTables\ContactsDataTable;
 use App\Http\Requests\Contacts\ContactStoreRequest;
 use App\Http\Requests\Contacts\ContactUpdateRequest;
-use App\Services\ContactService;
 
 class ContactController extends Controller
 {
@@ -38,7 +39,8 @@ class ContactController extends Controller
     public function create()
     {
         $cities = Location::cities()->get();
-        return view('layouts.dashboard.contact.create', compact('cities'));
+        $resources = Resource::all();
+        return view('layouts.dashboard.contact.create', compact('cities', 'resources'));
     }
 
     /**

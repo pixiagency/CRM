@@ -13,6 +13,7 @@ class ContactDTO extends BaseDTO
         public string $email,
         public string $address,
         public ?int $city_id = null,
+        public int $resource_id
     ) {}
 
     public static function fromRequest($request): BaseDTO
@@ -23,6 +24,7 @@ class ContactDTO extends BaseDTO
             email: $request->input('email'),
             address: $request->input('address'),
             city_id: $request->input('city_id'),
+            resource_id: $request->input('resource_id')
         );
     }
 
@@ -39,6 +41,7 @@ class ContactDTO extends BaseDTO
             email: Arr::get($data, 'email'),
             address: Arr::get($data, 'address'),
             city_id: Arr::get($data, 'city_id'),
+            resource_id: Arr::get($data, 'resource_id'),
         );
     }
 
@@ -53,6 +56,7 @@ class ContactDTO extends BaseDTO
             'email' => $this->email,
             'address' => $this->address,
             'city_id' => $this->city_id,
+            'resource_id' => $this->resource_id,
         ];
     }
 }

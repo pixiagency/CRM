@@ -1,14 +1,23 @@
 <!-- breadcrumb -->
+<div class="d-flex align-items-center justify-content-around mx-4">
+    <div class="breadcrumb-header flex-column">
 
-<div class="breadcrumb-header justify-content-between">
-    <div class="left-content">
-        <span class="main-content-title mg-b-0 mg-b-lg-1">{{$title}}</span>
+        <div class="justify-content-center mt-2">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">{{$first_list_item}}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{$last_list_item}}</li>
+            </ol>
+        </div>
+        <div class="left-content">
+            <span class="main-content-title mg-b-0 mg-b-lg-1">{{$title}}</span>
+        </div>
     </div>
-    <div class="justify-content-center mt-2">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">{{$first_list_item}}</a></li>
-            <li class="breadcrumb-item active" aria-current="page">{{$last_list_item}}</li>
-        </ol>
+
+    <div class="d-flex align-items-center">
+        {{-- <a class="btn btn-primary" href="{{ route('industries.create') }}"><i
+                class="fe fe-plus me-2"></i>@lang('app.new')</a> --}}
+        <a class="btn ripple btn-info" data-bs-target="#modaldemo3" data-bs-toggle="modal" href="">Create</a>
     </div>
 </div>
+
 <!-- /breadcrumb -->

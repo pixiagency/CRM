@@ -179,7 +179,7 @@ return array(
   'first_download_receivers_template' => 'First download receivers template',
   'first_download_template' => 'first download template',
   'from' => 'From',
-  'hi' => 'hi :',
+  'hi' => 'hi',
   'history' => 'History',
   'images' => 'Images',
   'import' => 'Import',

@@ -15,6 +15,8 @@ use Yajra\DataTables\Services\DataTable;
 
 class IndustriesDataTable extends DataTable
 {
+
+    protected array $actions = ['myCustomAction'];
     /**
      * Build the DataTable class.
      *
@@ -59,16 +61,28 @@ class IndustriesDataTable extends DataTable
             ->setTableId('industries-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
-            //->dom('Bfrtip')
+            // ->dom('Bfrtip')
             ->orderBy(1)
             ->selectStyleSingle()
-            ->buttons([
-                Button::make('excel'),
-                Button::make('csv'),
-                Button::make('pdf'),
-                Button::make('print'),
-                Button::make('reset'),
-                Button::make('reload')
+            ->parameters([
+                'dom' => '<"d-flex"f>t<"d-flex justify-content-between align-items-center"ipl>',
+                'buttons' => ['myCustomAction'],
+                'initComplete' => "function(settings, json) {
+                    var searchInput = $('.dataTables_filter input');
+
+                    $('.dataTables_filter label').contents().filter(function() {
+                        return this.nodeType === 3;
+                    }).remove();
+
+                    $('.dataTables_length label').contents().filter(function () {
+                        return this.nodeType === 3;
+                    }).each(function () {
+                        $(this).replaceWith($(this).text().replace(' entries', ''));
+                    });
+
+                    searchInput.addClass('form-control').attr('placeholder', 'Search industries...');
+                    $('#custom-search-container').append($('.dataTables_filter'));
+                }",
             ]);
     }
 
@@ -98,5 +112,10 @@ class IndustriesDataTable extends DataTable
     protected function filename(): string
     {
         return 'Industries_' . date('YmdHis');
+    }
+
+    public function myCustomAction()
+    {
+        //...your code here.
     }
 }

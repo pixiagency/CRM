@@ -50,31 +50,32 @@
                             </div>
                         </div>
 
-                        <!-- Categories Section -->
+                        <!-- Sub-Service Section -->
                         <div class="row row-sm mb-4">
                             <div class="col-lg">
                                 <div class="form-group">
-                                    {{-- <div class="main-content-label mg-b-5">@lang('app.categories')</div> --}}
-                                    <div id="categories-container" style="display: none;">
-                                        <!-- Initial category input -->
-                                        <div class="row row-sm mb-4">
-                                            <div class="col-lg">
-                                                <div class="form-group">
-                                                    <div class="main-content-label mg-b-5">@lang('app.category_name')</div>
-                                                    <input class="form-control" name="categories[0][name]" placeholder="@lang('app.category_name')" type="text">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg">
-                                                <div class="form-group">
-                                                    <div class="main-content-label mg-b-5">@lang('app.price')</div>
-                                                    <input class="form-control" name="categories[0][price]" placeholder="@lang('app.price')" type="number" step="0.01">
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="is-sub-service"
+                                            name="is_sub_service" value="1">
+                                        <label class="form-check-label" for="is-sub-service">
+                                            @lang('app.is_sub_service')
+                                        </label>
                                     </div>
-                                    <button type="button" id="add-category" class="btn btn-secondary mt-2">
-                                        <i class="fa fa-plus pe-2"></i>@lang('app.add_category')
-                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Parent Service Dropdown -->
+                        <div class="row row-sm mb-4" id="parent-service-section" style="display: none;">
+                            <div class="col-lg">
+                                <div class="form-group">
+                                    <div class="main-content-label mg-b-5">@lang('app.parent_service')</div>
+                                    <select class="form-control" name="parent_service_id">
+                                        <option value="">@lang('app.select_service')</option>
+                                        @foreach ($services as $service)
+                                            <option value="{{ $service->id }}">{{ $service->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -101,26 +102,19 @@
 
 @section('script_footer')
     <script>
-        // Show the category input fields when the button is clicked
-        document.getElementById('add-category').addEventListener('click', function () {
-            const container = document.getElementById('categories-container');
-            if (container.style.display === 'none') {
-                container.style.display = 'block';
+        // Show or hide the parent service dropdown based on the checkbox
+        document.getElementById('is-sub-service').addEventListener('change', function() {
+            const parentServiceSection = document.getElementById('parent-service-section');
+            const parentServiceInput = document.querySelector('select[name="parent_service_id"]');
+
+            if (this.checked) {
+                parentServiceSection.style.display = 'block';
+                parentServiceInput.setAttribute('required', 'required');
             } else {
-                container.style.display = 'none';
+                parentServiceSection.style.display = 'none';
+                parentServiceInput.removeAttribute('required');
             }
         });
 
-        // Remove empty category inputs before form submission
-        document.getElementById('service-form').addEventListener('submit', function (e) {
-            const categoryInputs = document.querySelectorAll('.category-input');
-            categoryInputs.forEach(input => {
-                const name = input.querySelector('input[name*="[name]"]').value;
-                const price = input.querySelector('input[name*="[price]"]').value;
-                if (!name && !price) {
-                    input.remove(); 
-                }
-            });
-        });
     </script>
 @endsection

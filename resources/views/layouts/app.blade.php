@@ -12,6 +12,9 @@
         content="admin dashboard, admin dashboard laravel, admin panel template, blade template, blade template laravel, bootstrap template, dashboard laravel, laravel admin, laravel admin dashboard, laravel admin panel, laravel admin template, laravel bootstrap admin template, laravel bootstrap template, laravel template" />
     <!-- Title -->
 
+
+    <link rel="stylesheet" href="https://kit.fontawesome.com/f938b78ffc.css" crossorigin="anonymous" />
+
     <!-- Not required if jQuery is already loaded -->
     <title>CRM - Control Panel </title>
 
@@ -26,7 +29,7 @@
 
     <!-- Loader -->
     <div id="global-loader">
-        <img src="{{asset('assets/img/loader.svg')}}" class="loader-img" alt="Loader">
+        <img src="{{asset('assets/images/loader.svg')}}" class="loader-img" alt="Loader">
     </div>
     <!-- /Loader -->
 

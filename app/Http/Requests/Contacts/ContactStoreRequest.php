@@ -27,6 +27,7 @@ class ContactStoreRequest extends FormRequest
             'email' => 'required|email|unique:clients,email',
             'address' => 'required|string|max:255',
             'city_id' => 'nullable|integer|exists:locations,id',
+            'resource_id' => 'required|exists:resources,id',
         ];
     }
 }

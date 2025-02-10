@@ -45,7 +45,6 @@
                         <!-- Categories Section -->
                         <div class="row row-sm mb-4">
                             <div class="col-lg">
-                                {{-- <div class="main-content-label mg-b-5">@lang('app.categories')</div> --}}
                                 <div id="categories-container" >
                                     @if($service->categories->isNotEmpty())
                                         @foreach($service->categories as $index => $category)
@@ -75,9 +74,9 @@
                                         </div>
                                     @endif
                                 </div>
-                                <button type="button" id="add-category" class="btn btn-secondary mt-2">
+                                {{-- <button type="button" id="add-category" class="btn btn-secondary mt-2">
                                     <i class="fa fa-plus pe-2"></i>@lang('app.add_category')
-                                </button>
+                                </button> --}}
                             </div>
                         </div>
 
@@ -104,34 +103,34 @@
 @section('script_footer')
     <script>
         // Add new category inputs
-        document.getElementById('add-category').addEventListener('click', function () {
-            const container = document.getElementById('categories-container');
-            const index = container.querySelectorAll('.row.row-sm.mb-4').length; // Count existing rows
-            const newCategory = document.createElement('div');
-            newCategory.classList.add('row', 'row-sm', 'mb-4');
-            newCategory.innerHTML = `
-                <div class="col-lg">
-                    <div class="main-content-label mg-b-5">@lang('app.category_name')</div>
-                    <input class="form-control" name="categories[${index}][name]" placeholder="@lang('app.category_name')" type="text">
-                </div>
-                <div class="col-lg">
-                    <div class="main-content-label mg-b-5">@lang('app.price')</div>
-                    <input class="form-control" name="categories[${index}][price]" placeholder="@lang('app.price')" type="number" step="0.01">
-                </div>
-            `;
-            container.appendChild(newCategory);
-        });
+        // document.getElementById('add-category').addEventListener('click', function () {
+        //     const container = document.getElementById('categories-container');
+        //     const index = container.querySelectorAll('.row.row-sm.mb-4').length; // Count existing rows
+        //     const newCategory = document.createElement('div');
+        //     newCategory.classList.add('row', 'row-sm', 'mb-4');
+        //     newCategory.innerHTML = `
+        //         <div class="col-lg">
+        //             <div class="main-content-label mg-b-5">@lang('app.category_name')</div>
+        //             <input class="form-control" name="categories[${index}][name]" placeholder="@lang('app.category_name')" type="text">
+        //         </div>
+        //         <div class="col-lg">
+        //             <div class="main-content-label mg-b-5">@lang('app.price')</div>
+        //             <input class="form-control" name="categories[${index}][price]" placeholder="@lang('app.price')" type="number" step="0.01">
+        //         </div>
+        //     `;
+        //     container.appendChild(newCategory);
+        // });
 
-        // Remove empty category inputs before form submission
-        document.getElementById('service-form').addEventListener('submit', function (e) {
-            const categoryInputs = document.querySelectorAll('.row.row-sm.mb-4');
-            categoryInputs.forEach(input => {
-                const name = input.querySelector('input[name*="[name]"]').value;
-                const price = input.querySelector('input[name*="[price]"]').value;
-                if (!name && !price) {
-                    input.remove(); // Remove empty category inputs
-                }
-            });
-        });
+        // // Remove empty category inputs before form submission
+        // document.getElementById('service-form').addEventListener('submit', function (e) {
+        //     const categoryInputs = document.querySelectorAll('.row.row-sm.mb-4');
+        //     categoryInputs.forEach(input => {
+        //         const name = input.querySelector('input[name*="[name]"]').value;
+        //         const price = input.querySelector('input[name*="[price]"]').value;
+        //         if (!name && !price) {
+        //             input.remove(); // Remove empty category inputs
+        //         }
+        //     });
+        // });
     </script>
 @endsection

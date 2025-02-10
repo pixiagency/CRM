@@ -106,6 +106,25 @@
                         </div>
                     </div>
 
+                    <div class="row row-sm mb-4">
+                        <div class="col-lg">
+                            <div class="form-group">
+                                <div class="main-content-label mg-b-5">@lang('app.source') *</div>
+                                <select name="resource_id" class="form-control">
+                                    <option value="">@lang('app.select_source')</option>
+                                    @foreach ($resources as $resource)
+                                        <option value="{{ $resource->id }}" {{ old('resource_id', $contact->resource_id ?? '') == $resource->id ? 'selected' : '' }}>
+                                            {{ $resource->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('resource_id')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <label for="city">@lang('app.city')</label>
                         <select name="city_id" class="form-control">
@@ -117,6 +136,9 @@
                             @endforeach
                         </select>
                     </div>
+
+
+
 
 
                     <div class="card-footer mt-4">

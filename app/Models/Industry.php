@@ -18,4 +18,9 @@ class Industry extends Model
     {
         return $this->belongsToMany(Client::class, 'client_industry');
     }
+
+    public function leads()
+    {
+        return $this->belongsToMany(Lead::class, 'lead_industry');
+    }
 }

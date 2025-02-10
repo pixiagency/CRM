@@ -20,12 +20,17 @@
 <td>
     <div>
         @can('edit industries')
-            <a class="btn btn-primary" href="{{route('industries.edit',$model->id)}}"><i class="icon-pencil"></i></a>
+        <a class="btn btn-primary" href="{{route('industries.edit',$model->id)}}"><i class="icon-pencil"></i></a>
+        @endcan
+
+        @can('view industries')
+        <a class="btn btn-primary" href="{{route('industries.show',$model->id)}}"><i class="fe fe-eye"
+                data-bs-toggle="tooltip" title="" data-bs-original-title="fe fe-eye" aria-label="fe fe-eye"></i></a>
         @endcan
 
         @can('delete industries')
-            <button class="btn btn-danger" role="button"
-                onclick="destroy('{{route('industries.destroy', $model->id)}}')"> <i class="icon-trash"></i></button>
+        <button class="btn btn-danger" role="button" onclick="destroy('{{route('industries.destroy', $model->id)}}')">
+            <i class="icon-trash"></i></button>
         @endcan
     </div>
 </td>

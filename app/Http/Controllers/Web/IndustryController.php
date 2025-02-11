@@ -15,8 +15,9 @@ use App\Services\IndustryService;
 
 class IndustryController extends Controller
 {
-    public function __construct(public IndustryService $industryService) {
-        $this->middleware('permission:view industries', ['only' => ['index','show']]);
+    public function __construct(public IndustryService $industryService)
+    {
+        $this->middleware('permission:view industries', ['only' => ['index', 'show']]);
         // $this->middleware('permission:show industries', ['only' => ['show']]);
         $this->middleware('permission:edit industries', ['only' => ['edit', 'update']]);
         $this->middleware('permission:create industries', ['only' => ['create', 'store']]);

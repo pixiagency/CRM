@@ -10,25 +10,28 @@
 {{-- end breadcrumb --}}
 
 <!--start filters section -->
-@include('layouts.dashboard.industry.components._filters')
+{{-- @include('layouts.dashboard.industry.components._filters') --}}
 <!--end filterd section -->
 
 @livewire('industries.create-industry-modal')
+@livewire('industries.create-industry-search-modal')
 <!-- Row -->
 <div class="row row-sm">
     <div class="col-lg-12">
         <div class="card custom-card">
-            {{-- <div class="card-header">
-                <div class="form-group mb-0 mt-3 justify-content-end">
-                    <div>
-                        <a class="btn btn-primary" href="{{ route('industries.create') }}"><i
-                                class="fe fe-plus me-2"></i>@lang('app.new')</a>
-                    </div>
-                </div>
-            </div> --}}
             <div class="card-body">
                 <div class="table-responsive export-table">
-                    <div id="custom-search-container" class="mb-3"></div>
+                    <div class="w-25">
+                        <div class="input-group rounded-pill border overflow-hidden">
+                            <span class="input-group-text bg-white border-0">
+                                <i class="fas fa-search text-muted"></i>
+                            </span>
+                            <div id="search-here"></div>
+                            <button class="btn btn-light border-0" data-bs-target="#searchModal" data-bs-toggle="modal">
+                                <i class="fas fa-filter text-muted"></i>
+                            </button>
+                        </div>
+                    </div>
                     {!! $dataTable->table(['class' => 'table-data table table-bordered text-nowrap border-bottom ']) !!}
                 </div>
             </div>
@@ -60,6 +63,45 @@
         $('.dataTable').DataTable().ajax.reload(null, false);
         toastr.success(data[0].message);
     });
+
+    // Livewire listener to refresh the table
+    Livewire.on('refreshDatatable', function(filters) {
+        var table = $('#industries-table')
+        table.on('preXhr.dt', function (e, settings, data) {
+            data.filters = filters[0];
+        });
+        table.DataTable().ajax.reload(null, false);
+
+
+        var modalElement = document.getElementById('searchModal');
+        var modal = bootstrap.Modal.getInstance(modalElement); // Get the existing modal instance
+
+        if (modal) {
+            modal.hide(); // Hide the modal
+        } else {
+            console.error("Bootstrap modal instance not found! Trying to create a new instance...");
+            modal = new bootstrap.Modal(modalElement);
+            modal.hide();
+        }
+        
+    });
+
+    // Livewire.on('refreshDatatable', (filters) => {
+    //     table.ajax.reload(null, false);
+    //     var modalElement = document.getElementById('searchModal');
+    //     var modal = bootstrap.Modal.getInstance(modalElement); // Get the existing modal instance
+
+    //     if (modal) {
+    //         modal.hide(); // Hide the modal
+    //     } else {
+    //         console.error("Bootstrap modal instance not found! Trying to create a new instance...");
+    //         modal = new bootstrap.Modal(modalElement);
+    //         modal.hide();
+    //     }
+
+    //     $('.dataTable').DataTable().ajax.reload(null, false);
+    //     toastr.info('search done.');
+    // });
 </script>
 
 @endpush

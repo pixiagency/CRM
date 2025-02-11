@@ -16,7 +16,9 @@
     <div class="d-flex align-items-center">
         {{-- <a class="btn btn-primary" href="{{ route('industries.create') }}"><i
                 class="fe fe-plus me-2"></i>@lang('app.new')</a> --}}
-        <a class="btn ripple btn-info" data-bs-target="#modaldemo3" data-bs-toggle="modal" href="">Create</a>
+        <a class="btn ripple btn-info px-4 py-3 d-flex align-items-center gap-2 text-nowrap"
+            data-bs-target="#modaldemo3" data-bs-toggle="modal" href=""><i class="fa fa-plus"></i>Add Agencey</a>
+
     </div>
 </div>
 

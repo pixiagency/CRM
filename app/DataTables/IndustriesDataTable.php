@@ -49,7 +49,7 @@ class IndustriesDataTable extends DataTable
      */
     public function query(IndustryService $industryService): QueryBuilder
     {
-        return  $industryService->datatable([], []);
+        return  $industryService->datatable(filters: $this->filters, withRelations: $this->withRelations);
     }
 
     /**
@@ -65,7 +65,7 @@ class IndustriesDataTable extends DataTable
             ->orderBy(1)
             ->selectStyleSingle()
             ->parameters([
-                'dom' => '<"d-flex"f>t<"d-flex justify-content-between align-items-center"ipl>',
+                'dom' => 'ft<"d-flex justify-content-between align-items-center"ipl>',
                 'buttons' => ['myCustomAction'],
                 'initComplete' => "function(settings, json) {
                     var searchInput = $('.dataTables_filter input');
@@ -80,12 +80,23 @@ class IndustriesDataTable extends DataTable
                         $(this).replaceWith($(this).text().replace(' entries', ''));
                     });
 
-                    searchInput.addClass('form-control').attr('placeholder', 'Search industries...');
-                    $('#custom-search-container').append($('.dataTables_filter'));
+                    searchInput.addClass('form-control border-0').attr('placeholder', 'Search industries...');
+                    $('#search-here').replaceWith(searchInput);
+
+
                 }",
             ]);
     }
 
+    //     <div class="input-group rounded-pill border overflow-hidden">
+    //     <span class="input-group-text bg-white border-0">
+    //         <i class="fas fa-search text-muted"></i>
+    //     </span>
+    //     <input type="text" class="form-control border-0" placeholder="Search">
+    //     <button class="btn btn-light border-0">
+    //         <i class="fas fa-filter text-muted"></i>
+    //     </button>
+    // </div>
     /**
      * Get the dataTable columns definition.
      */

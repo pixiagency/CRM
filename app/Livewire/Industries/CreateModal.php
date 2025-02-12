@@ -2,10 +2,12 @@
 
 namespace App\Livewire\Industries;
 
+use App\DTO\Industry\IndustryDTO;
 use App\Models\Industry;
+use App\Services\IndustryService;
 use Livewire\Component;
 
-class CreateIndustryModal extends Component
+class CreateModal extends Component
 {
 
     public $name;
@@ -24,21 +26,15 @@ class CreateIndustryModal extends Component
     public function save()
     {
         $this->validate();
+        $industryDTO = IndustryDTO::fromArray($this->validate());
+        app()->make(IndustryService::class)->store($industryDTO);
 
-        // Save the record to the database
-        Industry::create([
-            'name' => $this->name,
-        ]);
-
-        // Reset form fields
         $this->reset();
 
-
-        // Close the modal
-        $this->dispatch('close-modal', ['message' => 'New Industy added!']);
+        $this->dispatch('close-modal', ['message' => 'New Industy added!', 'modal' => 'createModal']);
     }
     public function render()
     {
-        return view('livewire.industries.create-industry-modal');
+        return view('livewire.industries.create-modal');
     }
 }

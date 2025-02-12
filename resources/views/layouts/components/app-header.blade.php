@@ -2,7 +2,7 @@
 <div class="main-header side-header sticky nav nav-item">
     <div class=" main-container container-fluid">
         <div class="main-header-left ">
-            <div>
+            {{-- <div>
                 <div class="responsive-logo">
                     <a href="{{url('/')}}" class="header-logo">
                         <img style="max-height: 40px !important" src="{{asset('assets/images/brand/logo.png')}}"
@@ -19,7 +19,7 @@
                             class="mobile-logo wd-25p" alt="logo">
                     </a>
                 </div>
-            </div>
+            </div> --}}
             <div>
                 <div class="mt-2 p-2 mx-auto">
                     <h4>@lang("app.hi"), {{auth()->user()->name}}</h4>

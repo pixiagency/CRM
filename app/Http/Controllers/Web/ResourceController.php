@@ -133,21 +133,11 @@ class ResourceController extends Controller
      */
     public function destroy(int $id)
     {
-        try{
+        try {
             $this->resourceService->delete($id);
-            $toast = [
-                'type' => 'success',
-                'title' => 'success',
-                'message' => trans('app.resource_deleted_successfully')
-            ];
-            return to_route('resources.index')->with('toast', $toast);
-        }catch (\Exception $e) {
-            $toast = [
-                'type' => 'error',
-                'title' => 'error',
-                'message' => trans('app.there_is_an_error')
-            ];
-            return back()->with('toast', $toast);
+            return apiResponse(message: 'deleted successfully');
+        } catch (\Exception $exception) {
+            return apiResponse(message: $exception->getMessage(), code: 500);
         }
     }
 }

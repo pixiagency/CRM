@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 
 class ReasonsDataTable extends DataTable
 {
+    protected array $actions = ['myCustomAction'];
     /**
      * Build the DataTable class.
      *
@@ -49,7 +50,7 @@ class ReasonsDataTable extends DataTable
      */
     public function query(ReasonService $reasonService): QueryBuilder
     {
-        return  $reasonService->datatable([], []);
+        return  $reasonService->datatable(filters: $this->filters, withRelations: $this->withRelations);
     }
 
     /**
@@ -64,13 +65,27 @@ class ReasonsDataTable extends DataTable
             //->dom('Bfrtip')
             ->orderBy(1)
             ->selectStyleSingle()
-            ->buttons([
-                Button::make('excel'),
-                Button::make('csv'),
-                Button::make('pdf'),
-                Button::make('print'),
-                Button::make('reset'),
-                Button::make('reload')
+            ->parameters([
+                'dom' => 'ft<"d-flex justify-content-between align-items-center"ipl>',
+                'buttons' => ['myCustomAction'],
+                'initComplete' => "function(settings, json) {
+                    var searchInput = $('.dataTables_filter input');
+
+                    $('.dataTables_filter label').contents().filter(function() {
+                        return this.nodeType === 3;
+                    }).remove();
+
+                    $('.dataTables_length label').contents().filter(function () {
+                        return this.nodeType === 3;
+                    }).each(function () {
+                        $(this).replaceWith($(this).text().replace(' entries', ''));
+                    });
+
+                    searchInput.addClass('form-control border-0').attr('placeholder', 'Search reasons...');
+                    $('#search-here').replaceWith(searchInput);
+
+
+                }",
             ]);
     }
     /**
@@ -82,7 +97,7 @@ class ReasonsDataTable extends DataTable
             Column::make('check_box')->title('<label class="custom-control custom-checkbox custom-control-md">
             <input type="checkbox" class="custom-control-input checkAll">
             <span class="custom-control-label custom-control-label-md  tx-17"></span></label>')->searchable(false)->orderable(false),
-            Column::make('id'),
+            // Column::make('id'),
             Column::make('name'),
             Column::make('created_at'),
             Column::make('updated_at'),

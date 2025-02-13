@@ -113,6 +113,25 @@
         });
     }
     </script>
+
+    <!-- JavaScript for Modal -->
+    <script>
+        Livewire.on('close-modal', (data) => {
+            var modalElement = document.getElementById('modaldemo3');
+            var modal = bootstrap.Modal.getInstance(modalElement); // Get the existing modal instance
+
+            if (modal) {
+                modal.hide(); // Hide the modal
+            } else {
+                console.error("Bootstrap modal instance not found! Trying to create a new instance...");
+                modal = new bootstrap.Modal(modalElement);
+                modal.hide();
+            }
+
+            $('.dataTable').DataTable().ajax.reload(null, false);
+            toastr.success(data[0].message);
+        });
+</script>
     @yield('script_footer')
     @stack('scripts')
 </body>

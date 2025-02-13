@@ -15,6 +15,7 @@ use Yajra\DataTables\Services\DataTable;
 
 class ServicesDataTable extends DataTable
 {
+    protected array $actions = ['myCustomAction'];
     /**
      * Build the DataTable class.
      *
@@ -41,6 +42,8 @@ class ServicesDataTable extends DataTable
             ->orderColumn('created_at', 'created_at $1')
             ->addColumn('updated_at', function (Service $service) {
                 return $service->updated_at->format('d-m-Y');
+            })->addColumn('price', function (Service $service) {
+                return $service->price ?? '-';
             })
             ->orderColumn('updated_at', 'updated_at $1')
             ->setRowId('id');
@@ -50,7 +53,7 @@ class ServicesDataTable extends DataTable
      */
     public function query(ServiceService $serviceService): QueryBuilder
     {
-        return  $serviceService->datatable([], []);
+        return  $serviceService->datatable(filters: $this->filters, withRelations: $this->withRelations);
     }
     public function html(): HtmlBuilder
     {
@@ -61,13 +64,27 @@ class ServicesDataTable extends DataTable
             //->dom('Bfrtip')
             ->orderBy(1)
             ->selectStyleSingle()
-            ->buttons([
-                Button::make('excel'),
-                Button::make('csv'),
-                Button::make('pdf'),
-                Button::make('print'),
-                Button::make('reset'),
-                Button::make('reload')
+            ->parameters([
+                'dom' => 'ft<"d-flex justify-content-between align-items-center"ipl>',
+                'buttons' => ['myCustomAction'],
+                'initComplete' => "function(settings, json) {
+                    var searchInput = $('.dataTables_filter input');
+
+                    $('.dataTables_filter label').contents().filter(function() {
+                        return this.nodeType === 3;
+                    }).remove();
+
+                    $('.dataTables_length label').contents().filter(function () {
+                        return this.nodeType === 3;
+                    }).each(function () {
+                        $(this).replaceWith($(this).text().replace(' entries', ''));
+                    });
+
+                    searchInput.addClass('form-control border-0').attr('placeholder', 'Search Services...');
+                    $('#search-here').replaceWith(searchInput);
+
+
+                }",
             ]);
     }
 
@@ -80,9 +97,9 @@ class ServicesDataTable extends DataTable
             Column::make('check_box')->title('<label class="custom-control custom-checkbox custom-control-md">
             <input type="checkbox" class="custom-control-input checkAll">
             <span class="custom-control-label custom-control-label-md  tx-17"></span></label>')->searchable(false)->orderable(false),
-            Column::make('id'),
+            // Column::make('id'),
             Column::make('name'),
-            // Column::make('price'),
+            Column::make('price'),
             Column::make('created_at'),
             Column::make('updated_at'),
             Column::computed('action')

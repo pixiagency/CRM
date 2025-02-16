@@ -2,13 +2,22 @@
 
 namespace App\Models\Landlord;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Spatie\Multitenancy\Models\Tenant as BaseTenant;
 
 class Tenant extends BaseTenant
 {
-    protected $fillable = ['name', 'domain', 'database'];
+    // $table = 'tenants';
+
+    protected $fillable = ['name', 'domain', 'database', 'owner_id'];
+    protected $with = ['owner'];
+
+    public function owner(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'owner_id', 'id');
+    }
 
     protected static function booted()
     {

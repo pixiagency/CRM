@@ -32,6 +32,9 @@
                 aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon fe fe-more-vertical "></span>
             </button>
+            <div>
+                <h1 style="color: green">landlord</h1>
+            </div>
             <div class="mb-0 navbar navbar-expand-lg navbar-nav-right responsive-navbar navbar-dark p-0">
                 <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
                     <ul class="nav nav-item header-icons navbar-nav-right ms-auto">
@@ -134,9 +137,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <a class="dropdown-item" href="{{route('profile.index')}}"><i
+                                <a class="dropdown-item" href="{{route('landlord.profile.index')}}"><i
                                         class="far fa-user-circle"></i>Profile</a>
-                                <a class="dropdown-item" href="{{route('logout')}}"><i
+                                <a class="dropdown-item" href="{{route('landlord.logout')}}"><i
                                         class="far fa-arrow-alt-circle-left"></i> Sign Out</a>
                             </div>
                         </li>

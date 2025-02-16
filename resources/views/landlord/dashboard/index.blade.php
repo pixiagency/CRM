@@ -31,6 +31,13 @@
 								<div class="text-justified align-items-center">
 									<h3 class="text-dark font-weight-semibold mb-2 mt-0">Hi,{{auth()->user()->name}}
 									</h3>
+									<p class="text-dark tx-14 mb-3 lh-3">your organization
+										{{dd(\Auth::user(),
+										App\Models\Landlord\Tenant::find(2))}}</p>
+									<p class="text-dark tx-14 mb-3 lh-3">your subdomain
+										{{auth()->user()->tenant()->subdomain}}</p>
+									<p class="text-dark tx-14 mb-3 lh-3">your database
+										{{auth()->user()->tenant()->database}}</p>
 									<p class="text-dark tx-14 mb-3 lh-3">system upgrade working.... </p>
 								</div>
 							</div>

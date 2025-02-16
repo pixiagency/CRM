@@ -82,30 +82,18 @@ class IndustriesDataTable extends DataTable
 
                     searchInput.addClass('form-control border-0').attr('placeholder', 'Search industries...');
                     $('#search-here').replaceWith(searchInput);
-
-
                 }",
             ]);
     }
-
-    //     <div class="input-group rounded-pill border overflow-hidden">
-    //     <span class="input-group-text bg-white border-0">
-    //         <i class="fas fa-search text-muted"></i>
-    //     </span>
-    //     <input type="text" class="form-control border-0" placeholder="Search">
-    //     <button class="btn btn-light border-0">
-    //         <i class="fas fa-filter text-muted"></i>
-    //     </button>
-    // </div>
     /**
      * Get the dataTable columns definition.
      */
     public function getColumns(): array
     {
         return [
-            Column::make('check_box')->title('<label class="custom-control custom-checkbox custom-control-md">
+            Column::computed('check_box')->title('<label class="custom-control custom-checkbox custom-control-md">
             <input type="checkbox" class="custom-control-input checkAll">
-            <span class="custom-control-label custom-control-label-md  tx-17"></span></label>')->searchable(false)->orderable(false),
+            <span class="custom-control-label custom-control-label-md  tx-17"></span></label>')->width(20),
             Column::make('id'),
             Column::make('name'),
             Column::make('created_at'),

@@ -9,12 +9,10 @@
 ])
 {{-- end breadcrumb --}}
 
-<!--start filters section -->
-{{-- @include('layouts.dashboard.industry.components._filters') --}}
-<!--end filterd section -->
 
-@livewire('industries.create-industry-modal')
-@livewire('industries.create-industry-search-modal')
+@livewire('industries.create-modal')
+@livewire('industries.search-modal')
+@livewire('industries.update-modal')
 <!-- Row -->
 <div class="row row-sm">
     <div class="col-lg-12">
@@ -49,7 +47,7 @@
 <!-- JavaScript for Modal -->
 <script>
     Livewire.on('close-modal', (data) => {
-        var modalElement = document.getElementById('modaldemo3');
+        var modalElement = document.getElementById(data[0].modal);
         var modal = bootstrap.Modal.getInstance(modalElement); // Get the existing modal instance
 
         if (modal) {

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Web\AuthController;
+use App\Http\Controllers\Web\Landlord\AuthController;
 use App\Http\Controllers\Web\LeadController;
 use App\Http\Controllers\Web\UsersController;
 use App\Http\Controllers\Web\ClientController;
@@ -15,21 +15,26 @@ use App\Http\Controllers\Web\ResourceController;
 use App\Http\Controllers\Web\CustomFieldController;
 use App\Http\Controllers\Web\RolePermissionController;
 
-Route::group(['prefix' => 'authentication', 'middleware' => 'guest'], function () {
-    Route::get('login', [AuthController::class, 'loginForm'])->name('login');
-    Route::get('signup', [AuthController::class, 'signupForm'])->name('signup');
-    Route::post('signup', [AuthController::class, 'signup'])->name('signup');
-    Route::post('login', [AuthController::class, 'login'])->name('signin');
+Route::get('/ahmed', function () {
+    return 'ahmed';
 });
 
 Route::get('/', function () {
     return view('welcome');
 });
 
+Route::group(['prefix' => 'authentication', 'middleware' => 'guest', 'as' => 'landlord.'], function () {
+    Route::get('login', [AuthController::class, 'loginForm'])->name('login');
+    Route::get('signup', [AuthController::class, 'signupForm'])->name('signup');
+    Route::post('signup', [AuthController::class, 'signup'])->name('signup');
+    Route::post('login', [AuthController::class, 'login'])->name('signin');
+});
+
+
 //auth routes
-Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'dashboard', 'middleware' => ['auth'], 'as' => 'landlord.'], function () {
     Route::get('/', function () {
-        return view('livewire.index');
+        return view('landlord.dashboard.index');
     })->name('home');
 
     Route::get('profile', [AuthController::class, 'getProfile'])->name('profile.index');
@@ -55,35 +60,18 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function () {
 
 
 
-    Route::resource('custom-fields',CustomFieldController::class);
-    Route::resource('clients',ClientController::class);
-    Route::resource('piplines',PiplineController::class);
-    Route::resource('contacts',ContactController::class);
-    Route::resource('leads',LeadController::class);
+    Route::resource('custom-fields', CustomFieldController::class);
+    Route::resource('clients', ClientController::class);
+    Route::resource('piplines', PiplineController::class);
+    Route::resource('contacts', ContactController::class);
+    Route::resource('leads', LeadController::class);
     Route::resource('role-permissions', RolePermissionController::class)->parameters([
         'role-permissions' => 'role'
     ]);
 
-
-    // Route::get('role-permissions', [RolePermissionController::class, 'index'])->name('role-permissions.index');
-    // Route::get('role-permissions/{role}', [RolePermissionController::class, 'show'])->name('role-permissions.show');
-    // Route::put('role-permissions/{role}', [RolePermissionController::class, 'update'])->name('role-permissions.update');
-
-
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
 
-    Route::fallback(function () {
-        return view('layouts.dashboard.error-pages.error404');
-    })->name('error');
-    Route::get('/clear-cache', function () {
-        \Illuminate\Support\Facades\Artisan::call('config:cache');
-        \Illuminate\Support\Facades\Artisan::call('cache:clear');
-        \Illuminate\Support\Facades\Artisan::call('config:clear');
-        \Illuminate\Support\Facades\Artisan::call('view:clear');
-        \Illuminate\Support\Facades\Artisan::call('route:clear');
-        return "Cache is cleared";
-    })->name('clear.cache');
     Route::get('/migrate-fresh/{password}', function ($password) {
         if ($password == 150024) {
 
@@ -101,3 +89,16 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function () {
         }
     })->name('migrate');
 });
+
+
+Route::fallback(function () {
+    return view('layouts.dashboard.error-pages.error404');
+})->name('error');
+Route::get('/clear-cache', function () {
+    \Illuminate\Support\Facades\Artisan::call('config:cache');
+    \Illuminate\Support\Facades\Artisan::call('cache:clear');
+    \Illuminate\Support\Facades\Artisan::call('config:clear');
+    \Illuminate\Support\Facades\Artisan::call('view:clear');
+    \Illuminate\Support\Facades\Artisan::call('route:clear');
+    return "Cache is cleared";
+})->name('clear.cache');

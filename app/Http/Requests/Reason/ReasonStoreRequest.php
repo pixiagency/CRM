@@ -23,7 +23,7 @@ class ReasonStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string',
+            'name' => 'required|string|min:2',
         ];
     }
     public function toReasonDTO(): ReasonDTO

@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Models\Client;
+use App\Models\Tenant\Client;
 use App\QueryFilters\ClientFilters;
 use Illuminate\Database\Eloquent\Builder;
 use App\DTO\Client\ClientDTO;

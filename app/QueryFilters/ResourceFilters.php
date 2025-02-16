@@ -17,4 +17,14 @@ class ResourceFilters extends QueryFilter
     {
         return $this->builder->where('name', "LIKE", "%$term%");
     }
+
+    public function start_date($term)
+    {
+        return $this->builder->whereDate('created_at', '>=', $term);
+    }
+
+    public function end_date($term)
+    {
+        return $this->builder->whereDate('created_at', '<=', $term);
+    }
 }

@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\DTO\CustomField\CustomFieldDTO;
-use App\Models\CustomField;
+use App\Models\Tenant\CustomField;
 use App\QueryFilters\CustomFieldFilters;
 use Illuminate\Database\Eloquent\Builder;
 

@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\DTO\Pipline\PiplineDTO;
-use App\Models\Pipline;
+use App\Models\Tenant\Pipline;
 use App\QueryFilters\PiplineFilters;
 use Illuminate\Database\Eloquent\Builder;
 

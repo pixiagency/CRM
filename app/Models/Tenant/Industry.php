@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Tenant;
 
-use App\Traits\Filterable;
+
 use Illuminate\Database\Eloquent\Model;
 
-class Industry extends Model
+class Industry extends BaseModel
 {
-    use Filterable;
     /**
      * The attributes that are mass assignable.
      *

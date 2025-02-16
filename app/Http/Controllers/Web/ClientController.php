@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Web;
 
 
-use App\Models\Client;
-use App\Models\Service;
-use App\Models\Industry;
-use App\Models\Location;
-use App\Models\Resource;
-use App\Models\CustomField;
+use App\Models\Tenant\Client;
+use App\Models\Tenant\Service;
+use App\Models\Tenant\Industry;
+use App\Models\Tenant\Location;
+use App\Models\Tenant\Resource;
+use App\Models\Tenant\CustomField;
 use Illuminate\Http\Request;
 use App\DTO\Client\ClientDTO;
 use App\Services\ClientService;

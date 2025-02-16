@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Enums\ActivationStatus;
 use App\Exceptions\NotFoundException;
-use App\Models\User;
+use App\Models\Tenant\User;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;

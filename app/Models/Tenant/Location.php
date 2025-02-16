@@ -1,17 +1,16 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Tenant;
 
 use App\Enums\ActivationStatus;
-use App\Traits\Filterable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Kalnoy\Nestedset\NodeTrait;
 
-class Location extends Model
+class Location extends BaseModel
 {
-    use HasFactory, NodeTrait, Filterable;
+    use HasFactory, NodeTrait;
     /**
      * The attributes that are mass assignable.
      *

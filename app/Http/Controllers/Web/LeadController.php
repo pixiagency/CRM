@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Models\User;
-use App\Models\Stage;
-use App\Models\Reason;
-use App\Models\Contact;
-use App\Models\Pipline;
-use App\Models\Service;
-use App\Models\Industry;
-use App\Models\Location;
+use App\Models\Tenant\User;
+use App\Models\Tenant\Stage;
+use App\Models\Tenant\Reason;
+use App\Models\Tenant\Contact;
+use App\Models\Tenant\Pipline;
+use App\Models\Tenant\Service;
+use App\Models\Tenant\Industry;
+use App\Models\Tenant\Location;
 use App\DTO\Lead\LeadDTO;
-use App\Models\CustomField;
+use App\Models\Tenant\CustomField;
 use Illuminate\Http\Request;
 use App\Services\LeadService;
 use App\DataTables\LeadsDataTable;

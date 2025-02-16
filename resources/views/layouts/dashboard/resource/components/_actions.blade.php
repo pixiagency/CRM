@@ -7,11 +7,8 @@
         <a class="btn btn-primary me-2" href="{{ route('resources.show', $model->id) }}"><i class="icon-eye"></i></a>
         @endcan
         @can('delete sources')
-        <form action="{{ route('resources.destroy', $model->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this item?');">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="btn btn-danger"> <i class="icon-trash"></i></button>
-        </form>
+        <button class="btn btn-danger" role="button"
+        onclick="destroy('{{route('resources.destroy', $model->id)}}')"> <i class="icon-trash"></i></button>
         @endcan
     </div>
 </td>

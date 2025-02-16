@@ -1,10 +1,8 @@
 <?php
+namespace App\Models\Tenant;
 
-namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Task extends Model
+class Task extends BaseModel
 {
     protected $fillable = ['title', 'description', 'status', 'due_date'];
 

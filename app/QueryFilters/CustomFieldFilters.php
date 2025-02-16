@@ -21,16 +21,14 @@ class CustomFieldFilters extends QueryFilter
         return $this->builder->where('type','LIKE', "%$term%");
     }
 
-    public function options($term)
+
+    public function start_date($term)
     {
-        return $this->builder->whereJsonContains('options', $term);
+        return $this->builder->whereDate('created_at', '>=', $term);
     }
 
-    public function created_at($start, $end = null)
+    public function end_date($term)
     {
-        if ($end) {
-            return $this->builder->whereBetween('created_at', [$start, $end]);
-        }
-        return $this->builder->whereDate('created_at', $start);
+        return $this->builder->whereDate('created_at', '<=', $term);
     }
 }

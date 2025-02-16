@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Models\Service;
+use App\Models\Tenant\Service;
 use App\DTO\Service\ServiceDTO;
 use Illuminate\Support\Facades\Log;
 use App\QueryFilters\ServiceFilters;

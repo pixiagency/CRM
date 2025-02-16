@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\DTO\User\UserDTO;
 use App\Enums\AttachmentsType;
-use App\Models\User;
+use App\Models\Tenant\User;
 use App\QueryFilters\UsersFilters;
 use App\Services\BaseService;
 use Illuminate\Database\Eloquent\Model;

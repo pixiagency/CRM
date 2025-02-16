@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Services;
-use App\Models\Resource;
+use App\Models\Tenant\Resource;
 use App\DTO\Resource\ResourceDTO;
 use App\QueryFilters\ResourceFilters;
 use Illuminate\Database\Eloquent\Builder;

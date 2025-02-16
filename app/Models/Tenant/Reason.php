@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Tenant;
 
-use App\Traits\Filterable;
+
 use Illuminate\Database\Eloquent\Model;
 
-class Reason extends Model
+class Reason extends BaseModel
 {
-    use Filterable;
     protected $fillable=['name'];
 
     public function leads()

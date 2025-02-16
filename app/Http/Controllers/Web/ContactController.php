@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Models\Location;
-use App\Models\Resource;
+use App\Models\Tenant\Location;
+use App\Models\Tenant\Resource;
 use Illuminate\Http\Request;
 use App\DTO\Contact\ContactDTO;
 use App\Services\ContactService;

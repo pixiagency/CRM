@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Tenant;
 
-use App\Traits\Filterable;
-use Illuminate\Database\Eloquent\Model;
 
-class Lead extends Model
+
+class Lead extends BaseModel
 {
-    use Filterable;
+
     protected $fillable=[
         'status',
         'contact_id',

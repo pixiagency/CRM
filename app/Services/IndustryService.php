@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\DTO\Industry\IndustryDTO;
-use App\Models\Industry;
+use App\Models\Tenant\Industry;
 use App\QueryFilters\IndustryFilters;
 use Illuminate\Database\Eloquent\Builder;
 

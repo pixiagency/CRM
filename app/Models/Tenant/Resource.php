@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Tenant;
 
-use App\Traits\Filterable;
 use Illuminate\Database\Eloquent\Model;
 
-class Resource extends Model
+class Resource extends BaseModel
 {
-    use Filterable;
     protected $fillable=['name'];
 
     public function contacts()

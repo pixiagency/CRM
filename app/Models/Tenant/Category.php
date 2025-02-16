@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Tenant;
 
-use App\Traits\Filterable;
-use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class Category extends BaseModel
 {
-    use Filterable;
+
     protected $fillable = ['name', 'service_id', 'price'];
 
     public function service()

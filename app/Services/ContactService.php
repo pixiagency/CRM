@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Models\Contact;
+use App\Models\Tenant\Contact;
 use App\QueryFilters\ContactFilters;
 use Illuminate\Database\Eloquent\Builder;
 use App\DTO\Contact\ContactDTO;

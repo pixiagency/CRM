@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Tenant;
 
-use App\Traits\Filterable;
-use Illuminate\Database\Eloquent\Model;
 
-class Stage extends Model
+
+class Stage extends BaseModel
 {
-    use Filterable;
     protected $fillable=['name','seq_number','pipline_id'];
 
     public function pipline(){

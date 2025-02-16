@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\DTO\Location\LocationDTO;
-use App\Models\Location;
+use App\Models\Tenant\Location;
 use App\QueryFilters\LocationFilters;
 use Illuminate\Database\Eloquent\Builder;
 

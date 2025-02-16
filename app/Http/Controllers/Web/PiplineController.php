@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Models\Pipline;
+use App\Models\Tenant\Pipline;
 use Illuminate\Http\Request;
 use App\DTO\Pipline\PiplineDTO;
 use App\Services\PiplineService;

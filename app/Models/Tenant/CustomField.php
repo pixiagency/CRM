@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Tenant;
 
-use App\Traits\Filterable;
+
 use Illuminate\Database\Eloquent\Model;
 
-class CustomField extends Model
+class CustomField extends BaseModel
 {
-    use Filterable;
+
     protected $fillable=
     [
         'name',

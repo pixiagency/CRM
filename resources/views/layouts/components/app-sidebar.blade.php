@@ -51,6 +51,29 @@
                 </li>
                 @endcan
 
+
+                 <!-- Reason Menu -->
+                 @can('view reasons')
+                 <li class="slide" style="padding: 7px 15px">
+                     <a class="slide-item" data-is_active="{{ request()->fullUrlIs(route('reasons.index')) }}"
+                         href="{{ route('reasons.index') }}"><i
+                             class="fa-kit fa-reason-svg pe-2"></i></i>@lang('app.reasons')</a>
+                 </li>
+                 @endcan
+
+
+
+                 <!-- source Menu -->
+                 @can('view sources')
+                 <li class="slide" style="padding: 7px 15px">
+                     <a class="slide-item" data-is_active="{{ request()->fullUrlIs(route('resources.index')) }}"
+                         href="{{ route('resources.index') }}"><i
+                             class="fa-kit fa-source-svg pe-2"></i></i>@lang('app.sources')</a>
+                 </li>
+                 @endcan
+
+
+
                 <!-- Service Menu -->
                 @can('view services')
                 <li class="slide" style="padding: 7px 15px">
@@ -59,30 +82,6 @@
                             class="fa-kit fa-service-svg pe-2"></i>@lang('app.services')</a>
                 </li>
                 @endcan
-
-
-
-
-                <!-- Reason Menu -->
-                @can('view reasons')
-                <li class="slide" style="padding: 7px 15px">
-                    <a class="slide-item" data-is_active="{{ request()->fullUrlIs(route('reasons.index')) }}"
-                        href="{{ route('reasons.index') }}"><i
-                            class="fa-kit fa-reason-svg pe-2"></i></i>@lang('app.reasons')</a>
-                </li>
-                @endcan
-
-
-
-                <!-- source Menu -->
-                @can('view sources')
-                <li class="slide" style="padding: 7px 15px">
-                    <a class="slide-item" data-is_active="{{ request()->fullUrlIs(route('resources.index')) }}"
-                        href="{{ route('resources.index') }}"><i
-                            class="fa-kit fa-source-svg pe-2"></i></i>@lang('app.sources')</a>
-                </li>
-                @endcan
-
 
 
                 <!-- Custom Fields Menu -->

@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\DTO\Reason\ReasonDTO;
-use App\Models\Reason;
+use App\Models\Tenant\Reason;
 use App\QueryFilters\ReasonFilters;
 use Illuminate\Database\Eloquent\Builder;
 

@@ -3,30 +3,6 @@
 @section('styles')
     <!--Internal Sumoselect css-->
     <link rel="stylesheet" href="{{asset('assets/plugins/sumoselect/sumoselect.css')}}">
-    <style>
-        /* Ensure the checkbox is styled properly */
-        .SumoSelect .optWrapper ul li label span {
-            background-color: white !important; /* Unchecked background */
-            border: 2px solid #007bff !important; /* Border color */
-        }
-
-        /* Change the checkbox color when selected */
-        .SumoSelect .optWrapper ul li.selected label span {
-            background-color: #007bff !important; /* Background color when checked */
-            border-color: #007bff !important; /* Ensure border matches */
-        }
-
-        /* Ensure the checkmark inside is white */
-        .SumoSelect .optWrapper ul li.selected label span:after {
-            border-color: white !important; /* Color of the checkmark */
-            content: "\2713"; /* Unicode checkmark */
-            display: block;
-            font-size: 14px;
-            font-weight: bold;
-            text-align: center;
-            line-height: 14px;
-        }
-    </style>
 
 @endsection
 

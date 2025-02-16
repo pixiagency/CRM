@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Tenant;
 
-use App\Traits\Filterable;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Contact extends Model
+class Contact extends BaseModel
 {
-    use Filterable;
+
     protected $fillable=
     [
         'name',

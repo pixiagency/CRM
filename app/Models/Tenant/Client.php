@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Tenant;
 
-use App\Traits\Filterable;
 use Illuminate\Database\Eloquent\Model;
 
-class Client extends Model
+class Client extends BaseModel
 {
-    use Filterable;
+
     protected $guarded=['id'];
     public function resource()
     {

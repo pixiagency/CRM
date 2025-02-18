@@ -14,9 +14,16 @@ use App\Http\Controllers\Web\LocationController;
 use App\Http\Controllers\Web\ResourceController;
 use App\Http\Controllers\Web\CustomFieldController;
 use App\Http\Controllers\Web\RolePermissionController;
+// Route/web.php
 
-Route::get('/ahmed', function () {
-    return 'ahmed';
+Route::domain('crm.test')->middleware(['web'])->group(function () {
+    Route::get('/ahmed', function () {
+        return "Main Domain Route";
+    });
+
+    // Add other main domain routes here
+
+
 });
 
 Route::get('/', function () {
@@ -40,34 +47,34 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth'], 'as' => 'landlo
     Route::get('profile', [AuthController::class, 'getProfile'])->name('profile.index');
     Route::put('profile/', [AuthController::class, 'updateProfile'])->name('profile.update');
 
-    Route::resource('industries', IndustryController::class);
-    Route::resource('services', ServiceController::class);
+    // Route::resource('industries', IndustryController::class);
+    // Route::resource('services', ServiceController::class);
 
 
-    // Route::get('locations/', [LocationController::class, 'createArea'])->name('locations.areas.create');
-    Route::get('locations/cities', [LocationController::class, 'create'])->name('locations.cities.create');
-    Route::get('locations/governorates', [LocationController::class, 'create'])->name('locations.governorates.create');
-    Route::get('locations/countries', [LocationController::class, 'create'])->name('locations.countries.create');
-    Route::get('locations/cities/{location}/edit', [LocationController::class, 'edit'])->name('locations.cities.edit');
-    Route::get('locations/governorates/{location}/edit', [LocationController::class, 'edit'])->name('locations.governorates.edit');
-    Route::get('locations/countries/{location}/edit', [LocationController::class, 'edit'])->name('locations.countries.edit');
-    Route::post('locations/sublocations', [LocationController::class, 'storeSubLocation'])->name('locations.sublocation.store');
-    Route::put('locations/sublocations/{location}', [LocationController::class, 'updateSubLocation'])->name('locations.sublocation.update');
-    Route::resource('locations', LocationController::class)->except('create');
+    // // Route::get('locations/', [LocationController::class, 'createArea'])->name('locations.areas.create');
+    // Route::get('locations/cities', [LocationController::class, 'create'])->name('locations.cities.create');
+    // Route::get('locations/governorates', [LocationController::class, 'create'])->name('locations.governorates.create');
+    // Route::get('locations/countries', [LocationController::class, 'create'])->name('locations.countries.create');
+    // Route::get('locations/cities/{location}/edit', [LocationController::class, 'edit'])->name('locations.cities.edit');
+    // Route::get('locations/governorates/{location}/edit', [LocationController::class, 'edit'])->name('locations.governorates.edit');
+    // Route::get('locations/countries/{location}/edit', [LocationController::class, 'edit'])->name('locations.countries.edit');
+    // Route::post('locations/sublocations', [LocationController::class, 'storeSubLocation'])->name('locations.sublocation.store');
+    // Route::put('locations/sublocations/{location}', [LocationController::class, 'updateSubLocation'])->name('locations.sublocation.update');
+    // Route::resource('locations', LocationController::class)->except('create');
 
-    Route::resource('reasons', ReasonController::class);
-    Route::resource('resources', ResourceController::class);
+    // Route::resource('reasons', ReasonController::class);
+    // Route::resource('resources', ResourceController::class);
 
 
 
-    Route::resource('custom-fields', CustomFieldController::class);
-    Route::resource('clients', ClientController::class);
-    Route::resource('piplines', PiplineController::class);
-    Route::resource('contacts', ContactController::class);
-    Route::resource('leads', LeadController::class);
-    Route::resource('role-permissions', RolePermissionController::class)->parameters([
-        'role-permissions' => 'role'
-    ]);
+    // Route::resource('custom-fields', CustomFieldController::class);
+    // Route::resource('clients', ClientController::class);
+    // Route::resource('piplines', PiplineController::class);
+    // Route::resource('contacts', ContactController::class);
+    // Route::resource('leads', LeadController::class);
+    // Route::resource('role-permissions', RolePermissionController::class)->parameters([
+    //     'role-permissions' => 'role'
+    // ]);
 
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 

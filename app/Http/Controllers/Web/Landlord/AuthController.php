@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Web\Landlord;
 
-use App\Exceptions\NotFoundException;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\LoginRequest;
-use App\Http\Requests\Landlord\Auth\SignupRequest;
-use App\Http\Requests\Auth\UpdateAuthRequest;
-use App\Services\Landlord\AuthService;
 use Exception;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Exceptions\NotFoundException;
+use App\Services\Landlord\AuthService;
+use Illuminate\Support\Facades\Session;
+use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\UpdateAuthRequest;
+use App\Http\Requests\Landlord\Auth\SignupRequest;
 
 class AuthController extends Controller
 {
@@ -44,13 +45,20 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {
         try {
-            $this->authService->loginWithEmailOrPhone(identifier: $request->identifier, password: $request->password);
+            $user = $this->authService->loginWithEmailOrPhone(identifier: $request->identifier, password: $request->password);
+            $user->load('tenant');  // This loads the tenant relationship
+
+            // Pass the user to the view
             $toast = [
                 'type' => 'success',
                 'title' => 'success',
                 'message' => trans('app.login_successfully')
             ];
-            return to_route('landlord.home')->with('toast', $toast);
+
+            // Return to the route and pass user data
+            // return to_route('landlord.home')->with(['toast' => $toast, 'user' => $user]);
+            Session::flash('toast', $toast);
+            return view('landlord.dashboard.index', compact('user'));
         } catch (NotFoundException $e) {
             return back()->with('error', "email or password incorrect please try again");
         } catch (Exception $e) {
@@ -58,6 +66,7 @@ class AuthController extends Controller
             return back()->with('error', $e->getMessage());
         }
     }
+
 
     public function getProfile()
     {
@@ -85,6 +94,7 @@ class AuthController extends Controller
             return back()->with('toast', $toast);
         }
     }
+    
 
     public function logout()
     {

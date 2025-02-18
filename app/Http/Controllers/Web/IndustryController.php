@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Models\Tenant\Industry;
 use Illuminate\Http\Request;
 use App\DataTables\IndustriesDataTable;
 use App\DTO\Industry\IndustryDTO;
@@ -17,20 +18,22 @@ class IndustryController extends Controller
 {
     public function __construct(public IndustryService $industryService)
     {
-        $this->middleware('permission:view industries', ['only' => ['index', 'show']]);
-        // $this->middleware('permission:show industries', ['only' => ['show']]);
-        $this->middleware('permission:edit industries', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:create industries', ['only' => ['create', 'store']]);
-        $this->middleware('permission:delete industries', ['only' => ['destroy']]);
+        // $this->middleware('permission:view industries', ['only' => ['index', 'show']]);
+        // $this->middleware('permission:edit industries', ['only' => ['edit', 'update']]);
+        // $this->middleware('permission:create industries', ['only' => ['create', 'store']]);
+        // $this->middleware('permission:delete industries', ['only' => ['destroy']]);
     }
 
-    public function index(IndustriesDataTable $dataTable, Request $request)
-    {
-        $filters = array_filter($request->get('filters', []), function ($value) {
-            return ($value !== null && $value !== false && $value !== '');
-        });
-        $withRelations = [];
-        return $dataTable->with(['filters' => $filters, 'withRelations' => $withRelations])->render('layouts.dashboard.industry.index');
+    // public function index(IndustriesDataTable $dataTable, Request $request)
+    // {
+    //     $filters = array_filter($request->get('filters', []), function ($value) {
+    //         return ($value !== null && $value !== false && $value !== '');
+    //     });
+    //     $withRelations = [];
+    //     return $dataTable->with(['filters' => $filters, 'withRelations' => $withRelations])->render('layouts.dashboard.industry.index');
+    // }
+    public function index(){
+        return Industry::all();
     }
 
     public function create()

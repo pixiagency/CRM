@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Industry extends BaseModel
 {
+    protected $connection = 'tenant';
     /**
      * The attributes that are mass assignable.
      *

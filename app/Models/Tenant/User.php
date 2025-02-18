@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+    protected $connection = 'tenant';
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable,HasRoles;
 

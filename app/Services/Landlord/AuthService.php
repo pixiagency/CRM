@@ -23,14 +23,31 @@ class AuthService extends BaseService
     /**
      * @throws NotFoundException
      */
+    // public function loginWithEmailOrPhone(string $identifier, string $password): User|Model
+    // {
+    //     $identifierField = is_numeric($identifier) ? 'phone' : 'email';
+    //     $credential = [$identifierField => $identifier, 'password' => $password];
+    //     if (!auth()->attempt($credential))
+    //     // dd($this->model->where($identifierField, $identifier)->first());
+    //     throw new NotFoundException(__('app.login_failed'));
+    //     Auth::guard('landlord')->load('tenant');
+    //     return $this->model->where($identifierField, $identifier)->with('tenant')->first();
+    // }
+
     public function loginWithEmailOrPhone(string $identifier, string $password): User|Model
     {
         $identifierField = is_numeric($identifier) ? 'phone' : 'email';
         $credential = [$identifierField => $identifier, 'password' => $password];
 
-        if (!auth()->attempt($credential))
-        throw new NotFoundException(__('app.login_failed'));
-        return $this->model->where($identifierField, $identifier)->first();
+        if (!auth()->attempt($credential)) {
+            throw new NotFoundException(__('app.login_failed'));
+        }
+
+        // After successful authentication, load the tenant relationship
+        $user = $this->model->where($identifierField, $identifier)->with('tenant')->first();
+        // $user->load('tenant'); // This loads the 'tenant' relationship for the user
+
+        return $user;
     }
 
     public function signup(string $name, string $organization, string $email, string $password): bool
@@ -42,11 +59,12 @@ class AuthService extends BaseService
                 'password' => Hash::make($password),
             ]);
 
-            Tenant::create([
+            $tenant=Tenant::create([
                 'name' => $organization,
                 'domain' => $organization . '.crm.test', // If using domain-based tenancy
                 'owner_id' => $user->id,
             ]);
+            // $tenant->runMigrations();
             return true;
         } catch (Exception $e) {
             dd($e);

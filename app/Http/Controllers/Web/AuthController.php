@@ -49,8 +49,8 @@ class AuthController extends Controller
                 'type' => 'success',
                 'title' => 'success',
                 'message' => trans('app.login_successfully')
-            ];
-            return to_route('home')->with('toast', $toast);
+            ];$tenant = $request->getHost();
+            return to_route('home', ['tenant' => $tenant])->with('toast', $toast);
         } catch (NotFoundException $e) {
             return back()->with('error', "email or password incorrect please try again");
         } catch (Exception $e) {
@@ -73,7 +73,7 @@ class AuthController extends Controller
                 'title' => 'success',
                 'message' => trans('app.success_operation')
             ];
-            
+
             return to_route('home')->with('toast', $toast);
         } catch (Exception $e) {
             dd($e);

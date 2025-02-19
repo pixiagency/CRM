@@ -15,6 +15,7 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
+    protected $connection = 'landlord';
     /**
      * The attributes that are mass assignable.
      *
@@ -26,7 +27,6 @@ class User extends Authenticatable
         'password',
     ];
 
-    protected $with = ['tenant'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -50,9 +50,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-
-    public function tenant(): HasOne
+    protected $with = ['tenant'];
+    public function tenant()
     {
-        return $this->hasOne(Tenant::class, 'owner_id', 'id');
+        return $this->hasOne(Tenant::class, 'owner_id');
     }
 }

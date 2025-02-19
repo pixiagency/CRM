@@ -2,21 +2,24 @@
 
 namespace App\Models\Landlord;
 
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 use Spatie\Multitenancy\Models\Tenant as BaseTenant;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Database\Eloquent\Model;
 
 class Tenant extends BaseTenant
 {
-    // $table = 'tenants';
+    use HasFactory;
 
+    protected $connection = 'landlord';
     protected $fillable = ['name', 'domain', 'database', 'owner_id'];
-    protected $with = ['owner'];
 
-    public function owner(): BelongsTo
+    public function owner()
     {
-        return $this->belongsTo(User::class, 'owner_id', 'id');
+        return $this->belongsTo(User::class, 'owner_id');
     }
 
     protected static function booted()
@@ -29,6 +32,7 @@ class Tenant extends BaseTenant
 
         static::created(function (self $tenant) {
             $tenant->createDatabase();
+            // $tenant->runMigrations();
         });
     }
 
@@ -40,7 +44,20 @@ class Tenant extends BaseTenant
             DEFAULT CHARACTER SET {$config['charset']}
             DEFAULT COLLATE {$config['collation']}";
 
-        return //DB::connection('mysql')->statement($user)
-            DB::connection('landlord')->statement($create);
+        return DB::connection('landlord')->statement($create);
     }
+
+    // public function runMigrations(): void
+    // {
+    //     // Switch to the tenant's database connection
+    //     config(['database.connections.tenant.database' => $this->database]);
+    //     DB::purge('tenant');
+
+    //     // Run the migrations for the tenant
+    //     Artisan::call('migrate', [
+    //         '--database' => 'tenant',
+    //         '--path' => 'database/migrations', // Path to tenant-specific migrations
+    //         '--force' => true,
+    //     ]);
+    // }
 }

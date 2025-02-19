@@ -81,7 +81,7 @@
             modal = new bootstrap.Modal(modalElement);
             modal.hide();
         }
-        
+
     });
 
     // Livewire.on('refreshDatatable', (filters) => {

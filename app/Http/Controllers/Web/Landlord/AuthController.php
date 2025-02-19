@@ -18,6 +18,7 @@ class AuthController extends Controller
 
     public function signupForm()
     {
+
         return view('landlord.dashboard.auth.signup');
     }
 
@@ -94,7 +95,7 @@ class AuthController extends Controller
             return back()->with('toast', $toast);
         }
     }
-    
+
 
     public function logout()
     {

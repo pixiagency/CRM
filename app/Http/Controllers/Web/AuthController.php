@@ -10,6 +10,7 @@ use App\Http\Requests\Auth\UpdateAuthRequest;
 use App\Services\AuthService;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -22,6 +23,7 @@ class AuthController extends Controller
 
     public function signup(SignupRequest $request)
     {
+        dd(DB::getDatabaseName());
         try {
             $this->authService->signup(name: $request->name, email: $request->email, password: $request->password);
             $toast = [
@@ -49,7 +51,8 @@ class AuthController extends Controller
                 'type' => 'success',
                 'title' => 'success',
                 'message' => trans('app.login_successfully')
-            ];$tenant = $request->getHost();
+            ];
+            $tenant = $request->getHost();
             return to_route('home', ['tenant' => $tenant])->with('toast', $toast);
         } catch (NotFoundException $e) {
             return back()->with('error', "email or password incorrect please try again");

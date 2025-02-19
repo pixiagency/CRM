@@ -19,10 +19,10 @@
                         <!-- Demo content-->
                         <div class="main-card-signin d-md-flex">
                             <div class="wd-100p">
-                                <div class="d-flex mb-4"><a href="{{route('home')}}"><img
+                                {{-- <div class="d-flex mb-4"><a href="{{route('home')}}"><img
                                             src="{{asset('assets/images/brand/logo.png')}}" class="sign-favicon"
                                             alt="logo"></a></div>
-                                <div class="">
+                                <div class=""> --}}
                                     <div class="main-signup-header">
                                         <h2>Welcome back!</h2>
                                         <h6 class="font-weight-semibold mb-4">Please sign in to continue.</h6>
@@ -33,7 +33,7 @@
                                             <div class="panel-body tabs-menu-body border-0 p-3">
                                                 <div class="tab-content">
                                                     <div class="tab-pane active" id="tab5">
-                                                        <form action="{{route('signin')}}" method="post">
+                                                        <form action="{{url('authentication/login')}}" method="post">
                                                             <input type="hidden" name="_token" value="{{csrf_token()}}">
                                                             <div class="form-group">
                                                                 <label>@lang('app.email_or_phone')</label>
@@ -62,10 +62,11 @@
                                         </div>
 
                                         <div class="main-signin-footer text-center mt-3">
-                                            <p><a href="{{route('signup')}}" class="mb-3">signup?</a></p>
+                                            <p><a href="{{url('authentication/signup')}}" class="mb-3">signup?</a></p>
                                         </div>
                                         <div class="main-signin-footer text-center mt-3">
-                                            <p><a href="{{url('forgot')}}" class="mb-3">Forgot password?</a></p>
+                                            <p><a href="{{url('authentication/forgetPassword')}}" class="mb-3">Forgot
+                                                    password?</a></p>
                                         </div>
                                     </div>
                                 </div>

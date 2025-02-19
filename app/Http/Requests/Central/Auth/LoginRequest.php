@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Auth;
+namespace App\Http\Requests\Central\Auth;
 
 use App\Http\Requests\BaseRequest;
 
-class SignupRequest extends BaseRequest
+class LoginRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,10 +21,15 @@ class SignupRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string',
-            'tenant' => 'required|string|unique:tenants,name',
-            'email'   => 'required|email|unique:users',
-            'password'   => 'required|min:6',
+            'identifier' => 'required|string',
+            'password'   => 'required|string',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'identifier.required' => "email or phone required"
         ];
     }
 }

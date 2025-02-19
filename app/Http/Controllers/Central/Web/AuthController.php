@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Web;
+namespace App\Http\Controllers\Central\Web;
 
+use App\Services\Central\AuthService;
 use App\Exceptions\NotFoundException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\SignupRequest;
 use App\Http\Requests\Auth\UpdateAuthRequest;
-use App\Services\AuthService;
+
 use Exception;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,7 +18,7 @@ class AuthController extends Controller
 
     public function signupForm()
     {
-        return view('layouts.dashboard.auth.signup');
+        return view('central.dashboard.auth.signup');
     }
 
     public function signup(SignupRequest $request)
@@ -38,7 +39,7 @@ class AuthController extends Controller
 
     public function loginForm()
     {
-        return view('layouts.dashboard.auth.login');
+        return view('central.dashboard.auth.login');
     }
 
     public function login(LoginRequest $request)
@@ -61,7 +62,7 @@ class AuthController extends Controller
 
     public function getProfile()
     {
-        return view('layouts.dashboard.user.profile');
+        return view('central.dashboard.user.profile');
     }
 
     public function updateProfile(UpdateAuthRequest $request)

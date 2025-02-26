@@ -46,6 +46,7 @@ class ResourceService extends BaseService
         return $resources->filter(new ResourceFilters($filters));
     }
 
+
     public function store(ResourceDTO $resourceDTO){
         $resource_data=$resourceDTO->toArray();
         $reaon=$this->model->create($resource_data);
@@ -59,7 +60,8 @@ class ResourceService extends BaseService
     }
 
     public function delete(int $id)
-    {
-        return $this->getQuery()->where('id', $id)->delete();
-    }
+{
+    $resource = $this->findById($id); // Check if the resource exists
+    return $resource->delete(); // Delete the resource
+}
 }

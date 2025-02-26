@@ -3,6 +3,7 @@
 namespace App\Models\Tenant;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Landlord\Tenant;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,7 +13,7 @@ class User extends Authenticatable
 {
     protected $connection = 'tenant';
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable,HasRoles;
+    use HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -46,5 +47,10 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function tenant()
+    {
+        return $this->hasOne(Tenant::class);
     }
 }

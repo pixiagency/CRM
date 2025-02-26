@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Reason extends BaseModel
 {
+    protected $connection = 'tenant';
     protected $fillable=['name'];
 
     public function leads()

@@ -4,15 +4,18 @@ namespace App\Models\Landlord;
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Artisan;
+use Stancl\Tenancy\Database\Concerns\HasDomains;
+use Stancl\Tenancy\Database\Concerns\HasDatabase;
 use Spatie\Multitenancy\Models\Tenant as BaseTenant;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Database\Eloquent\Model;
 
 class Tenant extends BaseTenant
 {
     use HasFactory;
+    use HasDatabase, HasDomains;
 
     protected $connection = 'landlord';
     protected $fillable = ['name', 'domain', 'database', 'owner_id'];

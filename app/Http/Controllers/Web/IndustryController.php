@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Models\Tenant\Industry;
+use Exception;
 use Illuminate\Http\Request;
-use App\DataTables\IndustriesDataTable;
+use App\Models\Tenant\Industry;
 use App\DTO\Industry\IndustryDTO;
-use Illuminate\Support\Facades\DB;
-use App\Exceptions\NotFoundException;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Industries\IndustryUpdateRequest;
-use App\Http\Requests\Industries\IndustryStoreRequest;
-
 use App\Services\IndustryService;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use App\Exceptions\NotFoundException;
+use App\DataTables\IndustriesDataTable;
+
+use App\Http\Requests\Industries\IndustryStoreRequest;
+use App\Http\Requests\Industries\IndustryUpdateRequest;
 
 class IndustryController extends Controller
 {
@@ -70,7 +71,7 @@ class IndustryController extends Controller
             ];
             DB::commit();
             return to_route('industries.index')->with('toast', $toast);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             DB::rollBack();
             $toast = [
                 'type' => 'error',
@@ -87,7 +88,7 @@ class IndustryController extends Controller
         try {
             $industry = $this->industryService->findById(id: $id);
             return view('layouts.dashboard.industry.edit', compact('industry'));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return redirect()->back();
         }
     }
@@ -103,7 +104,7 @@ class IndustryController extends Controller
                 'message' => trans('app.industry_updated_successfully')
             ];
             return to_route('industries.index')->with('toast', $toast);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $toast = [
                 'type' => 'error',
                 'title' => 'error',
@@ -118,7 +119,7 @@ class IndustryController extends Controller
         try {
             $this->industryService->delete($id);
             return apiResponse(message: 'deleted successfully');
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             return apiResponse(message: $exception->getMessage(), code: 500);
         }
     }

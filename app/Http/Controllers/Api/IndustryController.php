@@ -65,15 +65,13 @@ class IndustryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(IndustryUpdateRequest $request, int $id)
+    public function update(IndustryUpdateRequest $request, int $id): \Illuminate\Http\JsonResponse
     {
-        try{
             DB::beginTransaction();
             $industryDTO = IndustryDTO::fromRequest($request);
             $industry = $this->industryService->update($industryDTO, $id);
             DB::commit();
             return ApiResponse::sendResponse(200, 'Industry updated successfully', new IndustryResource($industry));
-        }
     }
 
     /**

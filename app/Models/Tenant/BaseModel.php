@@ -9,6 +9,6 @@ use Spatie\Multitenancy\Models\Concerns\UsesTenantConnection;
 
 class BaseModel extends Model
 {
-    use Filterable,HasFactory;
+    use Filterable,HasFactory,UsesTenantConnection;
 
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Auth;
+namespace App\Http\Requests\Landlord\Auth;
 
 use App\Http\Requests\BaseRequest;
 

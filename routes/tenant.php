@@ -16,8 +16,6 @@ use App\Http\Controllers\Web\LocationController;
 use App\Http\Controllers\Web\ResourceController;
 use App\Http\Controllers\Web\CustomFieldController;
 use App\Http\Controllers\Web\RolePermissionController;
-use Stancl\Tenancy\Middleware\InitializeTenancyBySubdomain;
-use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 /*
 |--------------------------------------------------------------------------
 | Tenant Routes
@@ -29,33 +27,28 @@ use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 | Feel free to customize them however you want. Good luck!
 |
 */
-Route::domain('{tenant}.crm.test')->middleware(['web', 'tenant'])->group(function () {
-    // Route::get('/ahmed', function () {
-    //     return "Subdomain Route";
-    // });
+
+    Route::get('info', function () {
+        return [\Illuminate\Support\Facades\DB::getDatabaseName(),\App\Models\Tenant\User::all()];
+    });
 
     // Add other subdomain-specific routes here
-
     Route::resource('industries', IndustryController::class);
 
-
-    Route::get('/migrate-fresh/{password}', function ($password) {
+    Route::get('/migrate-fresh/{password}', function ($password): null|string {
         if ($password == 150024) {
-
             \Illuminate\Support\Facades\Artisan::call('migrate:fresh --seed');
             return "migrate fresh success";
         }
+        return null;
     })->name('migrate-fresh');
-
 
     Route::get('/migrate/{password}', function ($password) {
         if ($password == 1234) {
-
             \Illuminate\Support\Facades\Artisan::call('migrate');
             return "migrate fresh success";
         }
     })->name('migrate');
-});
 
 
 Route::fallback(function () {

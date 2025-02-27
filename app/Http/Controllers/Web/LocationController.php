@@ -8,7 +8,7 @@ use App\DTO\Location\LocationDTO;
 use Illuminate\Support\Facades\DB;
 use App\Exceptions\NotFoundException;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Locations\SubLocationStoreRequest;
+use App\Http\Requests\Locations\SubLocationUpdateRequest;
 use App\Http\Requests\Locations\LocationUpdateRequest;
 use App\Http\Requests\Locations\LocationStoreRequest;
 
@@ -132,7 +132,7 @@ class LocationController extends Controller
         }
     }
 
-    public function storeSubLocation(SubLocationStoreRequest $request)
+    public function storeSubLocation(SubLocationUpdateRequest $request)
     {
         try {
             $locationDTO = LocationDTO::fromRequest($request);
@@ -153,7 +153,7 @@ class LocationController extends Controller
         }
     }
 
-    public function UpdateSubLocation(SubLocationStoreRequest $request, $id)
+    public function UpdateSubLocation(SubLocationUpdateRequest $request, $id)
     {
         try {
             $locationDTO = LocationDTO::fromRequest($request);

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Auth;
+namespace App\Http\Requests\Landlord\Auth;
 
 use App\Http\Requests\BaseRequest;
 
@@ -26,7 +26,7 @@ class LoginRequest extends BaseRequest
         ];
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
             'identifier.required'=>"email or phone required"

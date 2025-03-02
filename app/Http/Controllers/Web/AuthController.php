@@ -10,6 +10,7 @@ use App\Http\Requests\Auth\UpdateAuthRequest;
 use App\Services\AuthService;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -23,7 +24,7 @@ class AuthController extends Controller
     public function signup(SignupRequest $request)
     {
         try {
-            $this->authService->signup(name: $request->name, tenant: $request->tenant, email: $request->email, password: $request->password);
+            $this->authService->signup(name: $request->name, email: $request->email, password: $request->password);
             $toast = [
                 'type' => 'success',
                 'title' => 'success',

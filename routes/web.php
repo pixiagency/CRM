@@ -5,8 +5,10 @@ use Illuminate\Support\Facades\Route;
 
 
 foreach (config('tenancy.central_domains') as $domain) {
-    Route::domain($domain)->group(function () {
-
+    Route::domain($domain)->name('central.')->group(function () {
+        Route::get('/', function () {
+            return 'hi';
+        });
         Route::group(['prefix' => 'authentication', 'middleware' => 'guest'], function () {
             Route::get('login', [AuthController::class, 'loginForm'])->name('login');
             Route::get('signup', [AuthController::class, 'signupForm'])->name('signup');

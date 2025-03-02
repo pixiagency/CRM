@@ -40,7 +40,7 @@ class AuthService extends BaseService
                 'email' => $email,
                 'password' => Hash::make($password),
             ]);
-            $user->assignRole('sales');
+            // $user->assignRole('sales');
             return true;
         } catch (Exception $e) {
             dd($e);

@@ -22,7 +22,6 @@ class SignupRequest extends BaseRequest
     {
         return [
             'name' => 'required|string',
-            'tenant' => 'required|string|unique:tenants,name',
             'email'   => 'required|email|unique:users',
             'password'   => 'required|min:6',
         ];

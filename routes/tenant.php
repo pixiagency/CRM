@@ -2,6 +2,19 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Web\AuthController;
+use App\Http\Controllers\Web\ClientController;
+use App\Http\Controllers\Web\ContactController;
+use App\Http\Controllers\Web\CustomFieldController;
+use App\Http\Controllers\Web\IndustryController;
+use App\Http\Controllers\Web\LeadController;
+use App\Http\Controllers\Web\LocationController;
+use App\Http\Controllers\Web\PiplineController;
+use App\Http\Controllers\Web\ReasonController;
+use App\Http\Controllers\Web\ResourceController;
+use App\Http\Controllers\Web\RolePermissionController;
+use App\Http\Controllers\Web\ServiceController;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyBySubdomain;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
@@ -23,8 +36,16 @@ Route::middleware([
     InitializeTenancyBySubdomain::class,
     PreventAccessFromCentralDomains::class,
 ])->group(function () {
-    Route::get('/', function () {
-        return 'This is your multi-tenant application. The id of the current tenant is ' . tenant('id');
+    // Route::get('/', function () {
+    //     return 'This is your multi-tenant application. The id of the current tenant is ' . tenant('id');
+    // });
+
+
+    Route::group(['prefix' => 'authentication', 'middleware' => 'guest'], function () {
+        Route::get('login', [AuthController::class, 'loginForm'])->name('login');
+        Route::get('signup', [AuthController::class, 'signupForm'])->name('signup');
+        Route::post('signup', [AuthController::class, 'signup'])->name('signup');
+        Route::post('login', [AuthController::class, 'login'])->name('signin');
     });
 
     //auth routes
@@ -66,9 +87,9 @@ Route::middleware([
         ]);
 
 
-        // Route::get('role-permissions', [RolePermissionController::class, 'index'])->name('role-permissions.index');
-        // Route::get('role-permissions/{role}', [RolePermissionController::class, 'show'])->name('role-permissions.show');
-        // Route::put('role-permissions/{role}', [RolePermissionController::class, 'update'])->name('role-permissions.update');
+        Route::get('role-permissions', [RolePermissionController::class, 'index'])->name('role-permissions.index');
+        Route::get('role-permissions/{role}', [RolePermissionController::class, 'show'])->name('role-permissions.show');
+        Route::put('role-permissions/{role}', [RolePermissionController::class, 'update'])->name('role-permissions.update');
 
 
         Route::get('logout', [AuthController::class, 'logout'])->name('logout');

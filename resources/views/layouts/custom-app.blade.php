@@ -24,7 +24,7 @@
 
     <!-- Loader -->
     <div id="global-loader">
-        <img src="{{asset('assets/img/loader.svg')}}" class="loader-img" alt="Loader">
+        <img src="{{global_asset('assets/img/loader.svg')}}" class="loader-img" alt="Loader">
     </div>
     <!-- /Loader -->
 

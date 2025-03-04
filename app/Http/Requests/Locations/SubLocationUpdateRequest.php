@@ -7,7 +7,7 @@ use App\Enums\ActivationStatus;
 use App\Http\Requests\BaseRequest;
 use Illuminate\Validation\Rule;
 
-class SubLocationStoreRequest extends BaseRequest
+class SubLocationUpdateRequest extends BaseRequest
 {
     /**
      * Determine if the industry is authorized to make this request.

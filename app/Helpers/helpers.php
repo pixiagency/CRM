@@ -1,14 +1,16 @@
 <?php
 
+use Illuminate\Http\JsonResponse;
+
 if (!function_exists('apiResponse')) {
-    function apiResponse($data = null, $message = null, $code = 200)
+    function apiResponse($data = null, $message = null, $code = 200): JsonResponse
     {
         $array = [
             'data' => $data,
             'status' => in_array($code, successCode()),
             'message' => $message,
         ];
-        return response($array, $code);
+        return response()->json($array, $code); // ✅ Explicitly return JsonResponse
     }
 }
 

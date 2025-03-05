@@ -10,7 +10,6 @@ use App\Http\Requests\Auth\UpdateAuthRequest;
 use App\Services\AuthService;
 use Exception;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {

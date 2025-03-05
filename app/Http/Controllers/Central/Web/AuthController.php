@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Central\Web;
 use App\Services\Central\AuthService;
 use App\Exceptions\NotFoundException;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\LoginRequest;
-use App\Http\Requests\Auth\SignupRequest;
+use App\Http\Requests\Central\Auth\LoginRequest;
+use App\Http\Requests\Central\Auth\SignupRequest;
 use App\Http\Requests\Auth\UpdateAuthRequest;
 
 use Exception;
@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function __construct(private AuthService $authService) {}
+    public function __construct(private readonly AuthService $authService) {}
 
     public function signupForm()
     {

@@ -4,12 +4,27 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Laravel\Sanctum\Http\Controllers\CsrfCookieController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Central\Api\AuthController as centralAuthController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
 
+
+foreach (config('tenancy.central_domains') as $domain) {
+    Route::domain($domain)->name('central.')->group(function () {
+        Route::group(['prefix' => 'authentication', 'middleware' => 'guest'], function () {
+            Route::post('signup', [centralAuthController::class, 'signup'])->name('signup');
+            Route::post('login', [centralAuthController::class, 'login'])->name('signin');
+        });
+
+        //auth routes
+        Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function () {
+            Route::get('logout', [centralAuthController::class, 'logout'])->name('logout');
+        });
+    });
+}
 
 
 

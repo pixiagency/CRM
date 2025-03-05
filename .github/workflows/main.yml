@@ -2,6 +2,7 @@ on:
   push:
     branches:
       - crm-dev
+  workflow_dispatch:  # Allows manual trigger
 
 name: 🚀 Deploy crm-dev Branch on push
 

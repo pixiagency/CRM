@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Central\Web\AuthController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 
 
 foreach (config('tenancy.central_domains') as $domain) {
@@ -28,42 +29,35 @@ foreach (config('tenancy.central_domains') as $domain) {
 }
 
 
+//Route::fallback(function () {
+//    if (request()->is('api/*')) {
+//        return response()->json(['error' => 'API route not found'], 404);
+//    }
+//    return view('layouts.dashboard.error-pages.error404');
+//})->name('error');
 
-
-
-
-
-
-
-
-
-Route::fallback(function () {
-    if (request()->is('api/*')) {
-        return response()->json(['error' => 'API route not found'], 404);
-    }
-    return view('layouts.dashboard.error-pages.error404');
-})->name('error');
 Route::get('/clear-cache', function () {
-    \Illuminate\Support\Facades\Artisan::call('config:cache');
-    \Illuminate\Support\Facades\Artisan::call('cache:clear');
-    \Illuminate\Support\Facades\Artisan::call('config:clear');
-    \Illuminate\Support\Facades\Artisan::call('view:clear');
-    \Illuminate\Support\Facades\Artisan::call('route:clear');
+    Artisan::call('config:cache');
+    Artisan::call('cache:clear');
+    Artisan::call('config:clear');
+    Artisan::call('view:clear');
+    Artisan::call('route:clear');
     return "Cache is cleared";
 })->name('clear.cache');
+
 Route::get('/migrate-fresh/{password}', function ($password) {
     if ($password == 150024) {
-
-        \Illuminate\Support\Facades\Artisan::call('migrate:fresh --seed');
+        Artisan::call('migrate:fresh --seed');
         return "migrate fresh success";
     }
+    return "failed";
 })->name('migrate-fresh');
 
 
 Route::get('/migrate/{password}', function ($password) {
     if ($password == 1234) {
-
-        \Illuminate\Support\Facades\Artisan::call('migrate');
+        Artisan::call('migrate');
         return "migrate fresh success";
     }
+    return "failed";
 })->name('migrate');

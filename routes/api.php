@@ -14,10 +14,8 @@ foreach (config('tenancy.central_domains') as $domain) {
     Route::domain($domain)->name('central.')->group(function () {
         Route::group(['prefix' => 'authentication', 'middleware' => 'guest'], function () {
             Route::post('signup', [centralAuthController::class, 'signup'])->name('signup');
-            Route::post('hi', function () {
-                return 'hi';
-            });
-            Route::post('login', [centralAuthController::class, 'login'])->name('signin');
+            Route::post('hi', fn() => 'hi');
+            Route::post('login', [centralAuthController::class, 'login'])->name('login');
         });
 
         //auth routes

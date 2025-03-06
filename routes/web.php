@@ -38,6 +38,9 @@ foreach (config('tenancy.central_domains') as $domain) {
 
 
 Route::fallback(function () {
+    if (request()->is('api/*')) {
+        return response()->json(['error' => 'API route not found'], 404);
+    }
     return view('layouts.dashboard.error-pages.error404');
 })->name('error');
 Route::get('/clear-cache', function () {
